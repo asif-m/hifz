@@ -1,7 +1,8 @@
 // @refresh reload
 import { createSignal } from "solid-js";
 
-import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@suid/material";
+import { Box, Container, CssBaseline, Button, FormControl, InputLabel, MenuItem, Select } from "@suid/material";
+
 import WavesurferWrapperComponent from "../components/wavesurfer-wrapper.component";
 
 export default function Index() {
