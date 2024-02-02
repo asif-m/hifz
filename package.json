@@ -17,7 +17,8 @@
     "typescript": "^5.3.3",
     "vinxi": "^0.1.10",
     "vite": "^5.0.12",
-    "vite-plugin-solid": "^2.9.1"
+    "vite-plugin-solid": "^2.9.1",
+    "wavesurfer.js": "^7.7.1"
   },
   "engines": {
     "node": ">=18"

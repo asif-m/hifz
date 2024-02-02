@@ -2,6 +2,7 @@
 import { createSignal } from "solid-js";
 
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@suid/material";
+import WavesurferWrapperComponent from "../components/wavesurfer-wrapper.component";
 
 export default function Index() {
   const [count, setCount] = createSignal(0);
@@ -33,6 +34,7 @@ export default function Index() {
         </Select>
       </FormControl>
     </Box>
+    <WavesurferWrapperComponent></WavesurferWrapperComponent>
     </main>
   );
 }
