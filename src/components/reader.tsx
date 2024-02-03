@@ -1,18 +1,21 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
 import PlayingHeader from "./playing-header.component";
 import { useStore } from "~/store/store";
+import { createEffect, batch } from "solid-js";
 
 export default function Reader(props: IAyahBase) {
-  const {verseNumber,  setVerseNumber, chapterNumber, setChapterNumber } = useStore();
+  const { setVerseNumber, setChapterNumber } = useStore();
+
+  createEffect(() => {
+    batch(() => {
+      setVerseNumber(props.verseNumber);
+      setChapterNumber(props.chapterNumber);
+    })
+  }, [props.verseNumber, props.chapterNumber])
+
   return (
     <div>
-      <div>{verseNumber()}</div>
-      <button onClick={()=>  setVerseNumber((c:number) => c + 1)}>+</button>
-      <button onClick={()=>  setVerseNumber((c:number) => c - 1)}>-</button>
-      <div>{chapterNumber()}</div>
-      <button onClick={()=>  setChapterNumber((c:number) => c + 1)}>+</button>
-      <button onClick={()=>  setChapterNumber((c:number) => c - 1)}>-</button>
-      <PlayingHeader {...props}/>
+      <PlayingHeader />
     </div>
   );
 }

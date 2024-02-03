@@ -1,10 +1,10 @@
-import { IAyahBase } from "~/models/ayah-info-interface";
+import { useStore } from "~/store/store";
 
-export default function PlayingHeader(props: IAyahBase) {
-  const { verseNumber, chapterNumber } = props;
+export default function PlayingHeader() {
+  const { verseNumber, chapterNumber } = useStore();
   return (
     <div>
-      {chapterNumber} : {verseNumber}
+      {chapterNumber()} : {verseNumber()}
     </div>
   );
 }
