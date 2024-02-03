@@ -1,21 +1,19 @@
 import { createSignal, createContext, useContext } from "solid-js";
 import type { ComponentProps } from "~/utils/component-type";
 import type { Accessor, Setter } from 'solid-js';
-import { IAyah } from "~/models/ayah-info-interface";
+import { PAGE_INFO } from "~/models/page";
 
 const StoreContext = createContext();
 
 export interface IStoreData {
     verseNumber: number,
     chapterNumber: number,
-    currentPlaying: IAyah | null
 }
 
 export function getInitialStoreData(): IStoreData {
     return {
         verseNumber: 0,
         chapterNumber: 0,
-        currentPlaying: null
     }
 }
 
@@ -24,8 +22,7 @@ export interface IStoreUseContextData {
     setVerseNumber: Setter<number>
     chapterNumber: Accessor<number>
     setChapterNumber: Setter<number>
-    currentPlaying: Accessor<IAyah | null>
-    setCurrentPlaying: Setter<IAyah | null>
+    derivedPageNumber: Accessor<number>
 }
 
 
@@ -33,15 +30,29 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
 
     const [verseNumber, setVerseNumber] = createSignal(props.verseNumber);
     const [chapterNumber, setChapterNumber] = createSignal(props.chapterNumber);
-    const [currentPlaying, setCurrentPlaying] = createSignal(props.currentPlaying);
+    
+    const derivedPageNumber = ()=> {
+        const chapter = chapterNumber();
+        const verse = verseNumber();
+        let pageNumber =1;
+        for(let i=0;i<PAGE_INFO.length;i++){
+            if(chapter>PAGE_INFO[i].chapterNumber){
+                continue;
+            }
+            if(verse>PAGE_INFO[i].verseNumber){
+                continue;
+            }
+            return i+1;
+        }
+        return pageNumber;
+    }
 
     const value = {
         verseNumber,
         setVerseNumber,
         chapterNumber,
         setChapterNumber,
-        currentPlaying,
-        setCurrentPlaying
+        derivedPageNumber,
     };
 
     return (
