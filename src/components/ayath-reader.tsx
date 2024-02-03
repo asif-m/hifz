@@ -1,9 +1,9 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
 import PlayingHeader from "./playing-header.component";
-import { useCounter } from "~/store/counter";
+import { useStore } from "~/store/store";
 
 export default function AyathReader(props: IAyahBase) {
-  const {verseNumber,  setVerseNumber, chapterNumber, setChapterNumber } = useCounter();
+  const {verseNumber,  setVerseNumber, chapterNumber, setChapterNumber } = useStore();
   return (
     <div>
       <div>{verseNumber()}</div>
