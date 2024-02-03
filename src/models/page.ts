@@ -1,4 +1,6 @@
-import type { IAyahBase } from "./ayah-info-interface";
+import type { IAyah, IAyahBase } from "./ayah-info-interface";
+
+export interface IPageDate { pageNumber: number, data: Array<IAyah> };
 
 export const PAGE_INFO: Array<IAyahBase> = [
   {

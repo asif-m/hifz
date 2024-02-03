@@ -4,11 +4,10 @@ import { useStore } from "~/store/store";
 import { createEffect, batch } from "solid-js";
 
 export default function Reader(props: IAyahBase) {
-  const { setVerseNumber, setChapterNumber } = useStore();
+  const { setVerseNumber, setChapterNumber, derivedPageNumber, setPageData } = useStore();
+  const page = derivedPageNumber();
 
-  createEffect(() => {
-    
-  }, [props.chapterNumber])
+
 
   createEffect(() => {
     batch(() => {
@@ -16,6 +15,19 @@ export default function Reader(props: IAyahBase) {
       setChapterNumber(props.chapterNumber);
     })
   }, [props.verseNumber, props.chapterNumber])
+
+  createEffect(() => {
+    console.log(page);
+    import(`/page/${page}.json`)
+    .then((res)=>{
+      console.log({data: res.default})
+      return res.default
+    })
+    .catch((e)=>{
+      console.error(e);
+    });
+    // setPageData(() => module.default)
+  }, [page])
 
   return (
     <div>
