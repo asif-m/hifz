@@ -8,7 +8,7 @@ export function getSurahAndAyahFromSurahUrl(param: string): IAyahBase {
   if (chapterNumber > SURAHS_INFO.length) {
     chapterNumber = 1;
   }
-  if(SURAHS_INFO[chapterNumber-1].versesCount < verseNumber){
+  if (SURAHS_INFO[chapterNumber - 1].versesCount < verseNumber) {
     verseNumber = 1;
   }
   return {
