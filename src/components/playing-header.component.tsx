@@ -4,6 +4,7 @@ export default function PlayingHeader(props: IAyahBase) {
   const { verseNumber, chapterNumber } = props;
   return (
     <div>
+      {chapterNumber} : {verseNumber}
     </div>
   );
 }
