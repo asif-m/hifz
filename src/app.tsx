@@ -7,7 +7,7 @@ import { CssBaseline } from "@suid/material";
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Router root={props => <Suspense>{props.children}</Suspense>}>
+      <Router root={(props) => <Suspense>{props.children}</Suspense>}>
         <FileRoutes />
       </Router>
     </ThemeProvider>

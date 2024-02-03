@@ -15,7 +15,7 @@ export default createHandler(() => (
             rel="stylesheet"
           />
           <link rel="icon" href="/favicon.png" />
-          <link rel="stylesheet" href="/styles/styles.css"/>
+          <link rel="stylesheet" href="/styles/styles.css" />
           {assets}
         </head>
         <body>
