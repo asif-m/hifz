@@ -1,6 +1,6 @@
 // @refresh reload
 import { useParams } from "@solidjs/router";
-import AyathReader from "~/components/ayath-reader";
+import Reader from "~/components/reader";
 import { HIZB_INFO } from "~/models/hizb";
 import { getSurahAndAyahFromUrl } from "~/utils/param-convertor";
 
@@ -11,6 +11,6 @@ export default function Index() {
     HIZB_INFO
   );
   return (
-    <AyathReader verseNumber={verseNumber} chapterNumber={chapterNumber} />
+    <Reader verseNumber={verseNumber} chapterNumber={chapterNumber} />
   );
 }

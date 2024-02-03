@@ -1,6 +1,6 @@
 import type { IAyahBase } from "./ayah-info-interface";
 
-export const MANAZIL_INFO: Array<IAyahBase> = [
+export const MANZIL_INFO: Array<IAyahBase> = [
   {
     chapterNumber: 1,
     verseNumber: 1,

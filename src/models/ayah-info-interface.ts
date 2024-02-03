@@ -1,8 +1,8 @@
 import { FIRST_SURAH, LAST_SURAH, SURAHS_INFO } from "./surah";
 
 export interface IReciterTimeStamp {
-  timestampFrom: number | null;
-  timestampTo: number | null;
+  timestampFrom: number;
+  timestampTo: number;
 }
 
 export interface IArabicWord {

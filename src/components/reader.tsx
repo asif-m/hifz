@@ -2,7 +2,7 @@ import { IAyahBase } from "~/models/ayah-info-interface";
 import PlayingHeader from "./playing-header.component";
 import { useStore } from "~/store/store";
 
-export default function AyathReader(props: IAyahBase) {
+export default function Reader(props: IAyahBase) {
   const {verseNumber,  setVerseNumber, chapterNumber, setChapterNumber } = useStore();
   return (
     <div>

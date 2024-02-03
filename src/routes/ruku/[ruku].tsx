@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import AyathReader from "~/components/ayath-reader";
+import Reader from "~/components/reader";
 import { RUKU_INFO } from "~/models/ruku";
 import { getSurahAndAyahFromUrl } from "~/utils/param-convertor";
 
@@ -10,6 +10,6 @@ export default function Index() {
     RUKU_INFO
   );
   return (
-    <AyathReader verseNumber={verseNumber} chapterNumber={chapterNumber} />
+    <Reader verseNumber={verseNumber} chapterNumber={chapterNumber} />
   );
 }

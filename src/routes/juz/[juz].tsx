@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import AyathReader from "~/components/ayath-reader";
+import Reader from "~/components/reader";
 import { JUZ_INFO } from "~/models/juz";
 import { getSurahAndAyahFromUrl } from "~/utils/param-convertor";
 
@@ -10,6 +10,6 @@ export default function Index() {
     JUZ_INFO
   );
   return (
-    <AyathReader verseNumber={verseNumber} chapterNumber={chapterNumber} />
+    <Reader verseNumber={verseNumber} chapterNumber={chapterNumber} />
   );
 }
