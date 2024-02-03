@@ -7,6 +7,10 @@ export default function Reader(props: IAyahBase) {
   const { setVerseNumber, setChapterNumber } = useStore();
 
   createEffect(() => {
+    
+  }, [props.chapterNumber])
+
+  createEffect(() => {
     batch(() => {
       setVerseNumber(props.verseNumber);
       setChapterNumber(props.chapterNumber);

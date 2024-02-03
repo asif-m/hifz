@@ -1,3 +1,10 @@
+import { IAyah } from "./ayah-info-interface";
+
+export interface ISurah {
+  surahNumber: number,
+  data: Array<IAyah>
+}
+
 export interface ISurahInfo {
   surahNumber: number;
   arabicName: string;
@@ -5,10 +12,9 @@ export interface ISurahInfo {
   placeOfRevelation: string;
   versesCount: number;
   englishTranslatedName: string;
-  "audioFile": {
+  audioFile: {
     [key in string] : string;
   }
-
 }
 
 export const SURAHS_INFO: Array<ISurahInfo> = [
