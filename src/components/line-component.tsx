@@ -1,13 +1,13 @@
 import { For } from "solid-js";
 import { IArabicWord } from "~/models/ayah-info-interface";
 import WordComponent from "./word-component";
-import LineScrollComponent from "./line-scroll-component";
+import BismiComponent from "./bismi-component";
 
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
     return (
         <div>
-            <LineScrollComponent
+            <BismiComponent
                 chapter={words[0].chapterNumber}
                 word={words[0].wordNumber}
                 verse={words[0].verseNumber}
