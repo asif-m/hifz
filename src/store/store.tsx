@@ -9,14 +9,14 @@ const StoreContext = createContext();
 export interface IStoreData {
     verseNumber: number,
     chapterNumber: number,
-    pageData: IPageDate | null,
+    pageData: { [key in string]: IPageDate }
 }
 
 export function getInitialStoreData(): IStoreData {
     return {
         verseNumber: 0,
         chapterNumber: 0,
-        pageData: null,
+        pageData: {},
     }
 }
 
@@ -26,9 +26,9 @@ export interface IStoreUseContextData {
     chapterNumber: Accessor<number>
     setChapterNumber: Setter<number>
     derivedPageNumber: Accessor<number>
-    pageData: Accessor< IPageDate | null>
-    setPageData: Setter<IPageDate | null>
-    derivedLineData:Accessor<Array<Array<IArabicWord>>>
+    pageData: Accessor<{ [key in string]: IPageDate }>
+    setPageData: Setter<{ [key in string]: IPageDate }>
+    derivedLineData: Accessor<Array<Array<IArabicWord>>>
 }
 
 
@@ -44,20 +44,20 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         return getPageNumberForAyah(chapter, verse);
     }
 
-    const derivedLineData = ()=>{
+    const derivedLineData = () => {
         const pData = pageData();
-        const lineData:{[key in string]:Array<{}>} = {};
-        pData?.data.forEach((ayahData)=>{
-            ayahData.words.forEach((word)=>{
+        const page = derivedPageNumber();
+        const lineData: { [key in string]: Array<{}> } = {};
+        pData[page]?.data.forEach((ayahData) => {
+            ayahData.words.forEach((word) => {
                 const lineNumber = word.lineNumber;
-                if(!lineData[lineNumber]){
+                if (!lineData[lineNumber]) {
                     lineData[lineNumber] = [];
                 }
                 lineData[lineNumber].push(word)
             })
         })
-        const res = Object.keys(lineData).map((lineNumber)=> lineData[lineNumber]);
-        console.log(res);
+        const res = Object.keys(lineData).map((lineNumber) => lineData[lineNumber]);
         return res;
     }
 

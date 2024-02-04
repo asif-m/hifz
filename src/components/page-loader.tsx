@@ -5,19 +5,18 @@ import { useStore } from "~/store/store";
 export default function PageLoader(props: { page: number }) {
 
     createEffect(() => {
-        const { setPageData } = useStore();
+        const { setPageData, pageData } = useStore();
         if (props.page === 0) {
             return;
         }
 
+        if(pageData()[props.page]){
+            return;
+        }
+
         import(`../../public/page/${props.page}.json`)
-            .then((res) => {
-                setPageData(() => res.default as IPageDate)
-                return res.default
-            })
-            .catch((e) => {
-                console.error(e);
-            });
+            .then((res) => setPageData((prev) => ({ ...prev, [props.page]: res.default as IPageDate })))
+            .catch((e) => console.error(e));
 
     }, [props.page])
     return null;
