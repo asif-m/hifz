@@ -1,6 +1,9 @@
 import type { IAyah, IAyahBase } from "./ayah-info-interface";
 
-export interface IPageDate { pageNumber: number, data: Array<IAyah> };
+export interface IPageDate {
+  pageNumber: number;
+  data: Array<IAyah>;
+}
 
 export const PAGE_INFO: Array<IAyahBase> = [
   {
@@ -2420,3 +2423,21 @@ export const PAGE_INFO: Array<IAyahBase> = [
     verseNumber: 1,
   },
 ];
+
+export function getPageNumberForAyah(chapter: number, verse: number) {
+  let pageNumber = 0;
+  if (chapter === 0 || verse === 0) {
+    return pageNumber;
+  }
+  for (let i = 0; i < PAGE_INFO.length; i++) {
+    if (chapter > PAGE_INFO[i].chapterNumber) {
+      continue;
+    }
+    if (verse > PAGE_INFO[i].verseNumber) {
+      continue;
+    }
+    pageNumber = i + 1;
+    break;
+  }
+  return pageNumber;
+}

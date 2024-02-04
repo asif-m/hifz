@@ -1,7 +1,8 @@
 import { createSignal, createContext, useContext } from "solid-js";
 import type { ComponentProps } from "~/utils/component-type";
 import type { Accessor, Setter } from 'solid-js';
-import { IPageDate, PAGE_INFO } from "~/models/page";
+import { IPageDate, getPageNumberForAyah } from "~/models/page";
+import { IArabicWord } from "~/models/ayah-info-interface";
 
 const StoreContext = createContext();
 
@@ -27,6 +28,7 @@ export interface IStoreUseContextData {
     derivedPageNumber: Accessor<number>
     pageData: Accessor< IPageDate | null>
     setPageData: Setter<IPageDate | null>
+    derivedLineData:Accessor<Array<Array<IArabicWord>>>
 }
 
 
@@ -39,21 +41,25 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const derivedPageNumber = () => {
         const chapter = chapterNumber();
         const verse = verseNumber();
-        if(chapter ===0 || verse === 0){
-            return 0;
-        }
-        for (let i = 0; i < PAGE_INFO.length; i++) {
-            if (chapter > PAGE_INFO[i].chapterNumber) {
-                continue;
-            }
-            if (verse > PAGE_INFO[i].verseNumber) {
-                continue;
-            }
-            return i + 1;
-        }
-        return 0;
+        return getPageNumberForAyah(chapter, verse);
     }
 
+    const derivedLineData = ()=>{
+        const pData = pageData();
+        const lineData:{[key in string]:Array<{}>} = {};
+        pData?.data.forEach((ayahData)=>{
+            ayahData.words.forEach((word)=>{
+                const lineNumber = word.lineNumber;
+                if(!lineData[lineNumber]){
+                    lineData[lineNumber] = [];
+                }
+                lineData[lineNumber].push(word)
+            })
+        })
+        const res = Object.keys(lineData).map((lineNumber)=> lineData[lineNumber]);
+        console.log(res);
+        return res;
+    }
 
     const value = {
         verseNumber,
@@ -62,7 +68,8 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         setChapterNumber,
         derivedPageNumber,
         pageData,
-        setPageData
+        setPageData,
+        derivedLineData
     };
 
     return (
