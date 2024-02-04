@@ -13,7 +13,7 @@ export default function WordComponent(props: { word: IArabicWord }) {
             <div style={{
                 "color": isCurrentVerse() ? "rgb(44, 164, 171)" : "",
                 "font-family": "UthmanicHafs",
-                "font-size": "3.2vh",
+                "font-size": "4.4vh",
             }}>
                 {word.qpcUthmaniHafs}
             </div>

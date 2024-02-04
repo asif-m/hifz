@@ -1,16 +1,16 @@
 import { For } from "solid-js";
 import { IArabicWord } from "~/models/ayah-info-interface";
 import WordComponent from "./word-component";
-import BismiComponent from "./bismi-component";
+import LineScrollComponent from "./line-scroll-component";
 
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
     return (
         <div>
-            <BismiComponent
-                chapterNumber={words[0].chapterNumber}
-                wordNumber={words[0].wordNumber}
-                verseNumber={words[0].verseNumber}
+            <LineScrollComponent
+                chapter={words[0].chapterNumber}
+                word={words[0].wordNumber}
+                verse={words[0].verseNumber}
             />
             <div style={{
                 display: "flex",
@@ -20,7 +20,6 @@ export default function LineComponent(props: { words: Array<IArabicWord> }) {
                 "width": "1000px",
                 "min-width": "1000px"
             }}>
-
                 <For each={words}>{word => <WordComponent word={word} />}</For>
             </div>
         </div>
