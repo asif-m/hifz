@@ -2424,20 +2424,23 @@ export const PAGE_INFO: Array<IAyahBase> = [
   },
 ];
 
-export function getPageNumberForAyah(chapter: number, verse: number) {
+export function getPageNumberForAyah(chapterToFind: number, verseToFind: number) {
   let pageNumber = 0;
-  if (chapter === 0 || verse === 0) {
+  if (chapterToFind === 0 || verseToFind === 0) {
     return pageNumber;
   }
-  for (let i = 0; i < PAGE_INFO.length; i++) {
-    if (chapter > PAGE_INFO[i].chapterNumber) {
-      continue;
+
+  for (let i = PAGE_INFO.length-1; i >0; i--) {
+    const {chapterNumber, verseNumber} = PAGE_INFO[i];
+
+    if(chapterToFind>chapterNumber){
+      return i+1;
     }
-    if (verse > PAGE_INFO[i].verseNumber) {
-      continue;
+    if(chapterToFind === chapterNumber){
+      if(verseToFind>=verseNumber){
+        return i+1;
+      }
     }
-    pageNumber = i + 1;
-    break;
   }
-  return pageNumber;
+  return 1;
 }
