@@ -10,7 +10,7 @@ export default function PageLoader(props: { page: number }) {
             return;
         }
 
-        if(pageData()[props.page]){
+        if (pageData()[props.page]) {
             return;
         }
 

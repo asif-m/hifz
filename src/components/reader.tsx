@@ -7,7 +7,7 @@ import LineComponent from "./line-component";
 
 export default function Reader(props: IAyahBase) {
   const { setVerseNumber, setChapterNumber, derivedPageNumber, pageData, derivedLineData } = useStore();
-  
+
   createEffect(() => {
     batch(() => {
       setVerseNumber(props.verseNumber);
@@ -17,10 +17,10 @@ export default function Reader(props: IAyahBase) {
 
   return (
     <div>
-      <PageLoader page= {derivedPageNumber()}/>
+      <PageLoader page={derivedPageNumber()} />
       <PlayingHeader />
-      <div style={{display:"flex", "flex-direction":"column", "align-items":"center"}}>
-        <For each={derivedLineData()}>{words => <LineComponent words={words}/>}</For>
+      <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
+        <For each={derivedLineData()}>{words => <LineComponent words={words} />}</For>
       </div>
     </div>
   );

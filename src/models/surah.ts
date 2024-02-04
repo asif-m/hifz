@@ -1,8 +1,8 @@
 import { IAyah } from "./ayah-info-interface";
 
 export interface ISurah {
-  surahNumber: number,
-  data: Array<IAyah>
+  surahNumber: number;
+  data: Array<IAyah>;
 }
 
 export interface ISurahInfo {
@@ -13,8 +13,8 @@ export interface ISurahInfo {
   versesCount: number;
   englishTranslatedName: string;
   audioFile: {
-    [key in string] : string;
-  }
+    [key in string]: string;
+  };
 }
 
 export const SURAHS_INFO: Array<ISurahInfo> = [

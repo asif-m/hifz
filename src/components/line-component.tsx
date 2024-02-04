@@ -7,10 +7,10 @@ export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
     return (
         <div>
-            <BismiComponent 
-            chapterNumber={words[0].chapterNumber} 
-            wordNumber={words[0].wordNumber}
-            verseNumber={words[0].verseNumber}
+            <BismiComponent
+                chapterNumber={words[0].chapterNumber}
+                wordNumber={words[0].wordNumber}
+                verseNumber={words[0].verseNumber}
             />
             <div style={{
                 display: "flex",
