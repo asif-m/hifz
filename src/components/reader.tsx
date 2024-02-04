@@ -7,7 +7,7 @@ import LineComponent from "./line-component";
 
 export default function Reader(props: IAyahBase) {
   const { setVerseNumber, setChapterNumber, derivedPageNumber, pageData, derivedLineData } = useStore();
-
+  
   createEffect(() => {
     batch(() => {
       setVerseNumber(props.verseNumber);

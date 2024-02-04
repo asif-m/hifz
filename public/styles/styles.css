@@ -1,19 +1,9 @@
-@import '@fontsource/fira-mono';
-
 @font-face {
 	font-family: "UthmanicHafs";
-	src: url("../fonts/UthmanicHafs1Ver18.woff2") format("woff2");
-}
-@font-face {
-	font-family: "UthmanicHafs2";
-	src: url("../fonts/UthmanicHafs1Ver182.woff2") format("woff2");
+	src: 	url("./fonts//UthmanicHafs1Ver18.woff2") format("woff2"),
+			url("./fonts/UthmanicHafs1Ver18.ttf") format("ttf"), ;
 }
 
-@font-face {
-	font-family: "P2";
-	src: url("../fonts/p2.woff2") format("woff2");
-}
-@font-face {
-	font-family: "P3";
-	src: url("../fonts/p3.woff2") format("woff2");
+body {
+    font-family: UthmanicHafs, Helvetica;
 }

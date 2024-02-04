@@ -12,10 +12,11 @@ return (
     <div style={{display:"flex", "flex-direction":"column", "align-items":"center", margin:"4px"}}>
         <div style={{
             "color":  isCurrentVerse()? "rgb(44, 164, 171)":"",
-            "font-family": "P3",
+            "font-family": "UthmanicHafs",
             "font-size": "3.2vh",
             }}>
-             {word.charTypeName==="word" ? word.textUthmani : "﴾"+word.textUthmani+"﴿"}
+             {/* {word.charTypeName==="word" ? word.qpcUthmaniHafs : "﴾"+word.qpcUthmaniHafs+"﴿"} */}
+             {word.qpcUthmaniHafs}
         </div>
         <Typography
         style={{
