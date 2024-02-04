@@ -20,7 +20,9 @@ export default function WordComponent(props: { word: IArabicWord }) {
             <Typography
                 style={{
                     "color": isCurrentVerse() ? "rgb(44, 164, 171)" : "",
-                    "font-size": "0.875rem"
+                    "font-size": "0.875rem",
+                    "max-width": "7rem",
+                    "text-align": "center"
                 }}
             >{word.translation}</Typography>
         </div>
