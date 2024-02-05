@@ -9,7 +9,7 @@ import {
   Box, Toolbar, Container
 } from "@suid/material";
 export default function Reader(props: IAyahBase) {
-  const { setVerseNumber, setChapterNumber, derivedPageNumber, pageData, derivedLineData } = useStore();
+  const { setVerseNumber, setChapterNumber, derivedPageNumber, derivedLineData } = useStore();
 
   createEffect(() => {
     batch(() => {
@@ -24,19 +24,6 @@ export default function Reader(props: IAyahBase) {
         <AppBar position="fixed">
           <Toolbar>
           <PlayingHeader/>
-            {/* <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Quran
-            </Typography>
-            <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
       </Box>
