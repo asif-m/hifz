@@ -10,19 +10,24 @@ export default function SurahTitleComponent(props: { word: IArabicWord }) {
             "width": "100%",
             "text-align": "center",
         }}>
-           
+
             <ScrollComponent word={word} />
             <div style={{
-                color: "rgb(0,200,0)",
-                "font-family": "UthmanicHafs",
-                "font-size": "4.0vh",
                 margin: "10px",
                 border: "solid rgb(0,200,0) 2px",
+                color: "rgb(0,200,0)",
                 "border-radius": "4px"
             }}>
-                {SURAHS_INFO[chapterNumber - 1].arabicName}
+                <div style={{
+                    "font-family": "UthmanicHafs",
+                    "font-size": "4.0vh",
+                }}>{`${SURAHS_INFO[chapterNumber - 1].arabicName} ${(chapterNumber).toLocaleString('ar-EG')}`} </div>
+                <div style={{display:"flex", "flex-direction":"row", "justify-content":"space-between", "padding":"16px"}}>
+                    <div>{`(${SURAHS_INFO[chapterNumber - 1].versesCount} Ayah)`}</div>
+                    <div>{`(${chapterNumber}) ${SURAHS_INFO[chapterNumber - 1].englishName}`}</div>
+                    <div>{`${SURAHS_INFO[chapterNumber - 1].placeOfRevelation === ""?"🕋":"🕋"}`}</div>
+                </div>
             </div>
-            
         </div>
     )
 }
