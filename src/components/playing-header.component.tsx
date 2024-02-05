@@ -2,6 +2,7 @@ import { useStore } from "~/store/store";
 
 export default function PlayingHeader() {
   const { derivedTitleData } = useStore();
+  const titleData = derivedTitleData();
 
   return (
     <div style={{ display: "flex", 
@@ -11,12 +12,12 @@ export default function PlayingHeader() {
      margin: "16px", 
      width:"100%"
      }}>
-      <LabelValue label={"Page"} value={derivedTitleData().pageNumbers.join(', ')}></LabelValue>
-      <LabelValue label={"Ruku"} value={derivedTitleData().rukus.join(', ')}></LabelValue>
-      <LabelValue label={"Rub-El-Hizb"} value={derivedTitleData().rehizbs.join(', ')}></LabelValue>
-      <LabelValue label={"Hizb"} value={derivedTitleData().hizbs.join(', ')}></LabelValue>
-      <LabelValue label={"Manazil"} value={derivedTitleData().manazils.join(', ')}></LabelValue>
-      <LabelValue label={"Juz"} value={derivedTitleData().juzs.join(', ')}></LabelValue>
+      <LabelValue label={"Page"} value={titleData.pageNumbers.join(', ')}></LabelValue>
+      <LabelValue label={"Ruku"} value={titleData.rukus.join(', ')}></LabelValue>
+      <LabelValue label={"Rub-El-Hizb"} value={titleData.rehizbs.join(', ')}></LabelValue>
+      <LabelValue label={"Hizb"} value={titleData.hizbs.join(', ')}></LabelValue>
+      <LabelValue label={"Manazil"} value={titleData.manazils.join(', ')}></LabelValue>
+      <LabelValue label={"Juz"} value={titleData.juzs.join(', ')}></LabelValue>
     </div>
 
   );
