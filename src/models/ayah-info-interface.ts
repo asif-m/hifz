@@ -83,3 +83,15 @@ export class CAyah {
     return { nextSurah: currentSurah, nextAyah: currentAyah - 1 };
   }
 }
+
+export class CWord {
+  public static isPositionForBismillah(word: IArabicWord) {
+    const { chapterNumber, verseNumber, wordNumber } = word;
+    return (
+      wordNumber === 1 &&
+      verseNumber === 1 &&
+      chapterNumber !== 1 &&
+      chapterNumber !== 9
+    );
+  }
+}

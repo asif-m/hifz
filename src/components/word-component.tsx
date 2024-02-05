@@ -1,5 +1,5 @@
 import { Typography } from "@suid/material";
-import { IArabicWord } from "~/models/ayah-info-interface";
+import { CWord, IArabicWord } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store";
 import ScrollComponent from "./scroll-component";
 
@@ -14,7 +14,7 @@ export default function WordComponent(props: { word: IArabicWord }) {
     return (
         <div style={{ display: "flex", "flex-direction": "column", "align-items": "center", margin: "4px" }}
         >
-            <ScrollComponent word={word}/>
+            <ScrollComponent word={word} shouldScroll={!CWord.isPositionForBismillah(word)}/>
             <div style={{
                 "color": isCurrentVerse() ? "rgb(44, 164, 171)" : "",
                 "font-family": "UthmanicHafs",

@@ -5,12 +5,11 @@ import BismiComponent from "./bismi-component";
 
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
+    const firstWord = words[0];
     return (
         <div>
             <BismiComponent
-                chapter={words[0].chapterNumber}
-                word={words[0].wordNumber}
-                verse={words[0].verseNumber}
+                word = {firstWord}
             />
             <div style={{
                 display: "flex",
