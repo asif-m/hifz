@@ -1,16 +1,21 @@
-import { For } from "solid-js";
-import { IArabicWord } from "~/models/ayah-info-interface";
+import { For, Show } from "solid-js";
+import { CWord, IArabicWord } from "~/models/ayah-info-interface";
 import WordComponent from "./word-component";
 import BismiComponent from "./bismi-component";
+import SurahTitleComponent from "./surah-title-component";
 
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
     const firstWord = words[0];
     return (
         <div>
-            <BismiComponent
-                word = {firstWord}
-            />
+            <Show when={CWord.isFirstWord(firstWord)}>
+                <SurahTitleComponent word={firstWord} />
+            </Show>
+            <Show when={CWord.shouldDisplayBismillah(firstWord)}>
+                <BismiComponent />
+            </Show>
+
             <div style={{
                 display: "flex",
                 "flex-direction": "row-reverse",

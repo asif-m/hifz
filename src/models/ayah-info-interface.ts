@@ -85,10 +85,10 @@ export class CAyah {
 }
 
 export class CWord {
-  public static isPositionForBismillah(word: IArabicWord) {
-    const { chapterNumber, verseNumber, wordNumber } = word;
+  public static shouldDisplayBismillah(word: IArabicWord) {
+    const { chapterNumber } = word;
     return (
-      CWord.isFirstWord(word)
+      CWord.isFirstWord(word) && chapterNumber !==1 && chapterNumber !== 9
     );
   }
   public static isFirstWord(word: IArabicWord) {
