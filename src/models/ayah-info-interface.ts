@@ -88,10 +88,14 @@ export class CWord {
   public static isPositionForBismillah(word: IArabicWord) {
     const { chapterNumber, verseNumber, wordNumber } = word;
     return (
+      CWord.isFirstWord(word)
+    );
+  }
+  public static isFirstWord(word: IArabicWord) {
+    const { verseNumber, wordNumber } = word;
+    return (
       wordNumber === 1 &&
-      verseNumber === 1 &&
-      chapterNumber !== 1 &&
-      chapterNumber !== 9
+      verseNumber === 1
     );
   }
 }

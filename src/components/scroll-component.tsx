@@ -13,7 +13,7 @@ export default function ScrollComponent(props: { word: IArabicWord, shouldScroll
         if (word.chapterNumber !== chapterNumber() || word.verseNumber !== verseNumber() || word.wordNumber !==1) {
             return;
         }
-        const headerHeight = 64;
+        const headerHeight = 80;
         const elementTop = divRef.getBoundingClientRect().top + window.scrollY;
         const offset = elementTop - headerHeight;
 

@@ -4,15 +4,9 @@ import { useStore } from "~/store/store";
 import { createEffect, batch, For } from "solid-js";
 import PageLoader from "./page-loader";
 import LineComponent from "./line-component";
-import MenuIcon from "@suid/icons-material/Menu";
 import {
   AppBar,
-  Box,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-  Container
+  Box, Toolbar, Container
 } from "@suid/material";
 export default function Reader(props: IAyahBase) {
   const { setVerseNumber, setChapterNumber, derivedPageNumber, pageData, derivedLineData } = useStore();
@@ -29,7 +23,8 @@ export default function Reader(props: IAyahBase) {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed">
           <Toolbar>
-            <IconButton
+          <PlayingHeader/>
+            {/* <IconButton
               size="large"
               edge="start"
               color="inherit"
@@ -41,7 +36,7 @@ export default function Reader(props: IAyahBase) {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Quran
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
       </Box>
