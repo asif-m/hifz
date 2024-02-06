@@ -1,8 +1,7 @@
 import { createSignal, createContext, useContext } from "solid-js";
 import type { ComponentProps } from "~/utils/component-type";
 import type { Accessor, Setter } from 'solid-js';
-import { IPageDate, CPage } from "~/models/page";
-import { IAyah } from "~/models/ayah-info-interface";
+import { IPageData, CPage } from "~/models/page";
 import { IArabicWord } from "~/models/word";
 
 const StoreContext = createContext();
@@ -10,7 +9,7 @@ const StoreContext = createContext();
 export interface IStoreData {
     verseNumber: number,
     chapterNumber: number,
-    pageData: { [key in string]: IPageDate }
+    pageData: { [key in string]: IPageData }
 }
 
 export interface ITitleData{
@@ -37,10 +36,9 @@ export interface IStoreUseContextData {
     chapterNumber: Accessor<number>
     setChapterNumber: Setter<number>
     derivedPageNumber: Accessor<number>
-    pageData: Accessor<{ [key in string]: IPageDate }>
-    setPageData: Setter<{ [key in string]: IPageDate }>
+    pageData: Accessor<{ [key in string]: IPageData }>
+    setPageData: Setter<{ [key in string]: IPageData }>
     derivedLineData: Accessor<Array<Array<IArabicWord>>>
-    derivedTitleData: Accessor<ITitleData>
 }
 
 
@@ -60,7 +58,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         const pData = pageData();
         const page = derivedPageNumber();
         const lineData: { [key in string]: Array<{}> } = {};
-        pData[page]?.data.forEach((ayahData) => {
+        pData[page]?.ayahs.forEach((ayahData) => {
             ayahData.words.forEach((word) => {
                 const lineNumber = word.lineNumber;
                 if (!lineData[lineNumber]) {
@@ -73,32 +71,6 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         return res;
     }
 
-    const derivedTitleData = ()=>{
-        const pData = pageData();
-        const page = derivedPageNumber();
-        const titleData: ITitleData = {
-            manazils: [],juzs:[],hizbs:[],rehizbs:[],rukus:[], pageNumbers:[], chapters:[]
-        }
-        function AddIfNotExisting(ayahData:IAyah ,val: number, array:Array<number>){
-            if(array.some(v=> v===val)){
-                return;
-            }
-            array.push(val)
-        }
-        pData[page]?.data.forEach((ayahData) => {
-
-            AddIfNotExisting(ayahData, ayahData.manzilNumber, titleData.manazils);
-            AddIfNotExisting(ayahData, ayahData.juzNumber, titleData.juzs);
-            AddIfNotExisting(ayahData, ayahData.hizbNumber, titleData.hizbs);
-            AddIfNotExisting(ayahData, ayahData.rubElHizbNumber, titleData.rehizbs);
-            AddIfNotExisting(ayahData, ayahData.rukuNumber, titleData.rukus)
-            AddIfNotExisting(ayahData, ayahData.pageNumber, titleData.pageNumbers)
-
-        })
-        return titleData;
-
-    }
-
     const value = {
         verseNumber,
         setVerseNumber,
@@ -108,7 +80,6 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         pageData,
         setPageData,
         derivedLineData,
-        derivedTitleData
     };
 
     return (

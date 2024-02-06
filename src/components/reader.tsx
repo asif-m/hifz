@@ -9,7 +9,8 @@ import {
   Box, Toolbar, Container
 } from "@suid/material";
 export default function Reader(props: IAyahBase) {
-  const { setVerseNumber, setChapterNumber, derivedPageNumber, derivedLineData } = useStore();
+  const { setVerseNumber, setChapterNumber, derivedPageNumber, derivedLineData  } = useStore();
+  
 
   createEffect(() => {
     batch(() => {

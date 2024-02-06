@@ -1,8 +1,18 @@
 import type { IAyah, IAyahBase } from "./ayah-info-interface";
 
-export interface IPageDate {
+export interface IPageData {
   pageNumber: number;
-  data: Array<IAyah>;
+  manzils: Array<number>;
+  juzs:Array<number>;
+  hizbs:Array<number>;
+  rubElHizbs:Array<number>;
+  rukus: Array<number>;
+  chapterAndAyahRange: Array<{
+      chapterNumber: number;
+      verseFrom: number;
+      verseTo: number;
+    }>;
+  ayahs: Array<IAyah>;
 }
 
 export const PAGE_INFO: Array<IAyahBase> = [
