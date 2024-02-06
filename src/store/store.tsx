@@ -12,16 +12,6 @@ export interface IStoreData {
     pageData: { [key in string]: IPageData }
 }
 
-export interface ITitleData{
-    manazils: Array<number>,
-    juzs:Array<number>,
-    hizbs:Array<number>,
-    rehizbs:Array<number>,
-    rukus:Array<number>, 
-    pageNumbers:Array<number>, 
-    chapters:Array<{chapterNumber: number, verseNumberFrom:number, verseNumberTo:number}>
-}
-
 export function getInitialStoreData(): IStoreData {
     return {
         verseNumber: 0,
