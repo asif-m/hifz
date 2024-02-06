@@ -1,7 +1,7 @@
 import { Typography } from "@suid/material";
-import { CWord, IArabicWord } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store";
 import ScrollComponent from "./scroll-component";
+import { IArabicWord } from "~/models/word";
 
 export default function WordComponent(props: { word: IArabicWord }) {
     const { word } = props;

@@ -1,5 +1,5 @@
 import { createEffect } from "solid-js";
-import { IArabicWord } from "~/models/ayah-info-interface";
+import { IArabicWord } from "~/models/word";
 import { useStore } from "~/store/store";
 
 export default function ScrollComponent(props: { word: IArabicWord, shouldScroll?:boolean }) {

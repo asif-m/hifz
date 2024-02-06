@@ -1,8 +1,8 @@
 import { For, Show } from "solid-js";
-import { CWord, IArabicWord } from "~/models/ayah-info-interface";
 import WordComponent from "./word-component";
 import BismiComponent from "./bismi-component";
 import SurahTitleComponent from "./surah-title-component";
+import { IArabicWord, CWord } from "~/models/word";
 
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;

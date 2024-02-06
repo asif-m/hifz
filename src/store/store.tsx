@@ -1,8 +1,9 @@
 import { createSignal, createContext, useContext } from "solid-js";
 import type { ComponentProps } from "~/utils/component-type";
 import type { Accessor, Setter } from 'solid-js';
-import { IPageDate, getPageNumberForAyah } from "~/models/page";
-import { IArabicWord, IAyah } from "~/models/ayah-info-interface";
+import { IPageDate, CPage } from "~/models/page";
+import { IAyah } from "~/models/ayah-info-interface";
+import { IArabicWord } from "~/models/word";
 
 const StoreContext = createContext();
 
@@ -52,7 +53,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const derivedPageNumber = () => {
         const chapter = chapterNumber();
         const verse = verseNumber();
-        return getPageNumberForAyah(chapter, verse);
+        return CPage.getPageNumberForAyah(chapter, verse);
     }
 
     const derivedLineData = () => {

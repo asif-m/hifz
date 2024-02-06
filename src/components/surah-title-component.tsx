@@ -1,4 +1,4 @@
-import { IArabicWord } from "~/models/ayah-info-interface";
+import { IArabicWord } from "~/models/word";
 import ScrollComponent from "./scroll-component";
 import { SURAHS_INFO } from "~/models/surah";
 
