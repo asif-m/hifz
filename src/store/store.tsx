@@ -28,6 +28,7 @@ export interface IStoreUseContextData {
     derivedPageNumber: Accessor<number>
     pageData: Accessor<{ [key in string]: IPageData }>
     setPageData: Setter<{ [key in string]: IPageData }>
+    derivedCurrentPageData: Accessor<IPageData>
     derivedLineData: Accessor<Array<Array<IArabicWord>>>
 }
 
@@ -42,6 +43,12 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         const chapter = chapterNumber();
         const verse = verseNumber();
         return CPage.getPageNumberForAyah(chapter, verse);
+    }
+
+    const derivedCurrentPageData = ()=>{
+        const pData = pageData();
+        const pageNumber = derivedPageNumber();
+        return pData[pageNumber] || {pageNumber, rukus:[],rubElHizbs:[],hizbs:[],manzils:[],juzs:[]};
     }
 
     const derivedLineData = () => {
@@ -70,6 +77,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         pageData,
         setPageData,
         derivedLineData,
+        derivedCurrentPageData
     };
 
     return (

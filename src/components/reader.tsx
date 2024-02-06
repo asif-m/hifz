@@ -9,7 +9,7 @@ import {
   Box, Toolbar, Container
 } from "@suid/material";
 export default function Reader(props: IAyahBase) {
-  const { setVerseNumber, setChapterNumber, derivedPageNumber, derivedLineData  } = useStore();
+  const { setVerseNumber, setChapterNumber, derivedPageNumber, derivedLineData ,derivedCurrentPageData } = useStore();
   
 
   createEffect(() => {
@@ -24,7 +24,7 @@ export default function Reader(props: IAyahBase) {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed">
           <Toolbar>
-          <PlayingHeader/>
+          <PlayingHeader pageInfo={derivedCurrentPageData()}/>
           </Toolbar>
         </AppBar>
       </Box>
