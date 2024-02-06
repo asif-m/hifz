@@ -2,10 +2,13 @@ import WavesurferWrapperComponent from "./wavesurfer-wrapper.component";
 import { useStore } from "~/store/store";
 
 export default function PlayingHeader() {
-  const {pageData,derivedPageNumber} = useStore()
+  const { pageData, derivedPageNumber } = useStore();
+  if (!pageData()[derivedPageNumber()]) {
+    return null;
+  }
 
   return (
-    <div style={{width: "100%"}}>
+    <div style={{ width: "100%" }}>
       <div style={{
         display: "flex",
         "flex-direction": "row",
@@ -21,7 +24,7 @@ export default function PlayingHeader() {
         <LabelValue label={"Manazil"} value={pageData()[derivedPageNumber()].manzils.join(', ')}></LabelValue>
         <LabelValue label={"Juz"} value={pageData()[derivedPageNumber()].juzs.join(', ')}></LabelValue>
       </div>
-      <WavesurferWrapperComponent/>
+      <WavesurferWrapperComponent />
     </div>
   );
 }
