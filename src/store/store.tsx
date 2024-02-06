@@ -2,7 +2,7 @@ import { createSignal, createContext, useContext } from "solid-js";
 import type { ComponentProps } from "~/utils/component-type";
 import type { Accessor, Setter } from 'solid-js';
 import { IPageDate, getPageNumberForAyah } from "~/models/page";
-import { IArabicWord } from "~/models/ayah-info-interface";
+import { IArabicWord, IAyah } from "~/models/ayah-info-interface";
 
 const StoreContext = createContext();
 
@@ -78,7 +78,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         const titleData: ITitleData = {
             manazils: [],juzs:[],hizbs:[],rehizbs:[],rukus:[], pageNumbers:[], chapters:[]
         }
-        function AddIfNotExisting(val: number, array:Array<number>){
+        function AddIfNotExisting(ayahData:IAyah ,val: number, array:Array<number>){
             if(array.some(v=> v===val)){
                 return;
             }
@@ -86,12 +86,12 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         }
         pData[page]?.data.forEach((ayahData) => {
 
-            AddIfNotExisting(ayahData.manzilNumber, titleData.manazils);
-            AddIfNotExisting(ayahData.juzNumber, titleData.juzs);
-            AddIfNotExisting(ayahData.hizbNumber, titleData.hizbs);
-            AddIfNotExisting(ayahData.rubElHizbNumber, titleData.rehizbs);
-            AddIfNotExisting(ayahData.rukuNumber, titleData.rukus)
-            AddIfNotExisting(ayahData.pageNumber, titleData.pageNumbers)
+            AddIfNotExisting(ayahData, ayahData.manzilNumber, titleData.manazils);
+            AddIfNotExisting(ayahData, ayahData.juzNumber, titleData.juzs);
+            AddIfNotExisting(ayahData, ayahData.hizbNumber, titleData.hizbs);
+            AddIfNotExisting(ayahData, ayahData.rubElHizbNumber, titleData.rehizbs);
+            AddIfNotExisting(ayahData, ayahData.rukuNumber, titleData.rukus)
+            AddIfNotExisting(ayahData, ayahData.pageNumber, titleData.pageNumbers)
 
         })
         return titleData;

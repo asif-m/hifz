@@ -5,8 +5,11 @@ import ZoomPlugin from "../../node_modules/wavesurfer.js/dist/plugins/zoom.esm.j
 import RegionsPlugin from "../../node_modules/wavesurfer.js/dist/plugins/regions.esm.js";
 
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
+import { useStore } from "~/store/store.jsx";
+import { SURAHS_INFO } from "~/models/surah.js";
 
 export default function WavesurferWrapperComponent() {
+  const {chapterNumber} = useStore()
   const timeStamps: Array<IReciterTimeStamp> = [
     {
       timestampFrom: 0,
@@ -28,7 +31,8 @@ export default function WavesurferWrapperComponent() {
       container: "#waveform",
       waveColor: "rgb(0, 200, 200)",
       progressColor: "rgb(0, 100, 100)",
-      url: "/audio/Sameer Nass/1-سورة الفاتحة.mp3",
+      //url: `/audio/Sameer Nass/1-سورة الفاتحة.mp3`,
+      url: `/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile}`,
       //minPxPerSec: 100,
     });
     // Initialize the Zoom plugin
@@ -54,11 +58,11 @@ export default function WavesurferWrapperComponent() {
         });
       });
     });
-  }, []);
+  }, [chapterNumber()]);
 
   return (
-    <div>
-      <div id="waveform"></div>
+    <div style={{width:"100%"}} id="waveform">
+      
     </div>
   );
 }

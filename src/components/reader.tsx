@@ -31,7 +31,6 @@ export default function Reader(props: IAyahBase) {
         <div style={{overflow:"scroll"}}>
           <div>
             <PageLoader page={derivedPageNumber()} />
-            <PlayingHeader />
           </div>
           <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
             <For each={derivedLineData()}>{words => <LineComponent words={words} />}</For>

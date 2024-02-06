@@ -6,20 +6,19 @@ export interface IReciterTimeStamp {
 }
 
 export interface IArabicWord {
-  audioUrl: string | null;
+  chapterNumber: number;
+  verseNumber: number;
+  pageNumber: number;
+  lineNumber: number;
+  wordNumber: number;
+  location: string;
+  audioUrl: string | null
   charTypeName: string;
   codeV1: string;
-  lineNumber: number;
-  location: string;
-  pageNumber: number;
-  wordNumber: number;
   qpcUthmaniHafs: string;
   textUthmani: string;
   translation: string;
-  transliteration: string | null;
-  verseNumber: number;
-  chapterNumber: number;
-  verseKey: string;
+  transliteration: string;
 }
 
 export interface IAyahBase {
@@ -28,24 +27,27 @@ export interface IAyahBase {
 }
 
 export interface IAyah extends IAyahBase {
-  verseNumber: number;
-  hizbNumber: number;
-  juzNumber: number;
-  manzilNumber: number;
-  pageNumber: number;
-  rubElHizbNumber: number;
-  rukuNumber: number;
-  sajdahNumber: number | null;
-  textUthmani: string;
+  chapterNumber:number;
+  verseNumber:number;
   verseKey: string;
-  wordByWord: string;
-  transliteration: string | null;
+  pageNumber: number;
+  isManzil: boolean;
+  manzilNumber: number;
+  isJuz: boolean;
+  juzNumber: number;
+  isHizb: boolean;
+  hizbNumber: number;
+  isRubElHizb: boolean;
+  rubElHizbNumber:number;
+  isRuku: boolean;
+  rukuNumber: number;
   isSajdah: boolean;
+  sajdahNumber: null,
+  textUthmani: string;
+  wordByWord: string;
+  transliteration: string;
+  reciterTimestamps: IReciterTimeStamp,
   words: Array<IArabicWord>;
-  chapterNumber: number;
-  reciterTimestamps: {
-    [key in string]: IReciterTimeStamp;
-  };
 }
 
 export class CAyah {
