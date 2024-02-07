@@ -48,6 +48,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1227700,
           "timestampTo": 1242300
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1253,
+          "timestampTo": 0
         }
       },
       "words": [
@@ -2566,6 +2570,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1383420,
           "timestampTo": 1411160
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 0,
+          "timestampTo": 1431
         }
       },
       "words": [
