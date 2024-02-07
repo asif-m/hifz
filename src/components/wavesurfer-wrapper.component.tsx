@@ -6,6 +6,7 @@ import RegionsPlugin from "../../node_modules/wavesurfer.js/dist/plugins/regions
 
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
+import { SURAHS_INFO } from "~/models/surah.js";
 
 export default function WavesurferWrapperComponent() {
   const {chapterNumber} = useStore()
@@ -26,12 +27,13 @@ export default function WavesurferWrapperComponent() {
     `rgba(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)}, 0.5)`;
 
   createEffect(() => {
+    console.log(`/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile["Sameer Nass"]}`)
     const ws = WaveSurfer.create({
       container: "#waveform",
       waveColor: "rgb(0, 200, 200)",
       progressColor: "rgb(0, 100, 100)",
-      url: `/audio/Sameer Nass/1-سورة الفاتحة.mp3`,
-      //url: `/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile}`,
+      //url: `/audio/Sameer Nass/1-سورة الفاتحة.mp3`,
+      url: `/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile["Sameer Nass"]}`,
       //minPxPerSec: 100,
     });
     // Initialize the Zoom plugin
@@ -57,6 +59,9 @@ export default function WavesurferWrapperComponent() {
         });
       });
     });
+    ws.on('interaction', () => {
+      ws.play()
+    })
   }, [chapterNumber()]);
 
   return (
