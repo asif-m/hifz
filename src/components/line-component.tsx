@@ -3,6 +3,7 @@ import WordComponent from "./word-component";
 import BismiComponent from "./bismi-component";
 import SurahTitleComponent from "./surah-title-component";
 import { IArabicWord, CWord } from "~/models/word";
+import { pageWidth } from "~/models/style-constants";
 
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
@@ -24,8 +25,8 @@ export default function LineComponent(props: { words: Array<IArabicWord> }) {
                 "flex-direction": "row-reverse",
                 "align-content": "center",
                 "justify-content": "space-around",
-                "width": "1000px",
-                "min-width": "1000px"
+                "width": pageWidth,
+                "min-width": pageWidth
             }}>
                 <For each={words}>{word => <WordComponent word={word} />}</For>
             </div>

@@ -1,3 +1,5 @@
+import { colors } from "~/models/style-constants";
+
 export default function BismiComponent() {
     return (
         <div style={{
@@ -6,7 +8,7 @@ export default function BismiComponent() {
             "align-items": "center",
         }}>
             <div style={{
-                color: "green",
+                color: colors.bismiText,
                 "font-family": "UthmanicHafs",
                 "font-size": "4.4vh",
             }}>

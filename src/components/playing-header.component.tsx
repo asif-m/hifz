@@ -20,7 +20,7 @@ export default function PlayingHeader() {
           <div>Manzil      : {pageData().manzils.join(', ')}</div>
           <div>Juz         : {pageData().juzs.join(', ')}</div>
         </div>
-        <div style={{width:"95%"}}>
+        <div style={{width:"95%",margin: "16px"}}>
           <WavesurferWrapperComponent />
         </div>
       </div>

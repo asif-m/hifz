@@ -7,6 +7,7 @@ import RegionsPlugin from "../../node_modules/wavesurfer.js/dist/plugins/regions
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
+import { colors } from "~/models/style-constants.js";
 
 export default function WavesurferWrapperComponent() {
   const {chapterNumber} = useStore()
@@ -29,8 +30,8 @@ export default function WavesurferWrapperComponent() {
   createEffect(() => {
     const ws = WaveSurfer.create({
       container: "#waveform",
-      waveColor: "rgb(0, 200, 200)",
-      progressColor: "rgb(0, 100, 100)",
+      waveColor: colors.wave,
+      progressColor: colors.waveProgress,
       //url: `/audio/Sameer Nass/1-سورة الفاتحة.mp3`,
       url: `/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile["Sameer Nass"]}`,
       //minPxPerSec: 100,

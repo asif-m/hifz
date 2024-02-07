@@ -1,4 +1,5 @@
 import { createEffect } from "solid-js";
+import { headerHeight } from "~/models/style-constants";
 import { IArabicWord } from "~/models/word";
 import { useStore } from "~/store/store";
 
@@ -13,7 +14,7 @@ export default function ScrollComponent(props: { word: IArabicWord, shouldScroll
         if (word.chapterNumber !== chapterNumber() || word.verseNumber !== verseNumber() || word.wordNumber !==1) {
             return;
         }
-        const headerHeight = 80;
+        
         const elementTop = divRef.getBoundingClientRect().top + window.scrollY;
         const offset = elementTop - headerHeight;
 
