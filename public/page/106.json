@@ -57,8 +57,8 @@
           "timestampTo": null
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 4829,
-          "timestampTo": 0
+          "timestampFrom": 4828,
+          "timestampTo": 105
         }
       },
       "words": [
@@ -856,7 +856,7 @@
         },
         "Shaykh Samir al-Nass": {
           "timestampFrom": 0,
-          "timestampTo": 0
+          "timestampTo": 105
         }
       },
       "words": [

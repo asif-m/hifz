@@ -49,8 +49,8 @@
           "timestampTo": 1797110
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1713,
-          "timestampTo": 0
+          "timestampFrom": 1712,
+          "timestampTo": 1870
         }
       },
       "words": [
@@ -470,6 +470,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1797110,
           "timestampTo": 1829270
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1712,
+          "timestampTo": 1870
         }
       },
       "words": [
@@ -859,6 +863,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1829270,
           "timestampTo": 1844370
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1712,
+          "timestampTo": 1870
         }
       },
       "words": [
@@ -1023,6 +1031,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1844370,
           "timestampTo": 1869790
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1712,
+          "timestampTo": 1870
         }
       },
       "words": [
@@ -1292,6 +1304,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1869790,
           "timestampTo": 1878380
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1712,
+          "timestampTo": 1870
         }
       },
       "words": [
@@ -1426,6 +1442,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1878380,
           "timestampTo": 1899170
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1712,
+          "timestampTo": 1870
         }
       },
       "words": [
@@ -1680,6 +1700,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1899170,
           "timestampTo": 1915100
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1712,
+          "timestampTo": 1870
         }
       },
       "words": [
@@ -1916,7 +1940,7 @@
           "timestampTo": 1933460
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 1712,
           "timestampTo": 1870
         }
       },

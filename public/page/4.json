@@ -50,8 +50,8 @@
           "timestampTo": 230220
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 246,
-          "timestampTo": 0
+          "timestampFrom": 245,
+          "timestampTo": 438
         }
       },
       "words": [
@@ -351,6 +351,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 230220,
           "timestampTo": 238030
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 245,
+          "timestampTo": 438
         }
       },
       "words": [
@@ -485,6 +489,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 238030,
           "timestampTo": 263500
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 245,
+          "timestampTo": 438
         }
       },
       "words": [
@@ -814,6 +822,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 263500,
           "timestampTo": 293960
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 245,
+          "timestampTo": 438
         }
       },
       "words": [
@@ -1233,6 +1245,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 293960,
           "timestampTo": 307470
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 245,
+          "timestampTo": 438
         }
       },
       "words": [
@@ -1442,6 +1458,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 307470,
           "timestampTo": 338530
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 245,
+          "timestampTo": 438
         }
       },
       "words": [
@@ -1831,6 +1851,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 338530,
           "timestampTo": 362350
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 245,
+          "timestampTo": 438
         }
       },
       "words": [
@@ -2172,7 +2196,7 @@
           "timestampTo": 377210
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 245,
           "timestampTo": 438
         }
       },

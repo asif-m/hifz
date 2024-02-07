@@ -50,8 +50,8 @@
           "timestampTo": 84240
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 87,
-          "timestampTo": 0
+          "timestampFrom": 86,
+          "timestampTo": 276
         }
       },
       "words": [
@@ -261,6 +261,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 84240,
           "timestampTo": 103440
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 86,
+          "timestampTo": 276
         }
       },
       "words": [
@@ -515,6 +519,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 103440,
           "timestampTo": 119900
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 86,
+          "timestampTo": 276
         }
       },
       "words": [
@@ -754,6 +762,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 119900,
           "timestampTo": 138320
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 86,
+          "timestampTo": 276
         }
       },
       "words": [
@@ -993,6 +1005,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 138320,
           "timestampTo": 170450
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 86,
+          "timestampTo": 276
         }
       },
       "words": [
@@ -1412,6 +1428,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 170450,
           "timestampTo": 193800
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 86,
+          "timestampTo": 276
         }
       },
       "words": [
@@ -1711,6 +1731,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 193800,
           "timestampTo": 223000
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 86,
+          "timestampTo": 276
         }
       },
       "words": [
@@ -2112,7 +2136,7 @@
           "timestampTo": 262650
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 86,
           "timestampTo": 276
         }
       },

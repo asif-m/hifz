@@ -55,8 +55,8 @@
           "timestampTo": 1885690
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1992,
-          "timestampTo": 0
+          "timestampFrom": 1991,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -236,6 +236,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1885690,
           "timestampTo": 1898540
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1991,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -415,6 +419,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1898540,
           "timestampTo": 1921500
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1991,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -729,6 +737,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1921500,
           "timestampTo": 1932080
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1991,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -893,6 +905,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1932080,
           "timestampTo": 1940100
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1991,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -1012,6 +1028,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1940100,
           "timestampTo": 1962150
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1991,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -1386,6 +1406,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1962150,
           "timestampTo": null
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1991,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -1748,7 +1772,7 @@
         },
         "Shaykh Samir al-Nass": {
           "timestampFrom": 0,
-          "timestampTo": 0
+          "timestampTo": 50
         }
       },
       "words": [
@@ -1958,6 +1982,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 11180,
           "timestampTo": 31970
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 0,
+          "timestampTo": 50
         }
       },
       "words": [
@@ -2227,6 +2255,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 31970,
           "timestampTo": 35210
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 0,
+          "timestampTo": 50
         }
       },
       "words": [

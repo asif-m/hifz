@@ -50,8 +50,8 @@
           "timestampTo": 1637610
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1731,
-          "timestampTo": 0
+          "timestampFrom": 1730,
+          "timestampTo": 1922
         }
       },
       "words": [
@@ -261,6 +261,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1637610,
           "timestampTo": 1646410
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1730,
+          "timestampTo": 1922
         }
       },
       "words": [
@@ -455,6 +459,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1646410,
           "timestampTo": 1667750
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1730,
+          "timestampTo": 1922
         }
       },
       "words": [
@@ -769,6 +777,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1667750,
           "timestampTo": 1680030
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1730,
+          "timestampTo": 1922
         }
       },
       "words": [
@@ -978,6 +990,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1680030,
           "timestampTo": 1707560
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1730,
+          "timestampTo": 1922
         }
       },
       "words": [
@@ -1322,6 +1338,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1707560,
           "timestampTo": 1740740
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1730,
+          "timestampTo": 1922
         }
       },
       "words": [
@@ -1666,6 +1686,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1740740,
           "timestampTo": 1768900
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1730,
+          "timestampTo": 1922
         }
       },
       "words": [
@@ -2082,7 +2106,7 @@
           "timestampTo": 1800900
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 1730,
           "timestampTo": 1922
         }
       },

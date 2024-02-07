@@ -49,8 +49,8 @@
           "timestampTo": 143720
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 121,
-          "timestampTo": 0
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -215,6 +215,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 143720,
           "timestampTo": 165660
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -424,6 +428,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 165660,
           "timestampTo": 185850
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -693,6 +701,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 185850,
           "timestampTo": 195930
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -827,6 +839,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 195930,
           "timestampTo": 203870
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -946,6 +962,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 203870,
           "timestampTo": 224270
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -1170,6 +1190,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 224270,
           "timestampTo": 240670
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -1349,6 +1373,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 240670,
           "timestampTo": 253650
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -1543,6 +1571,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 253650,
           "timestampTo": 263860
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -1692,6 +1724,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 263860,
           "timestampTo": 274340
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -1856,6 +1892,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 274340,
           "timestampTo": 293880
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -2125,6 +2165,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 293880,
           "timestampTo": 303620
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -2244,6 +2288,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 303620,
           "timestampTo": 313730
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -2348,6 +2396,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 313730,
           "timestampTo": 323630
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 120,
+          "timestampTo": 296
         }
       },
       "words": [
@@ -2494,7 +2546,7 @@
           "timestampTo": 331730
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 120,
           "timestampTo": 296
         }
       },

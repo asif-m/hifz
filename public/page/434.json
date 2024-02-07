@@ -55,8 +55,8 @@
           "timestampTo": 964590
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1004,
-          "timestampTo": 0
+          "timestampFrom": 1003,
+          "timestampTo": 86
         }
       },
       "words": [
@@ -221,6 +221,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 964590,
           "timestampTo": 984440
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1003,
+          "timestampTo": 86
         }
       },
       "words": [
@@ -505,6 +509,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 984440,
           "timestampTo": 996120
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1003,
+          "timestampTo": 86
         }
       },
       "words": [
@@ -699,6 +707,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 996120,
           "timestampTo": 1009290
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1003,
+          "timestampTo": 86
         }
       },
       "words": [
@@ -878,6 +890,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1009290,
           "timestampTo": 1020290
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1003,
+          "timestampTo": 86
         }
       },
       "words": [
@@ -1072,6 +1088,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1020290,
           "timestampTo": null
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 1003,
+          "timestampTo": 86
         }
       },
       "words": [
@@ -1344,7 +1364,7 @@
         },
         "Shaykh Samir al-Nass": {
           "timestampFrom": 0,
-          "timestampTo": 0
+          "timestampTo": 86
         }
       },
       "words": [
@@ -1749,6 +1769,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 28160,
           "timestampTo": 45740
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 0,
+          "timestampTo": 86
         }
       },
       "words": [

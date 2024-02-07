@@ -50,8 +50,8 @@
           "timestampTo": 967950
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 845,
-          "timestampTo": 0
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -261,6 +261,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 967950,
           "timestampTo": 979260
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -425,6 +429,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 979260,
           "timestampTo": 995170
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -649,6 +657,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 995170,
           "timestampTo": 1008390
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -843,6 +855,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1008390,
           "timestampTo": 1016440
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -992,6 +1008,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1016440,
           "timestampTo": 1030650
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -1186,6 +1206,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1030650,
           "timestampTo": 1037570
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -1320,6 +1344,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1037570,
           "timestampTo": 1050710
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -1484,6 +1512,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1050710,
           "timestampTo": 1066510
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -1708,6 +1740,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1066510,
           "timestampTo": 1077560
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -1872,6 +1908,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1077560,
           "timestampTo": 1086390
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -1991,6 +2031,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1086390,
           "timestampTo": 1094250
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -2155,6 +2199,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1094250,
           "timestampTo": 1102820
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -2274,6 +2322,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1102820,
           "timestampTo": 1117110
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 844,
+          "timestampTo": 1002
         }
       },
       "words": [
@@ -2525,7 +2577,7 @@
           "timestampTo": 1126460
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 844,
           "timestampTo": 1002
         }
       },

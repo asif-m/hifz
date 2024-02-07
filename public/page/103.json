@@ -49,8 +49,8 @@
           "timestampTo": 4271840
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 4361,
-          "timestampTo": 0
+          "timestampFrom": 4360,
+          "timestampTo": 4516
         }
       },
       "words": [
@@ -425,6 +425,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 4271840,
           "timestampTo": 4278680
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 4360,
+          "timestampTo": 4516
         }
       },
       "words": [
@@ -559,6 +563,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 4278680,
           "timestampTo": 4312670
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 4360,
+          "timestampTo": 4516
         }
       },
       "words": [
@@ -1113,6 +1121,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 4312670,
           "timestampTo": 4321390
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 4360,
+          "timestampTo": 4516
         }
       },
       "words": [
@@ -1277,6 +1289,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 4321390,
           "timestampTo": 4334840
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 4360,
+          "timestampTo": 4516
         }
       },
       "words": [
@@ -1531,6 +1547,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 4334840,
           "timestampTo": 4351190
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 4360,
+          "timestampTo": 4516
         }
       },
       "words": [
@@ -1785,6 +1805,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 4351190,
           "timestampTo": 4366600
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 4360,
+          "timestampTo": 4516
         }
       },
       "words": [
@@ -2036,7 +2060,7 @@
           "timestampTo": 4401730
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 4360,
           "timestampTo": 4516
         }
       },

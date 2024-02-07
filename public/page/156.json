@@ -51,8 +51,8 @@
           "timestampTo": 1038760
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 971,
-          "timestampTo": 0
+          "timestampFrom": 970,
+          "timestampTo": 1171
         }
       },
       "words": [
@@ -517,6 +517,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1038760,
           "timestampTo": 1054020
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 970,
+          "timestampTo": 1171
         }
       },
       "words": [
@@ -711,6 +715,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1054020,
           "timestampTo": 1081660
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 970,
+          "timestampTo": 1171
         }
       },
       "words": [
@@ -1025,6 +1033,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1081660,
           "timestampTo": 1102530
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 970,
+          "timestampTo": 1171
         }
       },
       "words": [
@@ -1264,6 +1276,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1102530,
           "timestampTo": 1131810
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 970,
+          "timestampTo": 1171
         }
       },
       "words": [
@@ -1518,6 +1534,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1131810,
           "timestampTo": 1155740
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 970,
+          "timestampTo": 1171
         }
       },
       "words": [
@@ -1787,6 +1807,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 1155740,
           "timestampTo": 1192100
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 970,
+          "timestampTo": 1171
         }
       },
       "words": [
@@ -2128,7 +2152,7 @@
           "timestampTo": 1219370
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 970,
           "timestampTo": 1171
         }
       },

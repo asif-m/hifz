@@ -50,8 +50,8 @@
           "timestampTo": 2117060
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 2024,
-          "timestampTo": 0
+          "timestampFrom": 2023,
+          "timestampTo": 2210
         }
       },
       "words": [
@@ -411,6 +411,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2117060,
           "timestampTo": 2162250
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2023,
+          "timestampTo": 2210
         }
       },
       "words": [
@@ -1085,6 +1089,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2162250,
           "timestampTo": 2176980
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2023,
+          "timestampTo": 2210
         }
       },
       "words": [
@@ -1309,6 +1317,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2176980,
           "timestampTo": 2185630
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2023,
+          "timestampTo": 2210
         }
       },
       "words": [
@@ -1443,6 +1455,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2185630,
           "timestampTo": 2202220
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2023,
+          "timestampTo": 2210
         }
       },
       "words": [
@@ -1682,6 +1698,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2202220,
           "timestampTo": 2223200
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2023,
+          "timestampTo": 2210
         }
       },
       "words": [
@@ -1951,6 +1971,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2223200,
           "timestampTo": 2248070
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2023,
+          "timestampTo": 2210
         }
       },
       "words": [
@@ -2187,7 +2211,7 @@
           "timestampTo": 2276310
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 2023,
           "timestampTo": 2210
         }
       },

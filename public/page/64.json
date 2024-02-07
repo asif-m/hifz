@@ -51,8 +51,8 @@
           "timestampTo": 2513640
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 2378,
-          "timestampTo": 0
+          "timestampFrom": 2377,
+          "timestampTo": 2539
         }
       },
       "words": [
@@ -262,6 +262,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2513640,
           "timestampTo": 2545460
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2377,
+          "timestampTo": 2539
         }
       },
       "words": [
@@ -651,6 +655,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2545460,
           "timestampTo": 2563640
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2377,
+          "timestampTo": 2539
         }
       },
       "words": [
@@ -860,6 +868,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2563640,
           "timestampTo": 2607450
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2377,
+          "timestampTo": 2539
         }
       },
       "words": [
@@ -1429,6 +1441,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2607450,
           "timestampTo": 2629550
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2377,
+          "timestampTo": 2539
         }
       },
       "words": [
@@ -1683,6 +1699,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 2629550,
           "timestampTo": 2652040
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 2377,
+          "timestampTo": 2539
         }
       },
       "words": [
@@ -1949,7 +1969,7 @@
           "timestampTo": 2666880
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 2377,
           "timestampTo": 2539
         }
       },

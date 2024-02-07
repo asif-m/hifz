@@ -49,8 +49,8 @@
           "timestampTo": 196280
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 191,
-          "timestampTo": 0
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -305,6 +305,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 196280,
           "timestampTo": 211740
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -514,6 +518,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 211740,
           "timestampTo": 237840
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -753,6 +761,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 237840,
           "timestampTo": 266440
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -1157,6 +1169,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 266440,
           "timestampTo": 282190
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -1396,6 +1412,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 282190,
           "timestampTo": 302100
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -1665,6 +1685,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 302100,
           "timestampTo": 314510
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -1814,6 +1838,10 @@
         "Mishari Rashid al-`Afasy": {
           "timestampFrom": 314510,
           "timestampTo": 337000
+        },
+        "Shaykh Samir al-Nass": {
+          "timestampFrom": 190,
+          "timestampTo": 361
         }
       },
       "words": [
@@ -2110,7 +2138,7 @@
           "timestampTo": 350580
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
+          "timestampFrom": 190,
           "timestampTo": 361
         }
       },
