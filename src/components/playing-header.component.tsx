@@ -1,12 +1,9 @@
-import { IPageData } from "~/models/page";
+import { useStore } from "~/store/store";
 import WavesurferWrapperComponent from "./wavesurfer-wrapper.component";
 
-export default function PlayingHeader(props: { pageInfo: IPageData }) {
-  const { pageInfo} = props;
-  if(!pageInfo){
-    return null;
-  }
-  const { pageNumber, rukus, rubElHizbs, hizbs, manzils, juzs }  = pageInfo;
+export default function PlayingHeader() {
+  const {pageData} = useStore();
+  console.log(pageData())
   return (
     <div style={{ width: "100%" }}>
       <div style={{
@@ -17,12 +14,12 @@ export default function PlayingHeader(props: { pageInfo: IPageData }) {
         margin: "16px",
         width: "100%"
       }}>
-        <LabelValue label={"Page"} value={pageNumber}></LabelValue>
-        <LabelValue label={"Ruku"} value={rukus.join(', ')}></LabelValue>
-        <LabelValue label={"Rub-El-Hizb"} value={rubElHizbs.join(', ')}></LabelValue>
-        <LabelValue label={"Hizb"} value={hizbs.join(', ')}></LabelValue>
-        <LabelValue label={"Manazil"} value={manzils.join(', ')}></LabelValue>
-        <LabelValue label={"Juz"} value={juzs.join(', ')}></LabelValue>
+        <LabelValue label={"Page"} value={pageData().pageNumber}></LabelValue>
+        <LabelValue label={"Ruku"} value={pageData().rukus.join(', ')}></LabelValue>
+        <LabelValue label={"Rub-El-Hizb"} value={pageData().rubElHizbs.join(', ')}></LabelValue>
+        <LabelValue label={"Hizb"} value={pageData().hizbs.join(', ')}></LabelValue>
+        <LabelValue label={"Manazil"} value={pageData().manzils.join(', ')}></LabelValue>
+        <LabelValue label={"Juz"} value={pageData().juzs.join(', ')}></LabelValue>
       </div>
       <WavesurferWrapperComponent />
     </div>

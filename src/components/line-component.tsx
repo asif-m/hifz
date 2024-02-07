@@ -7,6 +7,9 @@ import { IArabicWord, CWord } from "~/models/word";
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
     const firstWord = words[0];
+    if(!firstWord){
+        return null;
+    }
     return (
         <div>
             <Show when={CWord.isFirstWord(firstWord)}>

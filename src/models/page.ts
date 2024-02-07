@@ -1,17 +1,18 @@
 import type { IAyah, IAyahBase } from "./ayah-info-interface";
+import { IArabicWord } from "./word";
 
 export interface IPageData {
   pageNumber: number;
   manzils: Array<number>;
-  juzs:Array<number>;
-  hizbs:Array<number>;
-  rubElHizbs:Array<number>;
+  juzs: Array<number>;
+  hizbs: Array<number>;
+  rubElHizbs: Array<number>;
   rukus: Array<number>;
   chapterAndAyahRange: Array<{
-      chapterNumber: number;
-      verseFrom: number;
-      verseTo: number;
-    }>;
+    chapterNumber: number;
+    verseFrom: number;
+    verseTo: number;
+  }>;
   ayahs: Array<IAyah>;
 }
 
@@ -2457,5 +2458,19 @@ export class CPage {
       }
     }
     return 1;
+  }
+  public static getLineData(pageData: IPageData): Array<Array<IArabicWord>> {
+    const lineData: { [key in string]: Array<IArabicWord> } = {};
+    pageData.ayahs.forEach((ayahData) => {
+      ayahData.words.forEach((word) => {
+        const lineNumber = word.lineNumber;
+        if (!lineData[lineNumber]) {
+          lineData[lineNumber] = [];
+        }
+        lineData[lineNumber].push(word);
+      });
+    });
+    const res = Object.keys(lineData).map((lineNumber) => lineData[lineNumber]);
+    return res;
   }
 }
