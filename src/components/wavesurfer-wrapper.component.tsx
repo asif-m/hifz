@@ -13,22 +13,22 @@ import { colors } from "~/models/style-constants.js";
 export default function WavesurferWrapperComponent() {
   const {chapterNumber} = useStore()
   const timeStamps: Array<IReciterTimeStamp> = [
-    {
-      timestampFrom: 0,
-      timestampTo: 2,
-    },
-    {
-      timestampFrom: 3,
-      timestampTo: 4,
-    },
-    {
-      timestampFrom: 5,
-      timestampTo: 10,
-    },
-    {
-      timestampFrom: 11,
-      timestampTo: 20,
-    },
+    // {
+    //   timestampFrom: 0,
+    //   timestampTo: 2,
+    // },
+    // {
+    //   timestampFrom: 3,
+    //   timestampTo: 4,
+    // },
+    // {
+    //   timestampFrom: 5,
+    //   timestampTo: 10,
+    // },
+    // {
+    //   timestampFrom: 11,
+    //   timestampTo: 20,
+    // },
   ];
 
   
@@ -110,7 +110,7 @@ export default function WavesurferWrapperComponent() {
       ws.play()
     })
     ws.on('ready', () => {
-      ws.setTime(120)
+      ws.setTime(30)
     })
   }, [chapterNumber()]);
 
