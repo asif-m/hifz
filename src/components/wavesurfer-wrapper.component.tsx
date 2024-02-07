@@ -3,6 +3,7 @@ import { createEffect } from "solid-js";
 import WaveSurfer from "wavesurfer.js";
 import ZoomPlugin from "../../node_modules/wavesurfer.js/dist/plugins/zoom.esm.js";
 import RegionsPlugin from "../../node_modules/wavesurfer.js/dist/plugins/regions.esm.js";
+import TimelinePlugin from '../../node_modules/wavesurfer.js/dist/plugins/timeline.esm.js';
 
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
@@ -32,13 +33,55 @@ export default function WavesurferWrapperComponent() {
 
   
   createEffect(() => {
+    const bottomTimline = TimelinePlugin.create({
+      height: 20,
+      timeInterval: 1,
+      primaryLabelInterval: 1,
+      style: {
+        fontSize: '10px',
+        color: 'white',
+      },
+    })
+
     const ws = WaveSurfer.create({
       container: "#waveform",
       waveColor: colors.wave,
       progressColor: colors.waveProgress,
       //url: `/audio/Sameer Nass/1-سورة الفاتحة.mp3`,
       url: `/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile["Sameer Nass"]}`,
-      //minPxPerSec: 100,
+      minPxPerSec: 100,
+      plugins:[bottomTimline],
+      renderFunction: (channels, ctx) => {
+        const { width, height } = ctx.canvas
+        const scale = channels[0].length / width
+        const step = 10
+    
+        ctx.translate(0, height / 2)
+        ctx.strokeStyle = ctx.fillStyle
+        ctx.beginPath()
+    
+        for (let i = 0; i < width; i += step * 2) {
+          const index = Math.floor(i * scale)
+          const value = Math.abs(channels[0][index])
+          let x = i
+          let y = value * height
+    
+          ctx.moveTo(x, 0)
+          ctx.lineTo(x, y)
+          ctx.arc(x + step / 2, y, step / 2, Math.PI, 0, true)
+          ctx.lineTo(x + step, 0)
+    
+          x = x + step
+          y = -y
+          ctx.moveTo(x, 0)
+          ctx.lineTo(x, y)
+          ctx.arc(x + step / 2, y, step / 2, Math.PI, 0, false)
+          ctx.lineTo(x + step, 0)
+        }
+    
+        ctx.stroke()
+        ctx.closePath()
+      },
     });
     // Initialize the Zoom plugin
     ws.registerPlugin(
@@ -65,6 +108,9 @@ export default function WavesurferWrapperComponent() {
     });
     ws.on('interaction', () => {
       ws.play()
+    })
+    ws.on('ready', () => {
+      ws.setTime(120)
     })
   }, [chapterNumber()]);
 
