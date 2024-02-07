@@ -2,7 +2,7 @@ import { useStore } from "~/store/store";
 import WavesurferWrapperComponent from "./wavesurfer-wrapper.component";
 
 export default function PlayingHeader() {
-  const { pageData } = useStore();
+  const { pageData, pageNumber, chapterNumber, verseNumber } = useStore();
   return (
     <div style={{ width: "100%" }}>
       <div style={{
@@ -21,7 +21,7 @@ export default function PlayingHeader() {
           <div>Juz         : {pageData().juzs.join(', ')}</div>
         </div>
         <div style={{width:"95%",margin: "16px"}}>
-          <WavesurferWrapperComponent />
+          <WavesurferWrapperComponent/>
         </div>
       </div>
     </div>

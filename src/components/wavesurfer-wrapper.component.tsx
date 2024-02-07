@@ -1,5 +1,5 @@
 // @refresh reload
-import { createEffect } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import WaveSurfer from "wavesurfer.js";
 import ZoomPlugin from "../../node_modules/wavesurfer.js/dist/plugins/zoom.esm.js";
 import RegionsPlugin from "../../node_modules/wavesurfer.js/dist/plugins/regions.esm.js";
@@ -9,35 +9,41 @@ import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
-import { AudioPlayerState } from "~/models/audio-player-state.jsx";
 import AudioPlayerControlsComponent from "./audio-player-controls.jsx";
 
 export default function WavesurferWrapperComponent() {
-  const {chapterNumber, audioPlayerState} = useStore();
+  const { chapterNumber, verseNumber, audioPlayerState,pageData } = useStore();
+  const chapter = chapterNumber();
+  const verse = verseNumber();
+  const page = pageData();
+  const ayah = page.ayahs.filter((ayah)=> ayah.chapterNumber === chapter && ayah.verseNumber === verse)[0];
+  console.log({page, ayah});
+  const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
+  
+  const [timestampFrom, setTimestampFrom] = createSignal(0);
+  
   const timeStamps: Array<IReciterTimeStamp> = [
-    // {
-    //   timestampFrom: 0,
-    //   timestampTo: 2,
-    // },
-    // {
-    //   timestampFrom: 3,
-    //   timestampTo: 4,
-    // },
-    // {
-    //   timestampFrom: 5,
-    //   timestampTo: 10,
-    // },
-    // {
-    //   timestampFrom: 11,
-    //   timestampTo: 20,
-    // },
+    {
+      timestampFrom: 0,
+      timestampTo: 2,
+    },
+    {
+      timestampFrom: 3,
+      timestampTo: 4,
+    },
+    {
+      timestampFrom: 5,
+      timestampTo: 10,
+    },
+    {
+      timestampFrom: 11,
+      timestampTo: 20,
+    },
   ];
 
-  
   createEffect(() => {
-    const chapterIndex = chapterNumber()-1;
-    const audioPlayer = audioPlayerState();
-   const ws = WaveSurfer.create({
+    const chapterIndex = chapterNumber() - 1;
+    const ws = WaveSurfer.create({
       container: "#waveform",
       waveColor: colors.wave,
       progressColor: colors.waveProgress,
@@ -47,22 +53,22 @@ export default function WavesurferWrapperComponent() {
         const { width, height } = ctx.canvas
         const scale = channels[0].length / width
         const step = 10
-    
+
         ctx.translate(0, height / 2)
         ctx.strokeStyle = ctx.fillStyle
         ctx.beginPath()
-    
+
         for (let i = 0; i < width; i += step * 2) {
           const index = Math.floor(i * scale)
           const value = Math.abs(channels[0][index])
           let x = i
           let y = value * height
-    
+
           ctx.moveTo(x, 0)
           ctx.lineTo(x, y)
           ctx.arc(x + step / 2, y, step / 2, Math.PI, 0, true)
           ctx.lineTo(x + step, 0)
-    
+
           x = x + step
           y = -y
           ctx.moveTo(x, 0)
@@ -70,11 +76,19 @@ export default function WavesurferWrapperComponent() {
           ctx.arc(x + step / 2, y, step / 2, Math.PI, 0, false)
           ctx.lineTo(x + step, 0)
         }
-    
+
         ctx.stroke()
         ctx.closePath()
       },
     });
+    setWaveSurfer(ws);
+  });
+
+  createEffect(() => {
+    const ws = waveSurfer();
+    if (!ws) {
+      return;
+    }
     // Initialize the Zoom plugin
     ws.registerPlugin(
       ZoomPlugin.create({
@@ -84,6 +98,8 @@ export default function WavesurferWrapperComponent() {
         maxZoom: 100,
       })
     );
+
+    //Initialize timeline plugin.
     ws.registerPlugin(TimelinePlugin.create({
       height: 20,
       timeInterval: 1,
@@ -93,6 +109,8 @@ export default function WavesurferWrapperComponent() {
         color: 'white',
       },
     }))
+
+    //Initialize Regions plugin
     const wsRegions = ws.registerPlugin(RegionsPlugin.create());
     ws.on("decode", () => {
       // Regions
@@ -101,28 +119,30 @@ export default function WavesurferWrapperComponent() {
           start: timeStamp.timestampFrom,
           end: timeStamp.timestampTo,
           content: `${index + 1}`,
-          color: index===2? colors.waveActiveAyahRegion: colors.waveAyahRegion,
+          color: index === 2 ? colors.waveActiveAyahRegion : colors.waveAyahRegion,
           drag: false,
           resize: true,
         });
       });
-      if(audioPlayer === AudioPlayerState.playing){
-        ws.play();
-      }else{
-        ws.stop();
-      }
     });
-    ws.on('ready', () => {
-      ws.setTime(30)
-    })
+  });
+
+
+  createEffect(() => {
+    const audioPlayer = audioPlayerState();
+    const ws = waveSurfer();
+    if(!ws){
+      return;
+    }
+    ws.playPause();
   });
 
 
 
   return (
-    <div style={{width:"100%"}}>
+    <div style={{ width: "100%" }}>
       <div id="waveform"></div>
-      <AudioPlayerControlsComponent/>
+      <AudioPlayerControlsComponent />
     </div>
   );
 }
