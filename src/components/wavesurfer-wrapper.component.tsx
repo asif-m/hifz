@@ -27,7 +27,6 @@ export default function WavesurferWrapperComponent() {
     `rgba(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)}, 0.5)`;
 
   createEffect(() => {
-    console.log(`/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile["Sameer Nass"]}`)
     const ws = WaveSurfer.create({
       container: "#waveform",
       waveColor: "rgb(0, 200, 200)",

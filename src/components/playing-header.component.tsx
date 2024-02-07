@@ -3,7 +3,6 @@ import WavesurferWrapperComponent from "./wavesurfer-wrapper.component";
 
 export default function PlayingHeader() {
   const { pageData } = useStore();
-  console.log(pageData())
   return (
     <div style={{ width: "100%" }}>
       <div style={{
