@@ -30,8 +30,8 @@ export default function Reader(props: IAyahBase) {
         import(`../../public/page/${page}.json`)
         .then((res) => {
           const pageData = res.default as IPageData ;
-          setPageData(()=>pageData);
           setLineData(()=>CPage.getLineData(pageData))
+          setPageData(()=>pageData);
         })
         .catch((e) => console.error(e));
       })
@@ -51,6 +51,7 @@ export default function Reader(props: IAyahBase) {
         <div style={{overflow:"scroll"}}>
           <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
             <For each={lineData()}>{words => <LineComponent words={words} />}</For>
+            <div>{pageData().pageNumber}</div>
           </div>
         </div>
       </Container>
