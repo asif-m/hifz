@@ -20,13 +20,17 @@ export default function WavesurferWrapperComponent() {
       timestampFrom: 3,
       timestampTo: 4,
     },
+    {
+      timestampFrom: 5,
+      timestampTo: 10,
+    },
+    {
+      timestampFrom: 11,
+      timestampTo: 20,
+    },
   ];
 
-  // Give regions a random color when they are created
-  const random = (min, max) => Math.random() * (max - min) + min;
-  const randomColor = () =>
-    `rgba(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)}, 0.5)`;
-
+  
   createEffect(() => {
     const ws = WaveSurfer.create({
       container: "#waveform",
@@ -53,7 +57,7 @@ export default function WavesurferWrapperComponent() {
           start: timeStamp.timestampFrom,
           end: timeStamp.timestampTo,
           content: `${index + 1}`,
-          color: randomColor(),
+          color: index===2? colors.waveActiveAyahRegion: colors.waveAyahRegion,
           drag: false,
           resize: true,
         });
