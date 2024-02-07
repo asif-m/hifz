@@ -3,15 +3,17 @@ import { createEffect } from "solid-js";
 import WaveSurfer from "wavesurfer.js";
 import ZoomPlugin from "../../node_modules/wavesurfer.js/dist/plugins/zoom.esm.js";
 import RegionsPlugin from "../../node_modules/wavesurfer.js/dist/plugins/regions.esm.js";
-import TimelinePlugin from '../../node_modules/wavesurfer.js/dist/plugins/timeline.esm.js';
+import TimelinePlugin from "../../node_modules/wavesurfer.js/dist/plugins/timeline.esm.js";
 
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
+import { AudioPlayerState } from "~/models/audio-player-state.jsx";
+import AudioPlayerControlsComponent from "./audio-player-controls.jsx";
 
 export default function WavesurferWrapperComponent() {
-  const {chapterNumber} = useStore()
+  const {chapterNumber, audioPlayerState} = useStore();
   const timeStamps: Array<IReciterTimeStamp> = [
     // {
     //   timestampFrom: 0,
@@ -33,24 +35,14 @@ export default function WavesurferWrapperComponent() {
 
   
   createEffect(() => {
-    const bottomTimline = TimelinePlugin.create({
-      height: 20,
-      timeInterval: 1,
-      primaryLabelInterval: 1,
-      style: {
-        fontSize: '10px',
-        color: 'white',
-      },
-    })
-
-    const ws = WaveSurfer.create({
+    const chapterIndex = chapterNumber()-1;
+    const audioPlayer = audioPlayerState();
+   const ws = WaveSurfer.create({
       container: "#waveform",
       waveColor: colors.wave,
       progressColor: colors.waveProgress,
-      //url: `/audio/Sameer Nass/1-سورة الفاتحة.mp3`,
-      url: `/audio/Sameer Nass/${SURAHS_INFO[chapterNumber()-1].audioFile["Sameer Nass"]}`,
+      url: `/audio/Sameer Nass/${SURAHS_INFO[chapterIndex].audioFile["Sameer Nass"]}`,
       minPxPerSec: 100,
-      plugins:[bottomTimline],
       renderFunction: (channels, ctx) => {
         const { width, height } = ctx.canvas
         const scale = channels[0].length / width
@@ -92,6 +84,15 @@ export default function WavesurferWrapperComponent() {
         maxZoom: 100,
       })
     );
+    ws.registerPlugin(TimelinePlugin.create({
+      height: 20,
+      timeInterval: 1,
+      primaryLabelInterval: 1,
+      style: {
+        fontSize: '10px',
+        color: 'white',
+      },
+    }))
     const wsRegions = ws.registerPlugin(RegionsPlugin.create());
     ws.on("decode", () => {
       // Regions
@@ -105,18 +106,23 @@ export default function WavesurferWrapperComponent() {
           resize: true,
         });
       });
+      if(audioPlayer === AudioPlayerState.playing){
+        ws.play();
+      }else{
+        ws.stop();
+      }
     });
-    ws.on('interaction', () => {
-      ws.play()
-    })
     ws.on('ready', () => {
       ws.setTime(30)
     })
-  }, [chapterNumber()]);
+  });
+
+
 
   return (
-    <div style={{width:"100%"}} id="waveform">
-      
+    <div style={{width:"100%"}}>
+      <div id="waveform"></div>
+      <AudioPlayerControlsComponent/>
     </div>
   );
 }
