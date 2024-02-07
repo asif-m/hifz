@@ -19,35 +19,35 @@ export default function WavesurferWrapperComponent() {
   const ayah = page.ayahs.filter((ayah)=> ayah.chapterNumber === chapter && ayah.verseNumber === verse)[0];
   console.log({page, ayah});
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
+  const [wsRegions, setWsRegions] = createSignal<any>();
   
   const [timestampFrom, setTimestampFrom] = createSignal(0);
   
   const timeStamps: Array<IReciterTimeStamp> = [
-    {
-      timestampFrom: 0,
-      timestampTo: 2,
-    },
-    {
-      timestampFrom: 3,
-      timestampTo: 4,
-    },
-    {
-      timestampFrom: 5,
-      timestampTo: 10,
-    },
-    {
-      timestampFrom: 11,
-      timestampTo: 20,
-    },
+    // {
+    //   timestampFrom: 0,
+    //   timestampTo: 2,
+    // },
+    // {
+    //   timestampFrom: 3,
+    //   timestampTo: 4,
+    // },
+    // {
+    //   timestampFrom: 5,
+    //   timestampTo: 10,
+    // },
+    // {
+    //   timestampFrom: 11,
+    //   timestampTo: 20,
+    // },
   ];
 
   createEffect(() => {
-    const chapterIndex = chapterNumber() - 1;
     const ws = WaveSurfer.create({
       container: "#waveform",
       waveColor: colors.wave,
       progressColor: colors.waveProgress,
-      url: `/audio/Sameer Nass/${SURAHS_INFO[chapterIndex].audioFile["Sameer Nass"]}`,
+      url: `/audio/Sameer Nass/${SURAHS_INFO[0].audioFile["Sameer Nass"]}`,
       minPxPerSec: 100,
       renderFunction: (channels, ctx) => {
         const { width, height } = ctx.canvas
@@ -81,14 +81,6 @@ export default function WavesurferWrapperComponent() {
         ctx.closePath()
       },
     });
-    setWaveSurfer(ws);
-  });
-
-  createEffect(() => {
-    const ws = waveSurfer();
-    if (!ws) {
-      return;
-    }
     // Initialize the Zoom plugin
     ws.registerPlugin(
       ZoomPlugin.create({
@@ -112,10 +104,33 @@ export default function WavesurferWrapperComponent() {
 
     //Initialize Regions plugin
     const wsRegions = ws.registerPlugin(RegionsPlugin.create());
+
+    setWaveSurfer(ws);
+    setWsRegions(wsRegions);
+    
+  });
+
+  createEffect(() => {
+    const chapterIndex = chapterNumber() - 1;
+    const ws = waveSurfer();
+    if (!ws || chapterIndex===-1) {
+      return;
+    }
+    ws.load(`/audio/Sameer Nass/${SURAHS_INFO[chapterIndex].audioFile["Sameer Nass"]}`)
+  });
+
+  createEffect(() => {
+    const ws = waveSurfer();
+    const regions = wsRegions();
+
+    if (!ws || !regions) {
+      return;
+    }
     ws.on("decode", () => {
       // Regions
+      regions.clearRegions();
       timeStamps.forEach((timeStamp, index) => {
-        wsRegions.addRegion({
+        regions.addRegion({
           start: timeStamp.timestampFrom,
           end: timeStamp.timestampTo,
           content: `${index + 1}`,
