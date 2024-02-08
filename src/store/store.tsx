@@ -8,12 +8,13 @@ import { AudioPlayerState } from "~/models/audio-player-state";
 const StoreContext = createContext();
 
 export interface IStoreData {
-    verseNumber: number,
-    chapterNumber: number,
+    verseNumber: number;
+    chapterNumber: number;
     pageNumber: number;
-    pageData: IPageData,
-    lineData:Array<Array<IArabicWord>>,
-    audioPlayerState: AudioPlayerState,
+    pageData: IPageData;
+    lineData:Array<Array<IArabicWord>>;
+    audioStartTime:number;
+    audioPlayerState: AudioPlayerState;
 }
 
 export function getInitialStoreData(): IStoreData {
@@ -32,6 +33,7 @@ export function getInitialStoreData(): IStoreData {
             ayahs: []
         },
         lineData:[[]],
+        audioStartTime:0,
         audioPlayerState: AudioPlayerState.stopped
     }
 }
@@ -47,6 +49,8 @@ export interface IStoreUseContextData {
     setPageData: Setter<IPageData>
     lineData: Accessor<Array<Array<IArabicWord>>>
     setLineData:Setter<Array<Array<IArabicWord>>>
+    audioStartTime: Accessor<number >
+    setAudioStartTime: Setter<number>
     audioPlayerState: Accessor<AudioPlayerState >
     setAudioPlayerState: Setter<AudioPlayerState>
 }
@@ -58,6 +62,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [pageNumber, setPageNumber] = createSignal(props.pageNumber);
     const [pageData, setPageData] = createSignal(props.pageData);
     const [lineData, setLineData] = createSignal(props.lineData);
+    const [audioStartTime, setAudioStartTime] = createSignal(props.audioStartTime);
     const [audioPlayerState, setAudioPlayerState] = createSignal(props.audioPlayerState);
 
     const value = {
@@ -71,8 +76,10 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         setPageData,
         lineData,
         setLineData,
+        audioStartTime,
+        setAudioStartTime,
         audioPlayerState,
-        setAudioPlayerState
+        setAudioPlayerState,
     };
 
     return (
