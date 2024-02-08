@@ -152,7 +152,7 @@ export default function WavesurferWrapperComponent() {
       return;
     }
     ws.on('loading', (percent) => {
-      //console.log('Loading', percent + '%')
+      console.log('Loading', percent + '%')
     })
     
     /** When the audio has been decoded */

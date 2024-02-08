@@ -10,4 +10,4 @@ export const colors={
 
 export const pageWidth= "1000px";
 
-export const headerHeight = 300;
+export const headerHeight = 225;

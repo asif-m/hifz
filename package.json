@@ -8,17 +8,17 @@
   },
   "dependencies": {
     "@fontsource/fira-mono": "^5.0.8",
-    "@solidjs/router": "^0.11.2",
+    "@solidjs/router": "^0.11.5",
     "@solidjs/start": "^0.4.11",
     "@suid/icons-material": "^0.6.11",
     "@suid/material": "^0.15.1",
     "@suid/vite-plugin": "^0.1.5",
-    "solid-js": "^1.8.12",
+    "solid-js": "^1.8.14",
     "typescript": "^5.3.3",
     "vinxi": "^0.1.10",
     "vite": "^5.0.12",
     "vite-plugin-solid": "^2.9.1",
-    "wavesurfer.js": "^7.7.1"
+    "wavesurfer.js": "^7.7.2"
   },
   "engines": {
     "node": ">=18"

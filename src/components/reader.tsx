@@ -8,6 +8,7 @@ import {
   Box, Toolbar, Container
 } from "@suid/material";
 import { CPage, IPageData } from "~/models/page";
+import { headerHeight } from "~/models/style-constants";
 export default function Reader(props: IAyahBase) {
   const {chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber,setPageNumber, pageData, setPageData,setAudioStartTime, lineData, setLineData } = useStore();
   createEffect(() => {
@@ -58,6 +59,7 @@ export default function Reader(props: IAyahBase) {
           </Toolbar>
         </AppBar>
       </Box>
+      <div style={{"padding-top":`${headerHeight}px`}}>
       <Container>
         <div style={{overflow:"scroll"}}>
           <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
@@ -66,6 +68,7 @@ export default function Reader(props: IAyahBase) {
           </div>
         </div>
       </Container>
+      </div>
     </div>
   );
 }
