@@ -39,7 +39,7 @@ export default function WavesurferWrapperComponent() {
       container: "#waveform",
       waveColor: colors.wave,
       progressColor: colors.waveProgress,
-      url: `/audio/Sameer Nass/${SURAHS_INFO[0].audioFile["Sameer Nass"]}`,
+      url: `/audio/Sameer Nass/dummy.webm`,
       minPxPerSec: 100,
       renderFunction: (channels, ctx) => {
         const { width, height } = ctx.canvas
@@ -119,6 +119,8 @@ export default function WavesurferWrapperComponent() {
       return;
     }
     ws.on("decode", () => {
+      const decode = ws.getDecodedData()
+      console.log({decode  });
       // Regions
       regions.clearRegions();
       timeStamps.forEach((timeStamp, index) => {
