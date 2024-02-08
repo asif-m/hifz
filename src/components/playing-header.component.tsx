@@ -1,5 +1,6 @@
 import { useStore } from "~/store/store";
 import WavesurferWrapperComponent from "./wavesurfer-wrapper.component";
+import AudioPlayerControlsComponent from "./audio-player-controls";
 
 export default function PlayingHeader() {
   const { pageData, pageNumber, chapterNumber, verseNumber } = useStore();
@@ -19,6 +20,7 @@ export default function PlayingHeader() {
           <div>Hizb        : {pageData().hizbs.join(', ')}</div>
           <div>Manzil      : {pageData().manzils.join(', ')}</div>
           <div>Juz         : {pageData().juzs.join(', ')}</div>
+          <AudioPlayerControlsComponent />
         </div>
         <div style={{width:"95%",margin: "16px"}}>
           <WavesurferWrapperComponent/>

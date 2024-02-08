@@ -157,7 +157,6 @@ export default function WavesurferWrapperComponent() {
   return (
     <div style={{ width: "100%" }}>
       <div id="waveform"></div>
-      <AudioPlayerControlsComponent />
     </div>
   );
 }
