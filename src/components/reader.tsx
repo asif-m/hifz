@@ -9,7 +9,7 @@ import {
 } from "@suid/material";
 import { CPage, IPageData } from "~/models/page";
 export default function Reader(props: IAyahBase) {
-  const {chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber,setPageNumber, pageData, setPageData, lineData, setLineData } = useStore();
+  const {chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber,setPageNumber, pageData, setPageData,setAudioStartTime, lineData, setLineData } = useStore();
   createEffect(() => {
     batch(() => {
       setVerseNumber(()=> props.verseNumber);
@@ -35,6 +35,17 @@ export default function Reader(props: IAyahBase) {
         })
         .catch((e) => console.error(e));
       })
+    }
+  })
+
+  createEffect(() => {
+    const pageInfo = pageData();
+    const chapter = chapterNumber();
+    const verse = verseNumber();
+    if(pageInfo){
+     const currentAyah = pageInfo?.ayahs?.filter((ayah)=> ayah.chapterNumber === chapter && ayah.verseNumber == verse)[0];
+     const timeStampFrom = currentAyah?.reciterTimestamps?.["Shaykh Samir al-Nass"]?.timestampFrom || 0
+     setAudioStartTime(()=>timeStampFrom)
     }
   })
 

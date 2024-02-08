@@ -9,20 +9,12 @@ import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
-import AudioPlayerControlsComponent from "./audio-player-controls.jsx";
 
 export default function WavesurferWrapperComponent() {
-  const { chapterNumber, verseNumber, audioPlayerState,pageData } = useStore();
-  const chapter = chapterNumber();
-  const verse = verseNumber();
-  const page = pageData();
-  const ayah = page.ayahs.filter((ayah)=> ayah.chapterNumber === chapter && ayah.verseNumber === verse)[0];
-  console.log({page, ayah});
+  const { chapterNumber,audioStartTime ,audioPlayerState } = useStore();
+
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
   const [wsRegions, setWsRegions] = createSignal<any>();
-  
-  const [timestampFrom, setTimestampFrom] = createSignal(0);
-  
   const timeStamps: Array<IReciterTimeStamp> = [
     // {
     //   timestampFrom: 0,
@@ -151,6 +143,67 @@ export default function WavesurferWrapperComponent() {
     }
     ws.playPause();
   });
+
+  
+
+  createEffect(()=>{
+    const ws = waveSurfer();
+    if(!ws){
+      return;
+    }
+    ws.on('loading', (percent) => {
+      //console.log('Loading', percent + '%')
+    })
+    
+    /** When the audio has been decoded */
+    ws.on('decode', (duration) => {
+      console.log('Decode', duration + 's')
+    })
+    
+    /** When the audio is both decoded and can play */
+    ws.on('ready', (duration) => {
+      const startTime = audioStartTime();
+      console.log({startTime});
+      ws.setTime(startTime);
+      console.log('Ready', duration + 's')
+    })
+    
+    /** When visible waveform is drawn */
+    ws.on('redrawcomplete', () => {
+      console.log('Redraw began')
+    })
+    
+    /** When all audio channel chunks of the waveform have drawn */
+    ws.on('redrawcomplete', () => {
+      console.log('Redraw complete')
+    })
+    
+    /** When the audio starts playing */
+    ws.on('play', () => {
+      console.log('Play')
+    })
+    
+    /** When the audio pauses */
+    ws.on('pause', () => {
+      console.log('Pause')
+    })
+    
+    /** When the audio finishes playing */
+    ws.on('finish', () => {
+      console.log('Finish')
+    })
+    
+    /** On audio position change, fires continuously during playback */
+    ws.on('timeupdate', (currentTime) => {
+      //console.log('Time', currentTime + 's')
+    })
+    
+    /** When the user seeks to a new position */
+    ws.on('seeking', (currentTime) => {
+      console.log('Seeking', currentTime + 's')
+    })
+    
+  })
 
 
 
