@@ -39,7 +39,7 @@ export default function WavesurferWrapperComponent() {
       container: "#waveform",
       waveColor: colors.wave,
       progressColor: colors.waveProgress,
-      url: `/audio/Sameer Nass/dummy.webm`,
+      //url: `/audio/Sameer Nass/dummy.webm`,
       minPxPerSec: 100,
       renderFunction: (channels, ctx) => {
         const { width, height } = ctx.canvas
