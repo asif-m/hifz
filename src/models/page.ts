@@ -1,6 +1,12 @@
 import type { IAyah, IAyahBase } from "./ayah-info-interface";
 import { IArabicWord } from "./word";
 
+export interface IChapterAndAyahRange{
+  chapterNumber: number;
+  verseFrom: number;
+  verseTo: number;
+}
+
 export interface IPageData {
   pageNumber: number;
   manzils: Array<number>;
@@ -8,11 +14,7 @@ export interface IPageData {
   hizbs: Array<number>;
   rubElHizbs: Array<number>;
   rukus: Array<number>;
-  chapterAndAyahRange: Array<{
-    chapterNumber: number;
-    verseFrom: number;
-    verseTo: number;
-  }>;
+  chapterAndAyahRange: Array<IChapterAndAyahRange>;
   ayahs: Array<IAyah>;
 }
 
