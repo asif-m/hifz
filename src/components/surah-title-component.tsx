@@ -6,6 +6,7 @@ import { colors } from "~/models/style-constants";
 export default function SurahTitleComponent(props: { word: IArabicWord }) {
     const { word } = props;
     const { chapterNumber } = word;
+
     return (
         <div style={{
             "width": "100%",
@@ -25,7 +26,7 @@ export default function SurahTitleComponent(props: { word: IArabicWord }) {
                         "font-family": "UthmanicHafs",
                         "font-size": "4.0vh",
                     }}>
-                        {`${SURAHS_INFO[chapterNumber - 1].arabicName} ${(chapterNumber).toLocaleString('ar-EG')}`} 
+                        {`${SURAHS_INFO[chapterNumber - 1].arabicName} ${(chapterNumber).toLocaleString('ar-EG')}`}
                     </div>
                     <div></div>
                 </div>

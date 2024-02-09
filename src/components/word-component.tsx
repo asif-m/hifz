@@ -14,7 +14,7 @@ export default function WordComponent(props: { word: IArabicWord }) {
     return (
         <div style={{ display: "flex", "flex-direction": "column", "align-items": "center", margin: "4px" }}
         >
-            <ScrollComponent word={word} shouldScroll={!CWord.isFirstWord(word)}/>
+            <ScrollComponent word={word} shouldScroll={!CWord.isFirstWord(word)} />
             <div style={{
                 "color": isCurrentVerse() ? "rgb(44, 164, 171)" : "",
                 "font-family": "UthmanicHafs",

@@ -8,29 +8,28 @@ import { pageWidth } from "~/models/style-constants";
 export default function LineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
     const firstWord = words[0];
-    if(!firstWord){
-        return null;
-    }
+
     return (
         <div>
-            <Show when={CWord.isFirstWord(firstWord)}>
-                <SurahTitleComponent word={firstWord} />
-            </Show>
-            <Show when={CWord.shouldDisplayBismillah(firstWord)}>
-                <BismiComponent />
-            </Show>
+            <Show when={firstWord}>
+                <Show when={CWord.isFirstWord(firstWord)}>
+                    <SurahTitleComponent word={firstWord} />
+                </Show>
+                <Show when={CWord.shouldDisplayBismillah(firstWord)}>
+                    <BismiComponent />
+                </Show>
 
-            <div style={{
-                display: "flex",
-                "flex-direction": "row-reverse",
-                "align-content": "center",
-                "justify-content": "space-around",
-                "width": pageWidth,
-                "min-width": pageWidth
-            }}>
-                <For each={words}>{word => <WordComponent word={word} />}</For>
-            </div>
+                <div style={{
+                    display: "flex",
+                    "flex-direction": "row-reverse",
+                    "align-content": "center",
+                    "justify-content": "space-around",
+                    "width": pageWidth,
+                    "min-width": pageWidth
+                }}>
+                    <For each={words}>{word => <WordComponent word={word} />}</For>
+                </div>
+            </Show>
         </div>
-
     )
 }

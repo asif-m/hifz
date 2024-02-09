@@ -12,8 +12,9 @@ export interface IStoreData {
     chapterNumber: number;
     pageNumber: number;
     pageData: IPageData;
-    lineData:Array<Array<IArabicWord>>;
-    audioStartTime:number;
+    lineData: Array<Array<IArabicWord>>;
+    audioStartTime: number;
+    audioLoaded: boolean;
     audioPlayerState: AudioPlayerState;
 }
 
@@ -21,7 +22,7 @@ export function getInitialStoreData(): IStoreData {
     return {
         verseNumber: 0,
         chapterNumber: 0,
-        pageNumber:0,
+        pageNumber: 0,
         pageData: {
             pageNumber: 0,
             manzils: [],
@@ -32,8 +33,9 @@ export function getInitialStoreData(): IStoreData {
             chapterAndAyahRange: [],
             ayahs: []
         },
-        lineData:[[]],
-        audioStartTime:0,
+        lineData: [[]],
+        audioStartTime: 0,
+        audioLoaded: false,
         audioPlayerState: AudioPlayerState.stopped
     }
 }
@@ -45,13 +47,15 @@ export interface IStoreUseContextData {
     setChapterNumber: Setter<number>
     pageNumber: Accessor<number>
     setPageNumber: Setter<number>
-    pageData: Accessor<IPageData >
+    pageData: Accessor<IPageData>
     setPageData: Setter<IPageData>
     lineData: Accessor<Array<Array<IArabicWord>>>
-    setLineData:Setter<Array<Array<IArabicWord>>>
-    audioStartTime: Accessor<number >
+    setLineData: Setter<Array<Array<IArabicWord>>>
+    audioStartTime: Accessor<number>
     setAudioStartTime: Setter<number>
-    audioPlayerState: Accessor<AudioPlayerState >
+    audioLoaded: Accessor<boolean>
+    setAudioLoaded: Setter<boolean>
+    audioPlayerState: Accessor<AudioPlayerState>
     setAudioPlayerState: Setter<AudioPlayerState>
 }
 
@@ -63,6 +67,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [pageData, setPageData] = createSignal(props.pageData);
     const [lineData, setLineData] = createSignal(props.lineData);
     const [audioStartTime, setAudioStartTime] = createSignal(props.audioStartTime);
+    const [audioLoaded, setAudioLoaded] = createSignal(props.audioLoaded);
     const [audioPlayerState, setAudioPlayerState] = createSignal(props.audioPlayerState);
 
     const value = {
@@ -80,6 +85,8 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         setAudioStartTime,
         audioPlayerState,
         setAudioPlayerState,
+        audioLoaded,
+        setAudioLoaded
     };
 
     return (

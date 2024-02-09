@@ -3,7 +3,8 @@ import WavesurferWrapperComponent from "./wavesurfer-wrapper.component";
 import AudioPlayerControlsComponent from "./audio-player-controls";
 
 export default function PlayingHeader() {
-  const { pageData, pageNumber, chapterNumber, verseNumber } = useStore();
+  const { pageData } = useStore();
+
   return (
     <div style={{ width: "100%" }}>
       <div style={{
@@ -13,7 +14,7 @@ export default function PlayingHeader() {
         "justify-content": "space-between",
         margin: "16px"
       }}>
-        <div style={{"min-width":"150px", width:"5%"}}>
+        <div style={{ "min-width": "150px", width: "5%" }}>
           <div>Page        : {pageData().pageNumber}</div>
           <div>Ruku        : {pageData().rukus.join(', ')}</div>
           <div>Rub-El-Hizb : {pageData().rubElHizbs.join(', ')}</div>
@@ -22,8 +23,8 @@ export default function PlayingHeader() {
           <div>Juz         : {pageData().juzs.join(', ')}</div>
           <AudioPlayerControlsComponent />
         </div>
-        <div style={{width:"95%",margin: "16px"}}>
-          <WavesurferWrapperComponent/>
+        <div style={{ width: "95%", margin: "16px" }}>
+          <WavesurferWrapperComponent />
         </div>
       </div>
     </div>

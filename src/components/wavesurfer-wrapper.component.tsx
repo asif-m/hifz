@@ -1,5 +1,6 @@
 // @refresh reload
-import { createEffect, createSignal } from "solid-js";
+import { Show, createEffect, createSignal } from "solid-js";
+import { CircularProgress } from "@suid/material";
 import WaveSurfer from "wavesurfer.js";
 import ZoomPlugin from "../../node_modules/wavesurfer.js/dist/plugins/zoom.esm.js";
 import RegionsPlugin from "../../node_modules/wavesurfer.js/dist/plugins/regions.esm.js";
@@ -11,7 +12,7 @@ import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
 
 export default function WavesurferWrapperComponent() {
-  const { chapterNumber,audioStartTime ,audioPlayerState } = useStore();
+  const { chapterNumber, audioStartTime, audioPlayerState, audioLoaded, setAudioLoaded } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
   const [wsRegions, setWsRegions] = createSignal<any>();
@@ -73,6 +74,7 @@ export default function WavesurferWrapperComponent() {
         ctx.closePath()
       },
     });
+
     // Initialize the Zoom plugin
     ws.registerPlugin(
       ZoomPlugin.create({
@@ -99,15 +101,16 @@ export default function WavesurferWrapperComponent() {
 
     setWaveSurfer(ws);
     setWsRegions(wsRegions);
-    
+
   });
 
   createEffect(() => {
     const chapterIndex = chapterNumber() - 1;
     const ws = waveSurfer();
-    if (!ws || chapterIndex===-1) {
+    if (!ws || chapterIndex === -1) {
       return;
     }
+    setAudioLoaded(() => false)
     ws.load(`/audio/Sameer Nass/${SURAHS_INFO[chapterIndex].audioFile["Sameer Nass"]}`)
   });
 
@@ -120,7 +123,7 @@ export default function WavesurferWrapperComponent() {
     }
     ws.on("decode", () => {
       const decode = ws.getDecodedData()
-      console.log({decode  });
+      console.log({ decode });
       // Regions
       regions.clearRegions();
       timeStamps.forEach((timeStamp, index) => {
@@ -138,79 +141,85 @@ export default function WavesurferWrapperComponent() {
 
 
   createEffect(() => {
+    //Note : Do not delete this local variable. 
+    //Here we have to toggle the player based on this signal
     const audioPlayer = audioPlayerState();
     const ws = waveSurfer();
-    if(!ws){
+    if (!ws) {
       return;
     }
     ws.playPause();
   });
 
-  
 
-  createEffect(()=>{
+
+  createEffect(() => {
     const ws = waveSurfer();
-    if(!ws){
+    if (!ws) {
       return;
     }
     ws.on('loading', (percent) => {
       //console.log('Loading', percent + '%')
     })
-    
+
     /** When the audio has been decoded */
     ws.on('decode', (duration) => {
+      setAudioLoaded(() => true);
       console.log('Decode', duration + 's')
     })
-    
+
     /** When the audio is both decoded and can play */
     ws.on('ready', (duration) => {
       const startTime = audioStartTime();
-      console.log({startTime});
+      console.log({ startTime });
       ws.setTime(startTime);
       console.log('Ready', duration + 's')
     })
-    
+
     /** When visible waveform is drawn */
     ws.on('redraw', () => {
       console.log('Redraw began')
     })
-    
+
     /** When all audio channel chunks of the waveform have drawn */
     ws.on('redrawcomplete', () => {
       console.log('Redraw complete')
     })
-    
+
     /** When the audio starts playing */
     ws.on('play', () => {
       console.log('Play')
     })
-    
+
     /** When the audio pauses */
     ws.on('pause', () => {
       console.log('Pause')
     })
-    
+
     /** When the audio finishes playing */
     ws.on('finish', () => {
       console.log('Finish')
     })
-    
+
     /** On audio position change, fires continuously during playback */
     ws.on('timeupdate', (currentTime) => {
       //console.log('Time', currentTime + 's')
     })
-    
+
     /** When the user seeks to a new position */
     ws.on('seeking', (currentTime) => {
       console.log('Seeking', currentTime + 's')
     })
-    
+
   })
 
 
 
   return (
     <div style={{ width: "100%" }}>
+      <Show when={!audioLoaded()}>
+        <CircularProgress color="success" />
+      </Show>
       <div id="waveform"></div>
     </div>
   );
