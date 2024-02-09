@@ -12,7 +12,7 @@ import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
 
 export default function WavesurferWrapperComponent() {
-  const { chapterNumber, audioStartTime, audioPlayerState, audioLoaded, setAudioLoaded } = useStore();
+  const { chapterNumber, audioStartTime, setAudioCurrentTime,audioPlayerState, audioLoaded, setAudioLoaded } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
   const [wsRegions, setWsRegions] = createSignal<any>();
@@ -203,6 +203,7 @@ export default function WavesurferWrapperComponent() {
 
     /** On audio position change, fires continuously during playback */
     ws.on('timeupdate', (currentTime) => {
+      setAudioCurrentTime(()=>currentTime)
       //console.log('Time', currentTime + 's')
     })
 

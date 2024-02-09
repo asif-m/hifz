@@ -14,6 +14,7 @@ export interface IStoreData {
     pageData: IPageData;
     lineData: Array<Array<IArabicWord>>;
     audioStartTime: number;
+    audioCurrentTime: number;
     audioLoaded: boolean;
     audioPlayerState: AudioPlayerState;
 }
@@ -35,6 +36,7 @@ export function getInitialStoreData(): IStoreData {
         },
         lineData: [[]],
         audioStartTime: 0,
+        audioCurrentTime:0,
         audioLoaded: false,
         audioPlayerState: AudioPlayerState.stopped
     }
@@ -53,6 +55,8 @@ export interface IStoreUseContextData {
     setLineData: Setter<Array<Array<IArabicWord>>>
     audioStartTime: Accessor<number>
     setAudioStartTime: Setter<number>
+    audioCurrentTime: Accessor<number>
+    setAudioCurrentTime: Setter<number>
     audioLoaded: Accessor<boolean>
     setAudioLoaded: Setter<boolean>
     audioPlayerState: Accessor<AudioPlayerState>
@@ -67,6 +71,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [pageData, setPageData] = createSignal(props.pageData);
     const [lineData, setLineData] = createSignal(props.lineData);
     const [audioStartTime, setAudioStartTime] = createSignal(props.audioStartTime);
+    const [audioCurrentTime, setAudioCurrentTime] = createSignal(props.audioCurrentTime);
     const [audioLoaded, setAudioLoaded] = createSignal(props.audioLoaded);
     const [audioPlayerState, setAudioPlayerState] = createSignal(props.audioPlayerState);
 
@@ -84,6 +89,8 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         audioStartTime,
         setAudioStartTime,
         audioPlayerState,
+        audioCurrentTime, 
+        setAudioCurrentTime,
         setAudioPlayerState,
         audioLoaded,
         setAudioLoaded

@@ -1,6 +1,8 @@
 import { For, createEffect, createSignal } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
+import { IconButton } from "@suid/material";
+import Save from "@suid/icons-material/Save";
 
 interface IAyahDataInLocalStorageIndividual { chapterNumber: number, verseNumber: number, timestampFrom: number, timestampTo: number }
 interface IAyahDataInLocalStorage {
@@ -8,7 +10,7 @@ interface IAyahDataInLocalStorage {
     data: {[key in number]:{[key in number]:IAyahDataInLocalStorageIndividual}}
 }
 export default function AyahTrackerComponent() {
-    const { pageData } = useStore();
+    const { pageData,audioCurrentTime } = useStore();
     const key = `sameer-nass-audio-data`;
     const [allAudioTimeStamps, setAllAudioTimeStamps] = createSignal<IAyahDataInLocalStorage>({updatedAt: new Date(), data:{}});
     const [pageAudioTimeStamps, setPageAudioTimeStamps] = createSignal<Array<IAyahDataInLocalStorageIndividual>>([]);
@@ -61,9 +63,16 @@ export default function AyahTrackerComponent() {
     function save(data: IAyahDataInLocalStorage){
         CLocalStorageHelper.update(key, data);
     }
+    function onSave(){
+        
+    }
 
     return (<div>
+        <div>{audioCurrentTime()}</div>
         <For each={pageAudioTimeStamps()}>{ayah =>
             <div>{`${ayah.chapterNumber}:${ayah.verseNumber}  (${ayah.timestampFrom}-${ayah.timestampTo})`}</div>}</For>
+            <IconButton aria-label="stop" onclick={() => onSave()}>
+                        <Save />
+                    </IconButton>
     </div>)
 }
