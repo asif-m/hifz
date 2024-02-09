@@ -1,7 +1,7 @@
 import { colors } from "~/models/style-constants";
 
 export default function BismiComponent() {
-    
+
     return (
         <div style={{
             display: "flex",

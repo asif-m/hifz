@@ -6,8 +6,8 @@ import { IChapterAndAyahRange } from "~/models/page";
 export default function PlayingHeader() {
   const { pageData } = useStore();
 
-  function getSurahAyah(chapterAndAyahs:Array<IChapterAndAyahRange>){
-    return chapterAndAyahs.map((c)=>`${c.chapterNumber}:${c.verseFrom}-${c.verseTo}`)
+  function getSurahAyah(chapterAndAyahs: Array<IChapterAndAyahRange>) {
+    return chapterAndAyahs.map((c) => `${c.chapterNumber}:${c.verseFrom}-${c.verseTo}`)
   }
 
 

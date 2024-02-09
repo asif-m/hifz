@@ -64,14 +64,14 @@ export default function Reader(props: IAyahBase) {
       <div style={{ "padding-top": `${headerHeight}px` }}>
         <Container>
           <div style={{ overflow: "scroll" }}>
-            <div style={{display:"flex", "flex-direction": "row"}}>
-            <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
-              <For each={lineData()}>{words => <LineComponent words={words} />}</For>
-              <div>{pageData().pageNumber}</div>
-            </div>
-            <div style={{width:"20%"}}>
-              <AyahTrackerComponent/>
-            </div>
+            <div style={{ display: "flex", "flex-direction": "row" }}>
+              <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
+                <For each={lineData()}>{words => <LineComponent words={words} />}</For>
+                <div>{pageData().pageNumber}</div>
+              </div>
+              <div style={{ width: "20%" }}>
+                <AyahTrackerComponent />
+              </div>
             </div>
           </div>
         </Container>
