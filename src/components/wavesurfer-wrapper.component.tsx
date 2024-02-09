@@ -218,7 +218,9 @@ export default function WavesurferWrapperComponent() {
   return (
     <div style={{ width: "100%" }}>
       <Show when={!audioLoaded()}>
-        <CircularProgress color="success" />
+        <div style={{ display: "flex", "justify-content": "center" }}>
+          <CircularProgress color="success" />
+        </div>
       </Show>
       <div id="waveform"></div>
     </div>
