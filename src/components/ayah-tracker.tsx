@@ -24,6 +24,7 @@ export default function AyahTrackerComponent() {
 
     createEffect(() => {
         const pageInfo = pageData();
+        const chapter = chapterNumber();
         const aTS = allAudioTimeStamps();
         if (!pageInfo) {
             return;
@@ -49,12 +50,14 @@ export default function AyahTrackerComponent() {
                     timestampTo
                 }
             }
-            initialData.push({
-                chapterNumber: ayah.chapterNumber,
-                verseNumber: ayah.verseNumber,
-                timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom,
-                timestampTo: aTS.data[chapterNumber][verseNumber].timestampTo,
-            })
+            if (chapter === ayah.chapterNumber) {
+                initialData.push({
+                    chapterNumber: ayah.chapterNumber,
+                    verseNumber: ayah.verseNumber,
+                    timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom,
+                    timestampTo: aTS.data[chapterNumber][verseNumber].timestampTo,
+                })
+            }
         });
         setPageAudioTimeStamps(() => initialData);
         if (hasModifications) {
@@ -100,19 +103,19 @@ export default function AyahTrackerComponent() {
 
     }
 
-    function setTimestampFrom(index:number, value:number){
-        setPageAudioTimeStamps((prev)=>prev.map((p, i)=> i===index? ({...p,timestampFrom:value}): p))
+    function setTimestampFrom(index: number, value: number) {
+        setPageAudioTimeStamps((prev) => prev.map((p, i) => i === index ? ({ ...p, timestampFrom: value }) : p))
     }
-    function setTimestampTo(index:number, value:number){
-        setPageAudioTimeStamps((prev)=>prev.map((p, i)=> i===index? ({...p,timestampTo:value}): p))
+    function setTimestampTo(index: number, value: number) {
+        setPageAudioTimeStamps((prev) => prev.map((p, i) => i === index ? ({ ...p, timestampTo: value }) : p))
     }
 
     return (<div>
         <div>{audioCurrentTime()}</div>
         <For each={pageAudioTimeStamps()}>
-            {(ayah, index) =><AyahPlayTrackEditComponent 
-            ayah={{...ayah, index:index(), setTimestampFrom,setTimestampTo}} 
-            highlight={index() === captureIndex()}/>}</For>
+            {(ayah, index) => <AyahPlayTrackEditComponent
+                ayah={{ ...ayah, index: index(), setTimestampFrom, setTimestampTo }}
+                highlight={index() === captureIndex()} />}</For>
         <IconButton aria-label="stop" onclick={() => onSave()}>
             <Save />
         </IconButton>
