@@ -1,7 +1,7 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
 import PlayingHeader from "./playing-header.component";
 import { useStore } from "~/store/store";
-import { createEffect, batch, For } from "solid-js";
+import { createEffect, batch, For, onCleanup } from "solid-js";
 import LineComponent from "./line-component";
 import {
   AppBar,
@@ -11,7 +11,7 @@ import { CPage, IPageData } from "~/models/page";
 import { headerHeight } from "~/models/style-constants";
 import AyahTrackerComponent from "./ayah-tracker";
 export default function Reader(props: IAyahBase) {
-  const { chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber, setPageNumber, pageData, setPageData, setAudioStartTime, lineData, setLineData } = useStore();
+  const { chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber, setPageNumber, pageData, setPageData, setAudioStartTime, lineData, setLineData,setPressedKey } = useStore();
 
   createEffect(() => {
     batch(() => {
@@ -51,6 +51,25 @@ export default function Reader(props: IAyahBase) {
       setAudioStartTime(() => timeStampFrom)
     }
   })
+
+  const handleKeyDown = (event) => {
+    setPressedKey(event.code);
+  };
+
+  // Event handler for keyup
+  const handleKeyUp = () => {
+    setPressedKey("");
+  };
+
+  // Attach event listeners to the window object
+  window.addEventListener("keydown", handleKeyDown);
+  window.addEventListener("keyup", handleKeyUp);
+
+  // Cleanup function to remove event listeners when the component is unmounted
+  onCleanup(() => {
+    window.removeEventListener("keydown", handleKeyDown);
+    window.removeEventListener("keyup", handleKeyUp);
+  });
 
   return (
     <div>

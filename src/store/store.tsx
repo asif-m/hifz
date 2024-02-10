@@ -17,6 +17,8 @@ export interface IStoreData {
     audioCurrentTime: number;
     audioLoaded: boolean;
     audioPlayerState: AudioPlayerState;
+    pressedKey: string;
+
 }
 
 export function getInitialStoreData(): IStoreData {
@@ -38,7 +40,8 @@ export function getInitialStoreData(): IStoreData {
         audioStartTime: 0,
         audioCurrentTime:0,
         audioLoaded: false,
-        audioPlayerState: AudioPlayerState.stopped
+        audioPlayerState: AudioPlayerState.stopped,
+        pressedKey : "",
     }
 }
 
@@ -61,6 +64,8 @@ export interface IStoreUseContextData {
     setAudioLoaded: Setter<boolean>
     audioPlayerState: Accessor<AudioPlayerState>
     setAudioPlayerState: Setter<AudioPlayerState>
+    pressedKey: Accessor<string>
+    setPressedKey: Setter<string>
 }
 
 
@@ -74,6 +79,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [audioCurrentTime, setAudioCurrentTime] = createSignal(props.audioCurrentTime);
     const [audioLoaded, setAudioLoaded] = createSignal(props.audioLoaded);
     const [audioPlayerState, setAudioPlayerState] = createSignal(props.audioPlayerState);
+    const [pressedKey, setPressedKey] = createSignal(props.pressedKey);
 
     const value = {
         verseNumber,
@@ -93,7 +99,9 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         setAudioCurrentTime,
         setAudioPlayerState,
         audioLoaded,
-        setAudioLoaded
+        setAudioLoaded,
+        pressedKey, 
+        setPressedKey
     };
 
     return (

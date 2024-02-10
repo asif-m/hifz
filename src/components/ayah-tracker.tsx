@@ -3,39 +3,40 @@ import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { IconButton } from "@suid/material";
 import Save from "@suid/icons-material/Save";
+import { AudioPlayerState } from "~/models/audio-player-state";
 
 interface IAyahDataInLocalStorageIndividual { chapterNumber: number, verseNumber: number, timestampFrom: number, timestampTo: number }
 interface IAyahDataInLocalStorage {
     updatedAt: Date;
-    data: {[key in number]:{[key in number]:IAyahDataInLocalStorageIndividual}}
+    data: { [key in number]: { [key in number]: IAyahDataInLocalStorageIndividual } }
 }
 export default function AyahTrackerComponent() {
-    const { pageData,audioCurrentTime } = useStore();
+    const { pageData, chapterNumber, verseNumber, audioCurrentTime, pressedKey, audioPlayerState } = useStore();
     const key = `sameer-nass-audio-data`;
-    const [allAudioTimeStamps, setAllAudioTimeStamps] = createSignal<IAyahDataInLocalStorage>({updatedAt: new Date(), data:{}});
+    const [allAudioTimeStamps, setAllAudioTimeStamps] = createSignal<IAyahDataInLocalStorage>({ updatedAt: new Date(), data: {} });
     const [pageAudioTimeStamps, setPageAudioTimeStamps] = createSignal<Array<IAyahDataInLocalStorageIndividual>>([]);
+    const [captureIndex, setCaptureIndex] = createSignal(0);
 
     createEffect(() => {
-        setAllAudioTimeStamps(()=> CLocalStorageHelper.read(key) as IAyahDataInLocalStorage);
+        setAllAudioTimeStamps(() => CLocalStorageHelper.read(key) as IAyahDataInLocalStorage);
     });
 
     createEffect(() => {
         const pageInfo = pageData();
         const aTS = allAudioTimeStamps();
-        if(!pageInfo){
+        if (!pageInfo) {
             return;
         }
 
         const initialData: Array<IAyahDataInLocalStorageIndividual> = [];
         let hasModifications = false;
         pageInfo.ayahs.forEach((ayah) => {
-            const {chapterNumber, verseNumber}  =ayah;
-            let timestampFrom = ayah.reciterTimestamps["Shaykh Samir al-Nass"].timestampFrom;
-            let timestampTo = ayah.reciterTimestamps["Shaykh Samir al-Nass"].timestampTo;
-            if(!aTS.data){
+            const { chapterNumber, verseNumber } = ayah;
+            const { timestampFrom, timestampTo } = ayah.reciterTimestamps["Shaykh Samir al-Nass"];
+            if (!aTS.data) {
                 aTS.data = {};
             }
-            if(!aTS.data[chapterNumber]){
+            if (!aTS.data[chapterNumber]) {
                 aTS.data[chapterNumber] = {};
             }
             if (!aTS.data[chapterNumber][verseNumber]) {
@@ -55,24 +56,55 @@ export default function AyahTrackerComponent() {
             })
         });
         setPageAudioTimeStamps(() => initialData);
-        if(hasModifications){
+        if (hasModifications) {
             save(aTS);
         }
     })
 
-    function save(data: IAyahDataInLocalStorage){
+    createEffect(() => {
+        const c = chapterNumber();
+        setCaptureIndex(() => 0);
+    })
+    createEffect(() => {
+        if (pressedKey() === "Space" && audioPlayerState() === AudioPlayerState.playing) {
+            setCaptureIndex((prev) => prev + 1);
+        }
+    })
+    createEffect(() => {
+        const index = captureIndex();
+        const currentTime = audioCurrentTime();
+        const chapterIndex = chapterNumber();
+
+        setPageAudioTimeStamps((prev) => {
+            const firstChapterIndex = prev.findIndex((d) => d.chapterNumber === chapterIndex);
+            if (firstChapterIndex === -1) {
+                return prev;
+            }
+            return prev.map((d, i) => {
+                if (index + firstChapterIndex === i) {
+                    return { ...d, timestampTo: currentTime };
+                }
+                else if (index + firstChapterIndex + 1 === i) {
+                    return { ...d, timestampFrom: currentTime };
+                }
+                return d;
+            });
+        });
+    })
+
+    function save(data: IAyahDataInLocalStorage) {
         CLocalStorageHelper.update(key, data);
     }
-    function onSave(){
-        
+    function onSave() {
+
     }
 
     return (<div>
         <div>{audioCurrentTime()}</div>
         <For each={pageAudioTimeStamps()}>{ayah =>
             <div>{`${ayah.chapterNumber}:${ayah.verseNumber}  (${ayah.timestampFrom}-${ayah.timestampTo})`}</div>}</For>
-            <IconButton aria-label="stop" onclick={() => onSave()}>
-                        <Save />
-                    </IconButton>
+        <IconButton aria-label="stop" onclick={() => onSave()}>
+            <Save />
+        </IconButton>
     </div>)
 }

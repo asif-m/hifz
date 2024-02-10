@@ -1,5 +1,5 @@
 // @refresh reload
-import { Show, createEffect, createSignal } from "solid-js";
+import { Show, batch, createEffect, createSignal } from "solid-js";
 import { CircularProgress } from "@suid/material";
 import WaveSurfer from "wavesurfer.js";
 import ZoomPlugin from "../../node_modules/wavesurfer.js/dist/plugins/zoom.esm.js";
@@ -10,9 +10,10 @@ import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
+import { AudioPlayerState } from "~/models/audio-player-state.jsx";
 
 export default function WavesurferWrapperComponent() {
-  const { chapterNumber, audioStartTime, setAudioCurrentTime,audioPlayerState, audioLoaded, setAudioLoaded } = useStore();
+  const { chapterNumber, setChapterNumber, setVerseNumber, audioStartTime, setAudioCurrentTime,audioPlayerState, audioLoaded, setAudioLoaded, setAudioPlayerState } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
   const [wsRegions, setWsRegions] = createSignal<any>();
@@ -198,12 +199,18 @@ export default function WavesurferWrapperComponent() {
 
     /** When the audio finishes playing */
     ws.on('finish', () => {
-      console.log('Finish')
+      batch(()=>{
+        setChapterNumber((prev)=> prev ===114? 1: prev+1);
+        setVerseNumber(0);
+        setAudioLoaded(false);
+        setAudioPlayerState(()=> AudioPlayerState.stopped);
+      })
+      console.log('Finish');
     })
 
     /** On audio position change, fires continuously during playback */
     ws.on('timeupdate', (currentTime) => {
-      setAudioCurrentTime(()=>currentTime)
+      setAudioCurrentTime(()=>Math.floor(currentTime))
       //console.log('Time', currentTime + 's')
     })
 
