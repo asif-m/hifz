@@ -92,7 +92,7 @@ export default function Reader(props: IAyahBase) {
                 <For each={lineData()}>{words => <LineComponent words={words} />}</For>
                 <div>{pageData().pageNumber}</div>
               </div>
-              <div style={{ width: "20%" }}>
+              <div>
                 <AyahTrackerComponent />
               </div>
             </div>
