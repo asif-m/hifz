@@ -53,6 +53,10 @@ export default function Reader(props: IAyahBase) {
   })
 
   const handleKeyDown = (event) => {
+    if("Space" === event.code){
+      event.preventDefault();
+      event.stopPropagation();
+    }
     setPressedKey(event.code);
   };
 

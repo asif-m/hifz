@@ -4,6 +4,7 @@ import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { IconButton } from "@suid/material";
 import Save from "@suid/icons-material/Save";
 import { AudioPlayerState } from "~/models/audio-player-state";
+import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 
 interface IAyahDataInLocalStorageIndividual { chapterNumber: number, verseNumber: number, timestampFrom: number, timestampTo: number }
 interface IAyahDataInLocalStorage {
@@ -99,10 +100,19 @@ export default function AyahTrackerComponent() {
 
     }
 
+    function setTimestampFrom(index:number, value:number){
+        setPageAudioTimeStamps((prev)=>prev.map((p, i)=> i===index? ({...p,timestampFrom:value}): p))
+    }
+    function setTimestampTo(index:number, value:number){
+        setPageAudioTimeStamps((prev)=>prev.map((p, i)=> i===index? ({...p,timestampTo:value}): p))
+    }
+
     return (<div>
         <div>{audioCurrentTime()}</div>
-        <For each={pageAudioTimeStamps()}>{ayah =>
-            <div>{`${ayah.chapterNumber}:${ayah.verseNumber}  (${ayah.timestampFrom}-${ayah.timestampTo})`}</div>}</For>
+        <For each={pageAudioTimeStamps()}>
+            {(ayah, index) =><AyahPlayTrackEditComponent 
+            ayah={{...ayah, index:index(), setTimestampFrom,setTimestampTo}} 
+            highlight={index() === captureIndex()}/>}</For>
         <IconButton aria-label="stop" onclick={() => onSave()}>
             <Save />
         </IconButton>

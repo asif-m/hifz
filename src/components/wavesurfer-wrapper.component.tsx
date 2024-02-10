@@ -210,7 +210,7 @@ export default function WavesurferWrapperComponent() {
 
     /** On audio position change, fires continuously during playback */
     ws.on('timeupdate', (currentTime) => {
-      setAudioCurrentTime(()=>Math.floor(currentTime))
+      setAudioCurrentTime(()=>parseFloat(currentTime.toFixed(1)))
       //console.log('Time', currentTime + 's')
     })
 
