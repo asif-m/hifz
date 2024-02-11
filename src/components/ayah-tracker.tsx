@@ -1,7 +1,7 @@
 import { For, createEffect, createSignal } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
-import { IconButton } from "@suid/material";
+import { IconButton, Switch } from "@suid/material";
 import Save from "@suid/icons-material/Save";
 import { AudioPlayerState } from "~/models/audio-player-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
@@ -12,7 +12,7 @@ interface IAyahDataInLocalStorage {
     data: { [key in number]: { [key in number]: IAyahDataInLocalStorageIndividual } }
 }
 export default function AyahTrackerComponent() {
-    const { pageData, chapterNumber, verseNumber, audioCurrentTime, pressedKey, audioPlayerState } = useStore();
+    const { pageData, chapterNumber, verseNumber,pageNumber, audioCurrentTime, pressedKey, audioPlayerState, audioTimetrackAutoUpdate, setAudioTimetrackAutoUpdate } = useStore();
     const key = `sameer-nass-audio-data`;
     const [allAudioTimeStamps, setAllAudioTimeStamps] = createSignal<IAyahDataInLocalStorage>({ updatedAt: new Date(), data: {} });
     const [pageAudioTimeStamps, setPageAudioTimeStamps] = createSignal<Array<IAyahDataInLocalStorageIndividual>>([]);
@@ -71,6 +71,9 @@ export default function AyahTrackerComponent() {
         setCaptureIndex(() => 0);
     })
     createEffect(() => {
+        if(!audioTimetrackAutoUpdate()){
+            return;
+        }
         if (pressedKey() === "Space" && audioPlayerState() === AudioPlayerState.playing) {
             setCaptureIndex((prev) => prev + 1);
         }
@@ -79,6 +82,10 @@ export default function AyahTrackerComponent() {
         const index = captureIndex();
         const currentTime = audioCurrentTime();
         const chapterIndex = chapterNumber();
+
+        if(!audioTimetrackAutoUpdate()){
+            return;
+        }
 
         setPageAudioTimeStamps((prev) => {
             const firstChapterIndex = prev.findIndex((d) => d.chapterNumber === chapterIndex);
@@ -95,6 +102,12 @@ export default function AyahTrackerComponent() {
                 return d;
             });
         });
+    })
+
+    createEffect(()=>{
+        const chapter = chapterNumber()
+        const pageData=pageNumber();
+        setAudioTimetrackAutoUpdate(()=> true);
     })
 
     createEffect(()=>{
@@ -128,6 +141,13 @@ export default function AyahTrackerComponent() {
 
     return (<div>
         <div>{audioCurrentTime()}</div>
+        <Switch
+      checked={audioTimetrackAutoUpdate()}
+      onChange={(event, value) => {
+        setAudioTimetrackAutoUpdate(value);
+      }}
+      inputProps={{ "aria-label": "controlled" }}
+    />
         <For each={pageAudioTimeStamps()}>
             {(ayah, index) => <AyahPlayTrackEditComponent
                 ayah={{ ...ayah, index: index(), setTimestampFrom, setTimestampTo }}

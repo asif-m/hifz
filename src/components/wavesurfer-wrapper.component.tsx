@@ -13,7 +13,17 @@ import { colors } from "~/models/style-constants.js";
 import { AudioPlayerState } from "~/models/audio-player-state.jsx";
 
 export default function WavesurferWrapperComponent() {
-  const { chapterNumber, setChapterNumber, setVerseNumber, audioStartTime, setAudioCurrentTime,audioPlayerState, audioLoaded, setAudioLoaded, setAudioPlayerState } = useStore();
+  const { chapterNumber, 
+    setChapterNumber, setVerseNumber, 
+    audioStartTime, 
+    setAudioCurrentTime,
+    audioCurrentTime,
+    audioPlayerState, 
+    audioLoaded, 
+    setAudioLoaded, 
+    setAudioPlayerState ,
+    audioTimetrackAutoUpdate,
+  } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
   const [wsRegions, setWsRegions] = createSignal<any>();
@@ -210,6 +220,9 @@ export default function WavesurferWrapperComponent() {
 
     /** On audio position change, fires continuously during playback */
     ws.on('timeupdate', (currentTime) => {
+      if(!audioTimetrackAutoUpdate()){
+        return;
+      }
       setAudioCurrentTime(()=>parseFloat(currentTime.toFixed(1)))
       //console.log('Time', currentTime + 's')
     })
@@ -218,6 +231,20 @@ export default function WavesurferWrapperComponent() {
     ws.on('seeking', (currentTime) => {
       console.log('Seeking', currentTime + 's')
     })
+
+  })
+
+  createEffect(()=>{
+    const ws = waveSurfer();
+    const currentTime = audioCurrentTime();
+    const autoUpdate= audioTimetrackAutoUpdate()
+    if (!ws) {
+      return;
+    }
+    if(autoUpdate){
+      return;
+    }
+    ws.setTime(currentTime);
 
   })
 

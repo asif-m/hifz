@@ -1,7 +1,7 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
 import PlayingHeader from "./playing-header.component";
 import { useStore } from "~/store/store";
-import { createEffect, batch, For, onCleanup } from "solid-js";
+import { createEffect, batch, For, onCleanup, Show } from "solid-js";
 import LineComponent from "./line-component";
 import {
   AppBar,
@@ -11,7 +11,8 @@ import { CPage, IPageData } from "~/models/page";
 import { headerHeight } from "~/models/style-constants";
 import AyahTrackerComponent from "./ayah-tracker";
 export default function Reader(props: IAyahBase) {
-  const { chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber, setPageNumber, pageData, setPageData, setAudioStartTime, lineData, setLineData,setPressedKey } = useStore();
+  const { chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber, setPageNumber, pageData, 
+    setPageData, setAudioStartTime, lineData, setLineData,setPressedKey, audioLoaded } = useStore();
 
   createEffect(() => {
     batch(() => {
@@ -93,7 +94,9 @@ export default function Reader(props: IAyahBase) {
                 <div>{pageData().pageNumber}</div>
               </div>
               <div>
-                <AyahTrackerComponent />
+                <Show when ={audioLoaded()}>
+                  <AyahTrackerComponent />
+                </Show>
               </div>
             </div>
           </div>

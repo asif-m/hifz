@@ -12,7 +12,8 @@ export default function AyahPlayTrackEditComponent(props: {
     },
     highlight: boolean;
 }) {
-    const { ayah: { chapterNumber, verseNumber, timestampFrom, timestampTo, index, setTimestampFrom, setTimestampTo }, highlight } = props;
+    const { ayah: { chapterNumber:chapter, verseNumber:verse, timestampFrom, timestampTo, index, setTimestampFrom, setTimestampTo }, highlight } = props;
+        
     return (
         <div style={{
             display: "flex", "align-items": "center",
@@ -22,10 +23,10 @@ export default function AyahPlayTrackEditComponent(props: {
             margin: "8px",
             "font-size": "10px"
         }}>
-            <div style={{ padding: "4px 8px" }}>{`${chapterNumber} : ${verseNumber} `}</div>
-            <EditableTextboxControlsComponent value={timestampFrom} onChange={(value: number) => setTimestampFrom(index, value)} />
+            <div style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
+            <EditableTextboxControlsComponent value={timestampFrom} isFrom={false} onChange={(value: number) => setTimestampFrom(index, value)} />
             <div>-</div>
-            <EditableTextboxControlsComponent value={timestampTo} onChange={(value: number) => setTimestampTo(index, value)} />
+            <EditableTextboxControlsComponent value={timestampTo} isFrom={true} onChange={(value: number) => setTimestampTo(index, value)} />
         </div>
     )
 }

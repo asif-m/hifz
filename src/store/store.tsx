@@ -18,7 +18,7 @@ export interface IStoreData {
     audioLoaded: boolean;
     audioPlayerState: AudioPlayerState;
     pressedKey: string;
-
+    audioTimetrackAutoUpdate: boolean;
 }
 
 export function getInitialStoreData(): IStoreData {
@@ -41,6 +41,7 @@ export function getInitialStoreData(): IStoreData {
         audioCurrentTime:0,
         audioLoaded: false,
         audioPlayerState: AudioPlayerState.stopped,
+        audioTimetrackAutoUpdate : true,
         pressedKey : "",
     }
 }
@@ -64,6 +65,8 @@ export interface IStoreUseContextData {
     setAudioLoaded: Setter<boolean>
     audioPlayerState: Accessor<AudioPlayerState>
     setAudioPlayerState: Setter<AudioPlayerState>
+    audioTimetrackAutoUpdate: Accessor<boolean>
+    setAudioTimetrackAutoUpdate: Setter<boolean>
     pressedKey: Accessor<string>
     setPressedKey: Setter<string>
 }
@@ -79,6 +82,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [audioCurrentTime, setAudioCurrentTime] = createSignal(props.audioCurrentTime);
     const [audioLoaded, setAudioLoaded] = createSignal(props.audioLoaded);
     const [audioPlayerState, setAudioPlayerState] = createSignal(props.audioPlayerState);
+    const [audioTimetrackAutoUpdate,setAudioTimetrackAutoUpdate] =createSignal(props.audioTimetrackAutoUpdate);
     const [pressedKey, setPressedKey] = createSignal(props.pressedKey);
 
     const value = {
@@ -95,12 +99,14 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         audioStartTime,
         setAudioStartTime,
         audioPlayerState,
-        audioCurrentTime, 
+        audioCurrentTime,
         setAudioCurrentTime,
         setAudioPlayerState,
         audioLoaded,
         setAudioLoaded,
-        pressedKey, 
+        audioTimetrackAutoUpdate,
+        setAudioTimetrackAutoUpdate,
+        pressedKey,
         setPressedKey
     };
 
