@@ -2,12 +2,13 @@ import { Typography } from "@suid/material";
 import { useStore } from "~/store/store";
 import ScrollToVerseComponent from "../scroll-to-verse.component";
 import { CWord, IArabicWord } from "~/models/word";
+import { colors } from "~/models/style-constants";
 
 export default function QuranWordComponent(props: { word: IArabicWord }) {
     const { word } = props;
     const { verseNumber, chapterNumber } = useStore();
 
-    function isCurrentVerse() {
+    function isWordInCurrentVerse() {
         return word.chapterNumber === chapterNumber() && word.verseNumber === verseNumber()
     }
 
@@ -16,7 +17,7 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
         >
             <ScrollToVerseComponent word={word} shouldScroll={!CWord.isFirstWord(word)} />
             <div style={{
-                "color": isCurrentVerse() ? "rgb(44, 164, 171)" : "",
+                "color": isWordInCurrentVerse() ? colors.currentVerseColor : "",
                 "font-family": "UthmanicHafs",
                 "font-size": "4.4vh",
             }}>
@@ -24,7 +25,7 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
             </div>
             <Typography
                 style={{
-                    "color": isCurrentVerse() ? "rgb(44, 164, 171)" : "",
+                    "color": isWordInCurrentVerse() ? colors.currentVerseColor : "",
                     "font-size": "0.875rem",
                     "max-width": "7rem",
                     "text-align": "center"

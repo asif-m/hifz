@@ -6,6 +6,7 @@ import { colors } from "~/models/style-constants";
 export default function QuranSurahTitleComponent(props: { word: IArabicWord }) {
     const { word } = props;
     const { chapterNumber } = word;
+    const { arabicName, versesCount, englishName, placeOfRevelation } = SURAHS_INFO[chapterNumber - 1];
 
     return (
         <div style={{
@@ -26,14 +27,14 @@ export default function QuranSurahTitleComponent(props: { word: IArabicWord }) {
                         "font-family": "UthmanicHafs",
                         "font-size": "4.0vh",
                     }}>
-                        {`${SURAHS_INFO[chapterNumber - 1].arabicName} ${(chapterNumber).toLocaleString('ar-EG')}`}
+                        {`${arabicName} ${(chapterNumber).toLocaleString('ar-EG')}`}
                     </div>
                     <div></div>
                 </div>
                 <div style={{ display: "flex", "flex-direction": "row", "justify-content": "space-between", "padding": "16px" }}>
-                    <div>{`(${SURAHS_INFO[chapterNumber - 1].versesCount} Ayah)`}</div>
-                    <div>{`(${chapterNumber}) ${SURAHS_INFO[chapterNumber - 1].englishName}`}</div>
-                    <div>{`${SURAHS_INFO[chapterNumber - 1].placeOfRevelation === "" ? "🕋" : "🕋"}`}</div>
+                    <div>{`(${versesCount})`}</div>
+                    <div>{`(${chapterNumber}) ${englishName}`}</div>
+                    <div>{`${placeOfRevelation === "Makkah" ? "🕋" : "🕌"}`}</div>
                 </div>
             </div>
         </div>

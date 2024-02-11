@@ -11,8 +11,21 @@ import { CPage, IPageData } from "~/models/page";
 import { headerHeight } from "~/models/style-constants";
 import AyahTrackerComponent from "../ayah-tracker/ayah-tracker";
 export default function QuranReader(props: IAyahBase) {
-  const { chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber, setPageNumber, pageData, 
-    setPageData, setAudioStartTime, lineData, setLineData,setPressedKey, audioLoaded } = useStore();
+  const {
+    chapterNumber,
+    setChapterNumber,
+    verseNumber,
+    setVerseNumber,
+    pageNumber,
+    setPageNumber,
+    pageData,
+    setPageData,
+    setAudioStartTime,
+    lineData,
+    setLineData,
+    setPressedKey,
+    audioLoaded
+  } = useStore();
 
   createEffect(() => {
     batch(() => {
@@ -29,32 +42,36 @@ export default function QuranReader(props: IAyahBase) {
 
   createEffect(() => {
     const page = pageNumber();
-    if (page) {
-      batch(() => {
-        import(`../../../public/page/${page}.json`)
-          .then((res) => {
-            const pageData = res.default as IPageData;
-            setLineData(() => CPage.getLineData(pageData))
-            setPageData(() => pageData);
-          })
-          .catch((e) => console.error(e));
-      })
+    if (!page) {
+      return;
     }
+    batch(() => {
+      import(`../../../public/page/${page}.json`)
+        .then((res) => {
+          const pageData = res.default as IPageData;
+          setLineData(() => CPage.getLineData(pageData))
+          setPageData(() => pageData);
+        })
+        .catch((e) => console.error(e));
+    })
   })
 
   createEffect(() => {
     const pageInfo = pageData();
     const chapter = chapterNumber();
     const verse = verseNumber();
-    if (pageInfo) {
-      const currentAyah = pageInfo?.ayahs?.filter((ayah) => ayah.chapterNumber === chapter && ayah.verseNumber == verse)[0];
-      const timeStampFrom = currentAyah?.reciterTimestamps?.["Shaykh Samir al-Nass"]?.timestampFrom || 0
-      setAudioStartTime(() => timeStampFrom)
+
+    if (!pageInfo) {
+      return;
     }
+
+    const currentAyah = pageInfo?.ayahs?.filter((ayah) => ayah.chapterNumber === chapter && ayah.verseNumber == verse)[0];
+    const { timeStampFrom = 0 } = currentAyah?.reciterTimestamps?.["Shaykh Samir al-Nass"]?.timestampFrom || 0
+    setAudioStartTime(() => timeStampFrom);
   })
 
-  const handleKeyDown = (event:KeyboardEvent) => {
-    if("Space" === event.code){
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if ("Space" === event.code) {
       event.preventDefault();
       event.stopPropagation();
     }
@@ -94,7 +111,7 @@ export default function QuranReader(props: IAyahBase) {
                 <div>{pageData().pageNumber}</div>
               </div>
               <div>
-                <Show when ={audioLoaded()}>
+                <Show when={audioLoaded()}>
                   <AyahTrackerComponent />
                 </Show>
               </div>
