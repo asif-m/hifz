@@ -1,5 +1,5 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
-import PlayingHeader from "../header/playing-header.component";
+import PlayingHeaderContainer from "../header/playing-header.container";
 import { useStore } from "~/store/store";
 import { createEffect, batch, For, onCleanup, Show } from "solid-js";
 import QuranLineComponent from "./quran-line-component";
@@ -98,7 +98,7 @@ export default function QuranReader(props: IAyahBase) {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed">
           <Toolbar>
-            <PlayingHeader />
+            <PlayingHeaderContainer />
           </Toolbar>
         </AppBar>
       </Box>
