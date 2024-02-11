@@ -127,20 +127,16 @@ export default function AyahTrackerComponent() {
         const autoUpdate = audioTimetrackAutoUpdate();
         const key = pressedKey()
         const playerState = audioPlayerState()
-        const cIndex = captureIndex();
-        const doesNeedUpdate = cIndex === pageSurahAudioTimeStamps().length - 1
         if (!autoUpdate) {
             return;
         }
         if (key === "Space" && playerState === AudioPlayerState.playing) {
-            if (doesNeedUpdate) {
-                setPageSurahAudioTimeStamps((prev) => {
-                    const newValue = [...prev];
-                    const lastItem = prev[prev.length - 1];
-                    newValue.push({ timestampFrom: lastItem.timestampTo, timestampTo: lastItem.timestampTo })
-                    return newValue;
-                })
-            }
+            setPageSurahAudioTimeStamps((prev) => {
+                const newValue = [...prev];
+                const lastItem = prev[prev.length - 1];
+                newValue.push({ timestampFrom: lastItem.timestampTo, timestampTo: lastItem.timestampTo })
+                return newValue;
+            })
             setCaptureIndex((prev) => prev + 1);
         }
     })
