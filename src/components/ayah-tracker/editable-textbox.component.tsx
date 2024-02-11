@@ -8,6 +8,11 @@ export default function EditableTextboxControlsComponent(props: { value: number,
     const { setAudioPlayerState, setAudioCurrentTime, setAudioTimetrackAutoUpdate } = useStore();
     const [localValue, setLocalValue] = createSignal<string|number>(value);
 
+    function isValidNumber(value: any): boolean {
+        // Check if the value is of type number and not NaN
+        return typeof value === 'number' && !isNaN(value);
+    }
+
     function onValueChange(v: string) {
         setLocalValue(()=>v)
         if(v===""){
@@ -15,6 +20,9 @@ export default function EditableTextboxControlsComponent(props: { value: number,
         }
         try {
             const time = parseFloat(parseFloat(v).toPrecision(2));
+            if(!isValidNumber(time)){
+                return;
+            }
             onChange(time);
             setAudioCurrentTime(() => time);
         } catch (e) {

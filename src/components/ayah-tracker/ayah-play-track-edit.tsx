@@ -12,10 +12,13 @@ export default function AyahPlayTrackEditComponent(props: {
 
 
     function onFromChange(v:number){
-
+        
     }
     function onToChange(v:number){
 
+    }
+    function onDelete(){
+        
     }
 
     return (
@@ -31,6 +34,9 @@ export default function AyahPlayTrackEditComponent(props: {
             <EditableTextboxControlsComponent value= {timestamps[index].timestampFrom} onChange={(v)=>onFromChange(v)}/>
             <div>-</div>
             <EditableTextboxControlsComponent value= {timestamps[index].timestampTo} onChange={(v)=>onToChange(v)}/>
+            <div role={"button"} style={{cursor:"pointer"}}onclick={() => onDelete()}>
+            ⌫
+            </div>
         </div>
     )
 }

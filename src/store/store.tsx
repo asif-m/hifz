@@ -19,7 +19,7 @@ export interface IStoreData {
     audioPlayerState: AudioPlayerState;
     pressedKey: string;
     audioTimetrackAutoUpdate: boolean;
-}
+    }
 
 export function getInitialStoreData(): IStoreData {
     return {
