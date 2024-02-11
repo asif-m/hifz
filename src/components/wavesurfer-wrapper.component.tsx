@@ -200,9 +200,9 @@ export default function WavesurferWrapperComponent() {
     /** When the audio finishes playing */
     ws.on('finish', () => {
       batch(()=>{
-        setChapterNumber((prev)=> prev ===114? 1: prev+1);
-        setVerseNumber(0);
-        setAudioLoaded(false);
+        // setChapterNumber((prev)=> prev ===114? 1: prev+1);
+        // setVerseNumber(0);
+        // setAudioLoaded(false);
         setAudioPlayerState(()=> AudioPlayerState.stopped);
       })
       console.log('Finish');

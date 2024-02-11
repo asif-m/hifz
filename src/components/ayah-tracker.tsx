@@ -17,6 +17,7 @@ export default function AyahTrackerComponent() {
     const [allAudioTimeStamps, setAllAudioTimeStamps] = createSignal<IAyahDataInLocalStorage>({ updatedAt: new Date(), data: {} });
     const [pageAudioTimeStamps, setPageAudioTimeStamps] = createSignal<Array<IAyahDataInLocalStorageIndividual>>([]);
     const [captureIndex, setCaptureIndex] = createSignal(0);
+    const [saveClickCounter, setSaveClickCounter] = createSignal(0);
 
     createEffect(() => {
         setAllAudioTimeStamps(() => CLocalStorageHelper.read(key) as IAyahDataInLocalStorage);
@@ -96,11 +97,26 @@ export default function AyahTrackerComponent() {
         });
     })
 
+    createEffect(()=>{
+        const saveClick = saveClickCounter();
+        const pageTime = pageAudioTimeStamps();
+        const allAudio = allAudioTimeStamps();
+
+        if(saveClick ===0){
+            return;
+        }
+        pageTime.forEach((ayah)=>{
+            allAudio.data[ayah.chapterNumber][ayah.verseNumber] = ayah;
+        })
+        save(allAudio);
+        setAllAudioTimeStamps(allAudio);
+    })
+
     function save(data: IAyahDataInLocalStorage) {
         CLocalStorageHelper.update(key, data);
     }
     function onSave() {
-
+        setSaveClickCounter((prev)=> prev+1);
     }
 
     function setTimestampFrom(index: number, value: number) {
