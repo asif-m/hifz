@@ -14,7 +14,7 @@ export default function EditableTextboxControlsComponent(props: { value: number,
             return;
         }
         try {
-            const time = parseFloat(parseFloat(v).toPrecision(1));
+            const time = parseFloat(parseFloat(v).toPrecision(2));
             onChange(time);
             setAudioCurrentTime(() => time);
         } catch (e) {
