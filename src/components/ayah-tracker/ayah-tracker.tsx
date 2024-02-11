@@ -20,11 +20,21 @@ interface IAyahDataInLocalStorage {
 }
 
 export default function AyahTrackerComponent() {
-    const { pageData, chapterNumber, verseNumber, pageNumber, audioCurrentTime, pressedKey, audioPlayerState, audioTimetrackAutoUpdate, setAudioTimetrackAutoUpdate } = useStore();
+    const {
+        pageData,
+        chapterNumber,
+        pageNumber,
+        audioCurrentTime,
+        pressedKey,
+        audioPlayerState,
+        audioTimetrackAutoUpdate,
+        setAudioTimetrackAutoUpdate,
+        pageSurahAudioTimeStamps,
+        setPageSurahAudioTimeStamps,
+        ayahInCurrentPageSurah,
+        setAyahInCurrentPageSurah
+    } = useStore();
     const key = `sameer-nass-audio-data`;
-
-    const [pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps] = createSignal<Array<IReciterTimeStamp>>([]);
-    const [ayahInCurrentPageSurah, setAyahInCurrentPageSurah] = createSignal<Array<{ chapterNumber: number, verseNumber: number }>>([])
 
     const [captureIndex, setCaptureIndex] = createSignal(0);
     const [saveClickCounter, setSaveClickCounter] = createSignal(0);
@@ -67,7 +77,7 @@ export default function AyahTrackerComponent() {
                 }
             }
             if (chapter === ayah.chapterNumber) {
-                if(chapterNumber!==9 && verseNumber==1){
+                if (chapterNumber !== 9 && verseNumber == 1) {
                     //Place holder for Bismi
                     pageSurahAudioTimeStampsLocal.push({
                         timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom || 0,
@@ -75,14 +85,14 @@ export default function AyahTrackerComponent() {
                     })
                     ayahInCurrentPageSurahLocal.push({
                         chapterNumber,
-                        verseNumber:0
+                        verseNumber: 0
                     })
                 }
                 pageSurahAudioTimeStampsLocal.push({
                     timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom || 0,
                     timestampTo: aTS.data[chapterNumber][verseNumber].timestampTo || 0
                 })
-                
+
                 ayahInCurrentPageSurahLocal.push({
                     chapterNumber,
                     verseNumber
@@ -205,8 +215,6 @@ export default function AyahTrackerComponent() {
             {(ayah, i) => (
                 <AyahPlayTrackEditComponent
                     index={i()}
-                    timestamps={pageSurahAudioTimeStamps()}
-                    ayahs = {ayahInCurrentPageSurah()}
                 />)}
         </For>
         {/* <IconButton aria-label="stop" onclick={() => onSave()}>
