@@ -26,7 +26,7 @@ export default function AyahPlayTrackEditComponent(props: {
     function onDelete() {
         setPageSurahAudioTimeStamps((prev) => prev
             .map((t, i) => (i === index + 1) ? { ...t, timestampFrom: timestamps[index].timestampTo } : t)
-            .filter((timeStamp, i) => i === index)
+            .filter((timeStamp, i) => i !== index)
         )
     }
 
