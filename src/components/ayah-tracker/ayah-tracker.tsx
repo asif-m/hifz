@@ -71,10 +71,13 @@ export default function AyahTrackerComponent() {
         setCaptureIndex(() => 0);
     })
     createEffect(() => {
-        if (!audioTimetrackAutoUpdate()) {
+        const autoUpdate = audioTimetrackAutoUpdate();
+        const key = pressedKey()
+        const playerState = audioPlayerState()
+        if (!autoUpdate) {
             return;
         }
-        if (pressedKey() === "Space" && audioPlayerState() === AudioPlayerState.playing) {
+        if (key === "Space" && playerState === AudioPlayerState.playing) {
             setCaptureIndex((prev) => prev + 1);
         }
         onSave();
@@ -83,8 +86,9 @@ export default function AyahTrackerComponent() {
         const index = captureIndex();
         const currentTime = audioCurrentTime();
         const chapterIndex = chapterNumber();
+        const autoUpdate = audioTimetrackAutoUpdate();
 
-        if (!audioTimetrackAutoUpdate()) {
+        if (!autoUpdate) {
             return;
         }
 
@@ -106,10 +110,11 @@ export default function AyahTrackerComponent() {
     })
 
     createEffect(() => {
+        //NOTE: Do not remove this unused variables.
         const chapter = chapterNumber()
         const pageData = pageNumber();
         setAudioTimetrackAutoUpdate(() => true);
-    })
+    }, [chapterNumber(), pageNumber()])
 
     createEffect(() => {
         const saveClick = saveClickCounter();

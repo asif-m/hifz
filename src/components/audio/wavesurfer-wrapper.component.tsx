@@ -32,18 +32,6 @@ export default function WavesurferWrapperComponent() {
     //   timestampFrom: 0,
     //   timestampTo: 2,
     // },
-    // {
-    //   timestampFrom: 3,
-    //   timestampTo: 4,
-    // },
-    // {
-    //   timestampFrom: 5,
-    //   timestampTo: 10,
-    // },
-    // {
-    //   timestampFrom: 11,
-    //   timestampTo: 20,
-    // },
   ];
 
   createEffect(() => {
