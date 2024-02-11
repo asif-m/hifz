@@ -1,6 +1,6 @@
 import { colors } from "~/models/style-constants";
 
-export default function BismiComponent() {
+export default function QuranBismiComponent() {
 
     return (
         <div style={{

@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import Reader from "~/components/reader";
+import QuranReader from "~/components/mus-haf/quran-reader";
 import { RUB_EL_HIZB_INFO } from "~/models/rub-el-hizb";
 import { getSurahAndAyahFromUrl } from "~/utils/param-convertor";
 
@@ -10,6 +10,6 @@ export default function Index() {
     RUB_EL_HIZB_INFO
   );
   return (
-    <Reader verseNumber={verseNumber} chapterNumber={chapterNumber} />
+    <QuranReader verseNumber={verseNumber} chapterNumber={chapterNumber} />
   );
 }

@@ -1,9 +1,9 @@
 import { IArabicWord } from "~/models/word";
-import ScrollComponent from "./scroll-component";
+import ScrollToVerseComponent from "../scroll-to-verse.component";
 import { SURAHS_INFO } from "~/models/surah";
 import { colors } from "~/models/style-constants";
 
-export default function SurahTitleComponent(props: { word: IArabicWord }) {
+export default function QuranSurahTitleComponent(props: { word: IArabicWord }) {
     const { word } = props;
     const { chapterNumber } = word;
 
@@ -13,7 +13,7 @@ export default function SurahTitleComponent(props: { word: IArabicWord }) {
             "text-align": "center",
         }}>
 
-            <ScrollComponent word={word} />
+            <ScrollToVerseComponent word={word} />
             <div style={{
                 margin: "10px",
                 border: `solid ${colors.surahTitle} 2px`,

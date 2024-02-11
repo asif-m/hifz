@@ -1,11 +1,11 @@
 import { For, Show } from "solid-js";
-import WordComponent from "./word-component";
-import BismiComponent from "./bismi-component";
-import SurahTitleComponent from "./surah-title-component";
+import QuranWordComponent from "./quran-word-component";
+import QuranBismiComponent from "./quran-bismi-component";
+import QuranSurahTitleComponent from "./quran-surah-title-component";
 import { IArabicWord, CWord } from "~/models/word";
 import { pageWidth } from "~/models/style-constants";
 
-export default function LineComponent(props: { words: Array<IArabicWord> }) {
+export default function QuranLineComponent(props: { words: Array<IArabicWord> }) {
     const { words } = props;
     const firstWord = words[0];
 
@@ -13,10 +13,10 @@ export default function LineComponent(props: { words: Array<IArabicWord> }) {
         <div>
             <Show when={firstWord}>
                 <Show when={CWord.isFirstWord(firstWord)}>
-                    <SurahTitleComponent word={firstWord} />
+                    <QuranSurahTitleComponent word={firstWord} />
                 </Show>
                 <Show when={CWord.shouldDisplayBismillah(firstWord)}>
-                    <BismiComponent />
+                    <QuranBismiComponent />
                 </Show>
 
                 <div style={{
@@ -27,7 +27,7 @@ export default function LineComponent(props: { words: Array<IArabicWord> }) {
                     "width": pageWidth,
                     "min-width": pageWidth
                 }}>
-                    <For each={words}>{word => <WordComponent word={word} />}</For>
+                    <For each={words}>{word => <QuranWordComponent word={word} />}</For>
                 </div>
             </Show>
         </div>

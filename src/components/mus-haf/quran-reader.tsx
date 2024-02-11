@@ -1,16 +1,16 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
-import PlayingHeader from "./playing-header.component";
+import PlayingHeader from "../playing-header.component";
 import { useStore } from "~/store/store";
 import { createEffect, batch, For, onCleanup, Show } from "solid-js";
-import LineComponent from "./line-component";
+import QuranLineComponent from "./quran-line-component";
 import {
   AppBar,
   Box, Toolbar, Container
 } from "@suid/material";
 import { CPage, IPageData } from "~/models/page";
 import { headerHeight } from "~/models/style-constants";
-import AyahTrackerComponent from "./ayah-tracker";
-export default function Reader(props: IAyahBase) {
+import AyahTrackerComponent from "../ayah-tracker/ayah-tracker";
+export default function QuranReader(props: IAyahBase) {
   const { chapterNumber, setChapterNumber, verseNumber, setVerseNumber, pageNumber, setPageNumber, pageData, 
     setPageData, setAudioStartTime, lineData, setLineData,setPressedKey, audioLoaded } = useStore();
 
@@ -31,7 +31,7 @@ export default function Reader(props: IAyahBase) {
     const page = pageNumber();
     if (page) {
       batch(() => {
-        import(`../../public/page/${page}.json`)
+        import(`../../../public/page/${page}.json`)
           .then((res) => {
             const pageData = res.default as IPageData;
             setLineData(() => CPage.getLineData(pageData))
@@ -53,7 +53,7 @@ export default function Reader(props: IAyahBase) {
     }
   })
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event:KeyboardEvent) => {
     if("Space" === event.code){
       event.preventDefault();
       event.stopPropagation();
@@ -90,7 +90,7 @@ export default function Reader(props: IAyahBase) {
           <div style={{ overflow: "scroll" }}>
             <div style={{ display: "flex", "flex-direction": "row" }}>
               <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
-                <For each={lineData()}>{words => <LineComponent words={words} />}</For>
+                <For each={lineData()}>{words => <QuranLineComponent words={words} />}</For>
                 <div>{pageData().pageNumber}</div>
               </div>
               <div>

@@ -1,9 +1,9 @@
 import { Typography } from "@suid/material";
 import { useStore } from "~/store/store";
-import ScrollComponent from "./scroll-component";
+import ScrollToVerseComponent from "../scroll-to-verse.component";
 import { CWord, IArabicWord } from "~/models/word";
 
-export default function WordComponent(props: { word: IArabicWord }) {
+export default function QuranWordComponent(props: { word: IArabicWord }) {
     const { word } = props;
     const { verseNumber, chapterNumber } = useStore();
 
@@ -14,7 +14,7 @@ export default function WordComponent(props: { word: IArabicWord }) {
     return (
         <div style={{ display: "flex", "flex-direction": "column", "align-items": "center", margin: "4px" }}
         >
-            <ScrollComponent word={word} shouldScroll={!CWord.isFirstWord(word)} />
+            <ScrollToVerseComponent word={word} shouldScroll={!CWord.isFirstWord(word)} />
             <div style={{
                 "color": isCurrentVerse() ? "rgb(44, 164, 171)" : "",
                 "font-family": "UthmanicHafs",

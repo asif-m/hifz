@@ -12,8 +12,8 @@ export default function AyahPlayTrackEditComponent(props: {
     },
     highlight: boolean;
 }) {
-    const { ayah: { chapterNumber:chapter, verseNumber:verse, timestampFrom, timestampTo, index, setTimestampFrom, setTimestampTo }, highlight } = props;
-        
+    const { ayah: { chapterNumber: chapter, verseNumber: verse, timestampFrom, timestampTo, index, setTimestampFrom, setTimestampTo }, highlight } = props;
+
     return (
         <div style={{
             display: "flex", "align-items": "center",
