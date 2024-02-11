@@ -1,7 +1,7 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
 import PlayingHeaderContainer from "../header/playing-header.container";
 import { useStore } from "~/store/store";
-import { createEffect, batch, For, onCleanup, Show } from "solid-js";
+import { createEffect, batch, For, onCleanup } from "solid-js";
 import QuranLineComponent from "./quran-line-component";
 import {
   AppBar,
@@ -9,7 +9,6 @@ import {
 } from "@suid/material";
 import { CPage, IPageData } from "~/models/page";
 import { headerHeight } from "~/models/style-constants";
-import AyahTrackerComponent from "../ayah-tracker/ayah-tracker";
 export default function QuranReader(props: IAyahBase) {
   const {
     chapterNumber,
@@ -109,11 +108,6 @@ export default function QuranReader(props: IAyahBase) {
               <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
                 <For each={lineData()}>{words => <QuranLineComponent words={words} />}</For>
                 <div>{pageData().pageNumber}</div>
-              </div>
-              <div>
-                <Show when={audioLoaded()}>
-                  <AyahTrackerComponent />
-                </Show>
               </div>
             </div>
           </div>
