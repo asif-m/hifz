@@ -11,7 +11,7 @@ export default function HeaderPageData() {
     const { pageData } = useStore();
 
     function getSurahAyah(chapterAndAyahs: Array<IChapterAndAyahRange>) {
-        return chapterAndAyahs.map((c) => `${c.chapterNumber}:${c.verseFrom}-${c.verseTo}`)
+        return chapterAndAyahs.map((c) => `${c.chapterNumber} : ${c.verseFrom}-${c.verseTo}`)
     }
 
     return (<div
