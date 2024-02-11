@@ -4,6 +4,7 @@ import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { Switch } from "@suid/material";
 import { AudioPlayerState } from "~/models/audio-player-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
+import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 
 interface IAyahDataInLocalStorageIndividual { chapterNumber: number, verseNumber: number, timestampFrom: number, timestampTo: number }
 interface IAyahDataInLocalStorage {
@@ -147,13 +148,16 @@ export default function AyahTrackerComponent() {
     }
 
     return (<div>
-        <Switch
-            checked={audioTimetrackAutoUpdate()}
-            onChange={(event, value) => {
-                setAudioTimetrackAutoUpdate(value);
-            }}
-            inputProps={{ "aria-label": "controlled" }}
-        />
+        <div style={{display:"flex", "flex-direction":"row"}}>
+            <AudioPlayerControlsComponent/>
+            <Switch
+                checked={audioTimetrackAutoUpdate()}
+                onChange={(event, value) => {
+                    setAudioTimetrackAutoUpdate(value);
+                }}
+                inputProps={{ "aria-label": "controlled" }}
+            />
+        </div>
         <For each={pageAudioTimeStamps()}>
             {(ayah, index) => <AyahPlayTrackEditComponent
                 ayah={{ ...ayah, index: index(), setTimestampFrom, setTimestampTo }}
