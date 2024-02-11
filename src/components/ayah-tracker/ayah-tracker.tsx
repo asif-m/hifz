@@ -1,8 +1,7 @@
 import { For, createEffect, createSignal } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
-import { IconButton, Switch } from "@suid/material";
-import Save from "@suid/icons-material/Save";
+import { Switch } from "@suid/material";
 import { AudioPlayerState } from "~/models/audio-player-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 
@@ -148,7 +147,6 @@ export default function AyahTrackerComponent() {
     }
 
     return (<div>
-        <div>{audioCurrentTime()}</div>
         <Switch
             checked={audioTimetrackAutoUpdate()}
             onChange={(event, value) => {
@@ -160,8 +158,8 @@ export default function AyahTrackerComponent() {
             {(ayah, index) => <AyahPlayTrackEditComponent
                 ayah={{ ...ayah, index: index(), setTimestampFrom, setTimestampTo }}
                 highlight={index() === captureIndex()} />}</For>
-        <IconButton aria-label="stop" onclick={() => onSave()}>
+        {/* <IconButton aria-label="stop" onclick={() => onSave()}>
             <Save />
-        </IconButton>
+        </IconButton> */}
     </div>)
 }
