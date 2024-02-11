@@ -1,6 +1,6 @@
 import { useStore } from "~/store/store";
-import WavesurferWrapperComponent from "./audio/wavesurfer-wrapper.component";
-import AudioPlayerControlsComponent from "./audio/audio-player-controls";
+import WavesurferWrapperComponent from "../audio/wavesurfer-wrapper.component";
+import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { IChapterAndAyahRange } from "~/models/page";
 
 export default function PlayingHeader() {

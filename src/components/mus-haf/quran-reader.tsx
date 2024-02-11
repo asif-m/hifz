@@ -1,5 +1,5 @@
 import { IAyahBase } from "~/models/ayah-info-interface";
-import PlayingHeader from "../playing-header.component";
+import PlayingHeader from "../header/playing-header.component";
 import { useStore } from "~/store/store";
 import { createEffect, batch, For, onCleanup, Show } from "solid-js";
 import QuranLineComponent from "./quran-line-component";

@@ -9,23 +9,24 @@ export default function ScrollToVerseComponent(props: { word: IArabicWord, shoul
     let divRef: HTMLDivElement;
 
     createEffect(() => {
-        if (!shouldScroll || !divRef) {
+        const chapter = chapterNumber();
+        const verse = verseNumber();
+
+        if (!shouldScroll || !divRef || word.wordNumber !== 1) {
             return
         }
-        if (word.chapterNumber !== chapterNumber() || word.verseNumber !== verseNumber() || word.wordNumber !== 1) {
+        if (word.chapterNumber !== chapter || word.verseNumber !== verse) {
             return;
         }
+
         const elementTop = divRef.getBoundingClientRect().top + window.scrollY;
         const offset = elementTop - headerHeight;
-
         window.scrollTo({
             top: offset,
-            behavior: 'smooth', // or 'auto' for instant scrolling
+            behavior: 'smooth',
         });
 
     }, [chapterNumber(), verseNumber()])
 
-    return (
-        <div ref={divRef!}></div>
-    )
+    return (<div ref={divRef!} />)
 }
