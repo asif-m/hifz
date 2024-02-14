@@ -4,6 +4,9 @@
 		url("./fonts/UthmanicHafs1Ver18.ttf") format("ttf"), ;
 }
 
+html{
+	scrollbar-color: #ffffff #272727
+}
 body {
 	font-family: UthmanicHafs, Helvetica;
 }

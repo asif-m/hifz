@@ -187,7 +187,7 @@ export default function WavesurferWrapperComponent() {
           <CircularProgress color="success" />
         </div>
       </Show>
-      <div id="waveform"></div>
+      <div id="waveform" style={{ "scrollbar-color": `${colors.scrollbarColor}` }}></div>
     </div>
   );
 }
