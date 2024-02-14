@@ -41,7 +41,7 @@ export default function AyahPlayTrackEditComponent(props: {
         }}>
             <div style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
             <EditableTextboxControlsComponent value={timestamps[index].timestampFrom} onChange={(v) => onFromChange(v)} />
-            <div>-</div>
+            <div  style={{ padding: "4px 8px" }}>-</div>
             <EditableTextboxControlsComponent value={timestamps[index].timestampTo} onChange={(v) => onToChange(v)} />
             <div>
                 <Show when={index !== 0}>

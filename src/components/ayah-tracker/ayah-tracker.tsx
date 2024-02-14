@@ -1,11 +1,12 @@
 import { For, batch, createEffect, createSignal } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
-import { Switch } from "@suid/material";
+import { IconButton, Switch } from "@suid/material";
 import { AudioPlayerState } from "~/models/audio-player-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
+import Save from "@suid/icons-material/Save";
 
 interface IAyahDataInLocalStorageIndividual {
     chapterNumber: number,
@@ -101,7 +102,7 @@ export default function AyahTrackerComponent() {
         });
 
         if (hasModifications) {
-            save(aTS);
+            saveToLocalStorage(aTS);
         }
 
         batch(() => {
@@ -184,10 +185,10 @@ export default function AyahTrackerComponent() {
                 timestampTo
             };
         }
-        save(allAudio);
+        saveToLocalStorage(allAudio);
     })
 
-    function save(data: IAyahDataInLocalStorage) {
+    function saveToLocalStorage(data: IAyahDataInLocalStorage) {
         CLocalStorageHelper.update(key, data);
     }
     function onSave() {
@@ -206,6 +207,9 @@ export default function AyahTrackerComponent() {
                 }}
                 inputProps={{ "aria-label": "controlled" }}
             />
+            <IconButton aria-label="stop" onclick={() => onSave()}>
+                <Save />
+            </IconButton>
         </div>
         <For each={pageSurahAudioTimeStamps()}>
             {(ayah, i) => (
@@ -213,8 +217,5 @@ export default function AyahTrackerComponent() {
                     index={i()}
                 />)}
         </For>
-        {/* <IconButton aria-label="stop" onclick={() => onSave()}>
-            <Save />
-        </IconButton> */}
     </div>)
 }

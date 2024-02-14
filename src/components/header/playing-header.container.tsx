@@ -20,7 +20,7 @@ export default function PlayingHeaderContainer() {
           <WavesurferWrapperComponent />
         </div>
       </div>
-      <div style={{ width: "20%", "max-height":`${headerHeight}px`, overflow:"scroll"}}>
+      <div style={{ width: "20%", "max-height":`${headerHeight}px`, "overflow-y":"scroll", "scrollbar-color": "#ffffff #272727"}}>
         <Show when={audioLoaded()}>
           <AyahTrackerComponent />
         </Show>

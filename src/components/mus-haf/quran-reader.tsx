@@ -103,7 +103,7 @@ export default function QuranReader(props: IAyahBase) {
       </Box>
       <div style={{ "padding-top": `${headerHeight}px` }}>
         <Container>
-          <div style={{ overflow: "scroll" }}>
+          <div style={{  "scrollbar-color": "#ffffff #272727" }}>
             <div style={{ display: "flex", "flex-direction": "row" }}>
               <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
                 <For each={lineData()}>{words => <QuranLineComponent words={words} />}</For>
