@@ -9,9 +9,16 @@ import { ayahTrackerWidth, colors, headerHeight } from "~/models/style-constants
 export default function PlayingHeaderContainer() {
   const { audioLoaded } = useStore();
   return (
-    <div style={{ width: "100%", margin: "16px", display:"flex", "flex-direction":"row" }}>
-      
-      <div style={{ width: `calc(100% - ${ayahTrackerWidth}px)`}}>
+    <div style={{
+      width: "100%",
+      margin: "4px",
+      display: "flex",
+      "flex-direction": "row",
+      "max-height": `${headerHeight}px`,
+      "height": `${headerHeight}px`,
+    }}>
+
+      <div style={{ width: `calc(100% - ${ayahTrackerWidth}px)` }}>
         <div style={{ display: "flex" }}>
           <AudioPlayerControlsComponent />
           <HeaderPageData />
@@ -20,7 +27,13 @@ export default function PlayingHeaderContainer() {
           <WavesurferWrapperComponent />
         </div>
       </div>
-      <div style={{ width: `${ayahTrackerWidth}px`,"min-width":`${ayahTrackerWidth}px`, "max-height":`${headerHeight}px`, "overflow-y":"scroll", "scrollbar-color": `${colors.scrollbarColor}`}}>
+      <div style={{
+        width: `${ayahTrackerWidth}px`,
+        "min-width": `${ayahTrackerWidth}px`,
+       
+        "overflow-y": "scroll",
+        "scrollbar-color": `${colors.scrollbarColor}`
+      }}>
         <Show when={audioLoaded()}>
           <AyahTrackerComponent />
         </Show>

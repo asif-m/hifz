@@ -14,6 +14,6 @@ export const colors={
 
 export const pageWidth= "1000px";
 
-export const headerHeight = 260;
+export const headerHeight = 220;
 
 export const ayahTrackerWidth = 300

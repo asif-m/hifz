@@ -101,7 +101,7 @@ export default function QuranReader(props: IAyahBase) {
           </Toolbar>
         </AppBar>
       </Box>
-      <div style={{ "padding-top": `${headerHeight}px` }}>
+      <div style={{ "padding-top": `${headerHeight+10}px` }}>
         <Container>
           <div style={{ "scrollbar-color": `${colors.scrollbarColor}` }}>
             <div style={{ display: "flex", "flex-direction": "row" }}>
