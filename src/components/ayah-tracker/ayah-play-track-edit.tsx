@@ -32,12 +32,14 @@ export default function AyahPlayTrackEditComponent(props: {
 
     return (
         <div style={{
-            display: "flex", "align-items": "center",
+            display: "flex", 
+            "align-items": "center",
             gap: "3px",
             //border: highlight ? `solid ${colors.ayahsTrackBorderColor} 3px` : "",
-            "border-radius": "3px",
-            margin: "8px",
-            "font-size": "10px"
+            //"border-radius": "3px",
+            //margin: "8px",
+            "font-size": "10px",
+            "min-width":"160px"
         }}>
             <div style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
             <EditableTextboxControlsComponent value={timestamps[index].timestampFrom} onChange={(v) => onFromChange(v)} />

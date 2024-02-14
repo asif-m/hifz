@@ -9,8 +9,11 @@ export const colors={
     waveActiveAyahRegion :"rgba(44, 164, 171, 0.7)",
     ayahsTrackBorderColor : "rgb(0, 200, 200)",
     currentVerseColor: "rgb(44, 164, 171)",
+    scrollbarColor: "#ffffff #272727",
 }
 
 export const pageWidth= "1000px";
 
 export const headerHeight = 260;
+
+export const ayahTrackerWidth = 300

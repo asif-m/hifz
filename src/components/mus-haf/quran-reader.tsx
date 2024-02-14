@@ -8,7 +8,7 @@ import {
   Box, Toolbar, Container
 } from "@suid/material";
 import { CPage, IPageData } from "~/models/page";
-import { headerHeight } from "~/models/style-constants";
+import { colors, headerHeight } from "~/models/style-constants";
 export default function QuranReader(props: IAyahBase) {
   const {
     chapterNumber,
@@ -103,7 +103,7 @@ export default function QuranReader(props: IAyahBase) {
       </Box>
       <div style={{ "padding-top": `${headerHeight}px` }}>
         <Container>
-          <div style={{  "scrollbar-color": "#ffffff #272727" }}>
+          <div style={{ "scrollbar-color": `${colors.scrollbarColor}` }}>
             <div style={{ display: "flex", "flex-direction": "row" }}>
               <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
                 <For each={lineData()}>{words => <QuranLineComponent words={words} />}</For>
