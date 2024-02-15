@@ -1,12 +1,11 @@
-import { TextField } from "@suid/material";
 import { createSignal } from "solid-js";
 import { AudioPlayerState } from "~/models/audio-player-state";
 import { useStore } from "~/store/store";
 
 export default function EditableTextboxControlsComponent(props: { value: number, onChange: (value: number) => void }) {
-    const { value, onChange} = props;
+    const { value, onChange } = props;
     const { setAudioPlayerState, setAudioCurrentTime, setAudioTimetrackAutoUpdate } = useStore();
-    const [localValue, setLocalValue] = createSignal<string|number>(value);
+    const [localValue, setLocalValue] = createSignal<string | number>(value);
 
     function isValidNumber(value: any): boolean {
         // Check if the value is of type number and not NaN
@@ -14,13 +13,13 @@ export default function EditableTextboxControlsComponent(props: { value: number,
     }
 
     function onValueChange(v: string) {
-        setLocalValue(()=>v)
-        if(v===""){
+        setLocalValue(() => v)
+        if (v === "") {
             return;
         }
         try {
             const time = parseFloat(parseFloat(v).toPrecision(2));
-            if(!isValidNumber(time)){
+            if (!isValidNumber(time)) {
                 return;
             }
             onChange(time);
@@ -31,17 +30,20 @@ export default function EditableTextboxControlsComponent(props: { value: number,
     }
 
     return (
-        <TextField
+        <input type="number"
+            name="price"
+            pattern="[0-9]+([\.,][0-9]+)?"
+            step="0.5"
             value={localValue()}
-            inputProps={{ style: { "font-size": "8px" } }} // font size of input text
-            InputLabelProps={{ style: { "font-size": "8px" } }} // font size of input label
-            variant="standard"
+            style={{width:"65px"}}
             onFocus={() => {
                 setAudioPlayerState(() => AudioPlayerState.stopped);
                 setAudioTimetrackAutoUpdate(() => false);
                 setAudioCurrentTime(() => value);
             }}
-            onChange={(event, v) => { onValueChange(v) }}
+            onChange={(e) => {
+                onValueChange(e.target.value)
+            }}
         />
     )
 }

@@ -28,6 +28,7 @@ export default function AyahTrackerComponent() {
         audioCurrentTime,
         pressedKey,
         audioPlayerState,
+        setAudioStartTime,
         audioTimetrackAutoUpdate,
         setAudioTimetrackAutoUpdate,
         pageSurahAudioTimeStamps,
@@ -58,9 +59,11 @@ export default function AyahTrackerComponent() {
 
 
         let hasModifications = false;
+        let  firstTimestamp =0;
         pageInfo.ayahs.forEach((ayah) => {
             const { chapterNumber, verseNumber, reciterTimestamps } = ayah;
             const { timestampFrom, timestampTo } = reciterTimestamps["Shaykh Samir al-Nass"];
+
 
             if (!aTS.data) {
                 aTS.data = {};
@@ -89,6 +92,7 @@ export default function AyahTrackerComponent() {
                         verseNumber: 0
                     })
                 }
+                firstTimestamp = aTS.data[chapterNumber][verseNumber].timestampFrom ||0;
                 pageSurahAudioTimeStampsLocal.push({
                     timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom || 0,
                     timestampTo: aTS.data[chapterNumber][verseNumber].timestampTo || 0
@@ -108,6 +112,7 @@ export default function AyahTrackerComponent() {
         batch(() => {
             setPageSurahAudioTimeStamps(() => pageSurahAudioTimeStampsLocal);
             setAyahInCurrentPageSurah(() => ayahInCurrentPageSurahLocal);
+            setAudioStartTime(()=>firstTimestamp);
         })
 
     })
