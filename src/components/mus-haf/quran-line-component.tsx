@@ -15,7 +15,7 @@ export default function QuranLineComponent(props: { words: Array<IArabicWord> })
                 <Show when={CWord.isFirstWord(firstWord)}>
                     <QuranSurahTitleComponent word={firstWord} />
                 </Show>
-                <Show when={CWord.shouldDisplayBismillah(firstWord)}>
+                <Show when={CWord.shouldAddBismi(firstWord)}>
                     <QuranBismiComponent />
                 </Show>
 

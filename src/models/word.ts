@@ -1,3 +1,5 @@
+import { CSurah } from "./surah";
+
 export interface IArabicWord {
   chapterNumber: number;
   verseNumber: number;
@@ -15,10 +17,10 @@ export interface IArabicWord {
 }
 
 export class CWord {
-  public static shouldDisplayBismillah(word: IArabicWord) {
-    const { chapterNumber } = word;
+  public static shouldAddBismi(word: IArabicWord) {
+    const { chapterNumber, verseNumber } = word;
     return (
-      CWord.isFirstWord(word) && chapterNumber !== 1 && chapterNumber !== 9
+      CWord.isFirstWord(word) && CSurah.shouldAddBismi(chapterNumber,verseNumber)
     );
   }
   public static isFirstWord(word: IArabicWord) {
