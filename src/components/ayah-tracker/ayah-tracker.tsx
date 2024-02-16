@@ -180,7 +180,7 @@ export default function AyahTrackerComponent() {
             return;
         }
 
-        for (let i = 0; i < ayahInCurrentPageSurahLocal.length - 1; i++) {
+        for (let i = 0; i < ayahInCurrentPageSurahLocal.length ; i++) {
             const { timestampFrom, timestampTo } = pageTime[i];
             const { chapterNumber, verseNumber } = ayahInCurrentPageSurahLocal[i]
             allAudio.data[chapterNumber][verseNumber] = {
