@@ -70,3 +70,5 @@ export class CAyah {
     return { nextSurah: currentSurah, nextAyah: currentAyah - 1 };
   }
 }
+
+export const BISMI_INDEX=0
