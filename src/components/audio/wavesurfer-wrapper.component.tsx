@@ -93,7 +93,12 @@ export default function WavesurferWrapperComponent() {
     if (!ws) {
       return;
     }
-    ws.playPause();
+    
+    if(audioPlayer === AudioPlayerState.PLAYING){
+      ws.play();
+    }else if(audioPlayer === AudioPlayerState.STOPPED){
+      ws.pause();
+    }
   });
 
 
