@@ -24,17 +24,19 @@ export default function AyahPlayTrackEditComponent(props: {
         )
     }
     function onDelete() {
+        const timestamps = pageSurahAudioTimeStamps();
+        const {timestampTo:timestampToOfItemDeleted} = timestamps[index];
         setPageSurahAudioTimeStamps((prev) => prev
             .map((t, i) => {
-                if(i === index -1){
-                    return { ...t, timestampTo: timestamps[index].timestampFrom }
+                if(i === index-1){
+                    return { ...t, timestampTo: timestampToOfItemDeleted }
                 }
-                if(i === index + 1){
-                    return { ...t, timestampFrom: timestamps[index].timestampTo }
+                if(i>=index && i<timestamps.length-1){
+                    const {timestampTo, timestampFrom} = timestamps[i+1]
+                    return { ...t, timestampTo, timestampFrom}
                 }
                 return t;
             })
-            .filter((timeStamp, i) => i !== index)
         )
     }
 
