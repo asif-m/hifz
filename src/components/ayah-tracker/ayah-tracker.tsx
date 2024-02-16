@@ -2,7 +2,7 @@ import { For, batch, createEffect, createSignal } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { IconButton, Switch } from "@suid/material";
-import { AudioPlayerState } from "~/models/audio-player-state";
+import { AudioPlayerState } from "~/models/audio-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
@@ -136,7 +136,7 @@ export default function AyahTrackerComponent() {
         if (!autoUpdate) {
             return;
         }
-        if (key === "Space" && playerState === AudioPlayerState.playing) {
+        if (key === "Space" && playerState === AudioPlayerState.PLAYING) {
             setPageSurahAudioTimeStamps((prev) => {
                 const newValue = [...prev];
                 const lastItem = prev[prev.length - 1];

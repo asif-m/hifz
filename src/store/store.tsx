@@ -3,7 +3,7 @@ import type { ComponentProps } from "~/utils/component-type";
 import type { Accessor, Setter } from 'solid-js';
 import { IPageData } from "~/models/page";
 import { IArabicWord } from "~/models/word";
-import { AudioPlayerState } from "~/models/audio-player-state";
+import { AudioPlayerState } from "~/models/audio-state";
 import { IReciterTimeStamp, IAyahBase } from "~/models/ayah-info-interface";
 
 const StoreContext = createContext();
@@ -43,7 +43,7 @@ export function getInitialStoreData(): IStoreData {
         audioStartTime: 0,
         audioCurrentTime: 0,
         audioLoaded: false,
-        audioPlayerState: AudioPlayerState.stopped,
+        audioPlayerState: AudioPlayerState.STOPPED,
         audioTimetrackAutoUpdate: true,
         pressedKey: "",
         pageSurahAudioTimeStamps: [],

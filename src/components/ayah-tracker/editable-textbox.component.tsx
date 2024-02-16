@@ -1,5 +1,5 @@
 import { createSignal } from "solid-js";
-import { AudioPlayerState } from "~/models/audio-player-state";
+import { AudioPlayerState } from "~/models/audio-state";
 import { useStore } from "~/store/store";
 
 export default function EditableTextboxControlsComponent(props: { value: number, onChange: (value: number) => void }) {
@@ -37,7 +37,7 @@ export default function EditableTextboxControlsComponent(props: { value: number,
             value={localValue()}
             style={{width:"65px"}}
             onFocus={() => {
-                setAudioPlayerState(() => AudioPlayerState.stopped);
+                setAudioPlayerState(() => AudioPlayerState.STOPPED);
                 setAudioTimetrackAutoUpdate(() => false);
                 setAudioCurrentTime(() => value);
             }}

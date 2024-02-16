@@ -2,7 +2,7 @@ import { IconButton } from "@suid/material";
 import PlayCircle from "@suid/icons-material/PlayCircle";
 import StopCircle from "@suid/icons-material/StopCircle";
 import { useStore } from "~/store/store";
-import { AudioPlayerState } from "~/models/audio-player-state";
+import { AudioPlayerState } from "~/models/audio-state";
 import { Show } from "solid-js";
 
 export default function AudioPlayerControlsComponent() {
@@ -15,13 +15,13 @@ export default function AudioPlayerControlsComponent() {
             "align-items": "center",
         }}>
             <Show when={audioLoaded()}>
-                <Show when={audioPlayerState() === AudioPlayerState.stopped}>
-                    <IconButton aria-label="play" onclick={() => setAudioPlayerState(AudioPlayerState.playing)}>
+                <Show when={audioPlayerState() === AudioPlayerState.STOPPED}>
+                    <IconButton aria-label="play" onclick={() => setAudioPlayerState(AudioPlayerState.PLAYING)}>
                         <PlayCircle />
                     </IconButton>
                 </Show>
-                <Show when={audioPlayerState() === AudioPlayerState.playing}>
-                    <IconButton aria-label="stop" onclick={() => setAudioPlayerState(AudioPlayerState.stopped)}>
+                <Show when={audioPlayerState() === AudioPlayerState.PLAYING}>
+                    <IconButton aria-label="stop" onclick={() => setAudioPlayerState(AudioPlayerState.STOPPED)}>
                         <StopCircle />
                     </IconButton>
                 </Show>
