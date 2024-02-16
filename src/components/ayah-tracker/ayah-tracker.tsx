@@ -4,7 +4,6 @@ import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { FormControlLabel, IconButton, Radio, RadioGroup } from "@suid/material";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
-import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import Save from "@suid/icons-material/Save";
 import * as ST from "@suid/types";
@@ -205,7 +204,6 @@ export default function AyahTrackerComponent() {
 
     return (<div>
         <div style={{ display: "flex", "flex-direction": "row","margin-top":"4px" }}>
-            <AudioPlayerControlsComponent />
             <RadioGroup
                 value={audioTrackerState()}
                 onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
@@ -218,13 +216,6 @@ export default function AyahTrackerComponent() {
                     <FormControlLabel value={AudioTrackerState.REVIEW} control={<Radio />} label="R" />
                 </div>
             </RadioGroup>
-            {/* <Switch
-                checked={audioTrackerState() === AudioTrackerState.CAPTURE}
-                onChange={(event, value) => {
-                    setAudioTrackerState(value?AudioTrackerState.CAPTURE: AudioTrackerState.EDIT);
-                }}
-                inputProps={{ "aria-label": "controlled" }}
-            /> */}
             <IconButton aria-label="stop" onclick={() => onSave()}>
                 <Save />
             </IconButton>
