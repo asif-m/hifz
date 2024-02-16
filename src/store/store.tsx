@@ -22,6 +22,8 @@ export interface IStoreData {
     audioTrackerState: AudioTrackerState;
     pageSurahAudioTimeStamps: Array<IReciterTimeStamp>;
     ayahInCurrentPageSurah: Array<IAyahBase>;
+    captureIndex : number;
+    saveClickCounter: number;
 }
 
 export function getInitialStoreData(): IStoreData {
@@ -47,7 +49,9 @@ export function getInitialStoreData(): IStoreData {
         audioTrackerState: AudioTrackerState.CAPTURE,
         pressedKey: "",
         pageSurahAudioTimeStamps: [],
-        ayahInCurrentPageSurah: []
+        ayahInCurrentPageSurah: [],
+        captureIndex:0,
+        saveClickCounter:0,
     }
 }
 
@@ -78,6 +82,10 @@ export interface IStoreUseContextData {
     setPageSurahAudioTimeStamps: Setter<Array<IReciterTimeStamp>>
     ayahInCurrentPageSurah: Accessor<Array<IAyahBase>>
     setAyahInCurrentPageSurah: Setter<Array<IAyahBase>>
+    captureIndex :Accessor<number>
+    setCaptureIndex:Setter<number>
+    saveClickCounter: Accessor<number>
+    setSaveClickCounter:Setter<number>
 }
 
 
@@ -95,7 +103,9 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [pressedKey, setPressedKey] = createSignal(props.pressedKey);
     const [pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps] = createSignal<Array<IReciterTimeStamp>>(props.pageSurahAudioTimeStamps);
     const [ayahInCurrentPageSurah, setAyahInCurrentPageSurah] = createSignal<Array<IAyahBase>>(props.ayahInCurrentPageSurah)
-
+    const [captureIndex, setCaptureIndex] = createSignal(props.captureIndex);
+    const [saveClickCounter, setSaveClickCounter] = createSignal(props.saveClickCounter);
+    
     const value = {
         verseNumber, setVerseNumber,
         chapterNumber, setChapterNumber,
@@ -110,6 +120,8 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         pressedKey, setPressedKey,
         pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps,
         ayahInCurrentPageSurah, setAyahInCurrentPageSurah,
+        captureIndex, setCaptureIndex,
+        saveClickCounter, setSaveClickCounter,
     };
 
     return (

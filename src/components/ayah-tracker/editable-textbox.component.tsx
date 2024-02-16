@@ -1,12 +1,29 @@
-import { createSignal } from "solid-js";
+import { Accessor, createSignal } from "solid-js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import { useStore } from "~/store/store";
 
-export default function EditableTextboxControlsComponent(props: { value: number, onChange: (value: number) => void }) {
-    const { value, onChange } = props;
-    const { setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState , audioTrackerState} = useStore();
+export default function EditableTextboxControlsComponent(props: {index: Accessor<number>, type: "from"|"to"}) {
+    const { type, index } = props;
+    const { pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps,setCaptureIndex, setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState , audioTrackerState} = useStore();
+    const {timestampFrom, timestampTo} = pageSurahAudioTimeStamps()[index()]
+    const isFrom =(type === "from") 
+    const value =  isFrom? timestampFrom : timestampTo;
+    const onChange = isFrom? onFromChange:onToChange;
     const [localValue, setLocalValue] = createSignal<string | number>(value);
 
+    function onFromChange(v: number) {
+        const aIndex =  index();
+        setPageSurahAudioTimeStamps((prev) => prev
+            .map((t, i) => (i === aIndex) ? { ...t, timestampFrom: v } : t)
+        )
+    }
+    function onToChange(v: number) {
+        const aIndex =  index();
+        setPageSurahAudioTimeStamps((prev) => prev
+            .map((t, i) => (i === aIndex) ? { ...t, timestampTo: v } : t)
+        )
+    }
+    
     function isValidNumber(value: any): boolean {
         // Check if the value is of type number and not NaN
         return typeof value === 'number' && !isNaN(value);
@@ -41,6 +58,7 @@ export default function EditableTextboxControlsComponent(props: { value: number,
                 setAudioPlayerState(() => AudioPlayerState.STOPPED);
                 setAudioTrackerState(() => AudioTrackerState.EDIT);
                 setAudioCurrentTime(() => value);
+                setCaptureIndex(()=>index())
             }}
             onChange={(e) => {
                 onValueChange(e.target.value)

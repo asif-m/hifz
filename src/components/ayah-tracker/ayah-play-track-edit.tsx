@@ -6,26 +6,14 @@ import { AudioTrackerState } from "~/models/audio-state";
 
 export default function AyahPlayTrackEditComponent(props: {
     index: Accessor<number>,
-    captureIndex: Accessor<number>,
 }) {
-    const { index, captureIndex } = props;
-    const { pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah, audioTrackerState } = useStore();
+    const { index } = props;
+    const { pageSurahAudioTimeStamps, captureIndex, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah, audioTrackerState } = useStore();
     const ayahs = ayahInCurrentPageSurah();
     const chapter = ayahs[index()]?.chapterNumber || 0;
     const verse = ayahs[index()]?.verseNumber === 0 ? "B" : (ayahs[index()]?.verseNumber || 0)
 
-    function onFromChange(v: number) {
-        const aIndex =  index();
-        setPageSurahAudioTimeStamps((prev) => prev
-            .map((t, i) => (i === aIndex) ? { ...t, timestampFrom: v } : t)
-        )
-    }
-    function onToChange(v: number) {
-        const aIndex =  index();
-        setPageSurahAudioTimeStamps((prev) => prev
-            .map((t, i) => (i === aIndex) ? { ...t, timestampTo: v } : t)
-        )
-    }
+   
     function onDelete() {
         const timestamps = pageSurahAudioTimeStamps();
         const {timestampTo:timestampToOfItemDeleted} = timestamps[index()];
@@ -56,9 +44,9 @@ export default function AyahPlayTrackEditComponent(props: {
             "min-width":"160px"
         }}>
             <div style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
-            <EditableTextboxControlsComponent value={pageSurahAudioTimeStamps()[index()].timestampFrom} onChange={(v) => onFromChange(v)} />
+            <EditableTextboxControlsComponent index ={index} type= {"from" }/>
             <div  style={{ padding: "4px 8px" }}>-</div>
-            <EditableTextboxControlsComponent value={pageSurahAudioTimeStamps()[index()].timestampTo} onChange={(v) => onToChange(v)} />
+            <EditableTextboxControlsComponent index ={index} type={"to"}/>
             <div>
                 <Show when={index() !== 0 && audioTrackerState() === AudioTrackerState.EDIT}>
                     <div role={"button"} style={{ cursor: "pointer" }} onclick={() => onDelete()}>

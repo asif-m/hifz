@@ -36,12 +36,15 @@ export default function AyahTrackerComponent() {
         setPageSurahAudioTimeStamps,
         ayahInCurrentPageSurah,
         setAyahInCurrentPageSurah,
-        setAudioPlayerState
+        setAudioPlayerState,
+        captureIndex, 
+        setCaptureIndex,
+        saveClickCounter, 
+        setSaveClickCounter,
     } = useStore();
     const key = `sameer-nass-audio-data`;
 
-    const [captureIndex, setCaptureIndex] = createSignal(0);
-    const [saveClickCounter, setSaveClickCounter] = createSignal(0);
+    
 
     function getAllAudioTimeStamps() {
         return CLocalStorageHelper.read(key) as IAyahDataInLocalStorage;
@@ -246,7 +249,6 @@ export default function AyahTrackerComponent() {
             {(ayah, index) => (
                 <AyahPlayTrackEditComponent
                     index={index}
-                    captureIndex ={captureIndex}
                 />)}
         </For>
     </div>)
