@@ -2,13 +2,14 @@ import { useStore } from "~/store/store";
 import EditableTextboxControlsComponent from "./editable-textbox.component";
 import { Accessor, Show } from "solid-js";
 import { colors } from "~/models/style-constants";
+import { AudioTrackerState } from "~/models/audio-state";
 
 export default function AyahPlayTrackEditComponent(props: {
     index: Accessor<number>,
     captureIndex: Accessor<number>,
 }) {
     const { index, captureIndex } = props;
-    const { pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah } = useStore();
+    const { pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah, audioTrackerState } = useStore();
     const ayahs = ayahInCurrentPageSurah();
     const chapter = ayahs[index()]?.chapterNumber || 0;
     const verse = ayahs[index()]?.verseNumber === 0 ? "B" : (ayahs[index()]?.verseNumber || 0)
@@ -59,7 +60,7 @@ export default function AyahPlayTrackEditComponent(props: {
             <div  style={{ padding: "4px 8px" }}>-</div>
             <EditableTextboxControlsComponent value={pageSurahAudioTimeStamps()[index()].timestampTo} onChange={(v) => onToChange(v)} />
             <div>
-                <Show when={index() !== 0}>
+                <Show when={index() !== 0 && audioTrackerState() === AudioTrackerState.EDIT}>
                     <div role={"button"} style={{ cursor: "pointer" }} onclick={() => onDelete()}>
                         ⌫
                     </div>

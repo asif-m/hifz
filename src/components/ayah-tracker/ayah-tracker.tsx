@@ -35,7 +35,8 @@ export default function AyahTrackerComponent() {
         pageSurahAudioTimeStamps,
         setPageSurahAudioTimeStamps,
         ayahInCurrentPageSurah,
-        setAyahInCurrentPageSurah
+        setAyahInCurrentPageSurah,
+        setAudioPlayerState
     } = useStore();
     const key = `sameer-nass-audio-data`;
 
@@ -224,7 +225,11 @@ export default function AyahTrackerComponent() {
             <RadioGroup
                 value={audioTrackerState()}
                 onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
-                    setAudioTrackerState(()=>event.target.value as AudioTrackerState);
+                    const value = event.target.value as AudioTrackerState
+                    if(value === AudioTrackerState.EDIT || AudioTrackerState.REVIEW){
+                        setAudioPlayerState(() => AudioPlayerState.STOPPED);
+                    }
+                    setAudioTrackerState(()=> value);
                   }}
             >
                 <div style={{"display":"flex"}}>

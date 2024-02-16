@@ -4,7 +4,7 @@ import { useStore } from "~/store/store";
 
 export default function EditableTextboxControlsComponent(props: { value: number, onChange: (value: number) => void }) {
     const { value, onChange } = props;
-    const { setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState } = useStore();
+    const { setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState , audioTrackerState} = useStore();
     const [localValue, setLocalValue] = createSignal<string | number>(value);
 
     function isValidNumber(value: any): boolean {
@@ -36,6 +36,7 @@ export default function EditableTextboxControlsComponent(props: { value: number,
             step="0.5"
             value={localValue()}
             style={{width:"65px"}}
+            readOnly = {audioTrackerState() !== AudioTrackerState.EDIT}
             onFocus={() => {
                 setAudioPlayerState(() => AudioPlayerState.STOPPED);
                 setAudioTrackerState(() => AudioTrackerState.EDIT);
