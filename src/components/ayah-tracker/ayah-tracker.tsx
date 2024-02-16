@@ -7,6 +7,7 @@ import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import Save from "@suid/icons-material/Save";
 import * as ST from "@suid/types";
+import { CSurah } from "~/models/surah";
 
 interface IAyahDataInLocalStorageIndividual {
     chapterNumber: number,
@@ -81,7 +82,7 @@ export default function AyahTrackerComponent() {
                 }
             }
             if (chapter === ayah.chapterNumber) {
-                if (chapterNumber !== 9 && verseNumber == 1) {
+                if (CSurah.shouldAddBismi(chapterNumber, verseNumber)) {
                     //Place holder for Bismi
                     pageSurahAudioTimeStampsLocal.push({
                         timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom || 0,
