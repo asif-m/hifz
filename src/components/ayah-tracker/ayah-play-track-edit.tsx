@@ -10,10 +10,8 @@ export default function AyahPlayTrackEditComponent(props: {
     const { index, captureIndex } = props;
     const { pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah } = useStore();
     const ayahs = ayahInCurrentPageSurah();
-    const timestamps = pageSurahAudioTimeStamps();
     const chapter = ayahs[index()]?.chapterNumber || 0;
     const verse = ayahs[index()]?.verseNumber === 0 ? "B" : (ayahs[index()]?.verseNumber || 0)
-
 
     function onFromChange(v: number) {
         const aIndex =  index();
@@ -57,9 +55,9 @@ export default function AyahPlayTrackEditComponent(props: {
             "min-width":"160px"
         }}>
             <div style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
-            <EditableTextboxControlsComponent value={timestamps[index()].timestampFrom} onChange={(v) => onFromChange(v)} />
+            <EditableTextboxControlsComponent value={pageSurahAudioTimeStamps()[index()].timestampFrom} onChange={(v) => onFromChange(v)} />
             <div  style={{ padding: "4px 8px" }}>-</div>
-            <EditableTextboxControlsComponent value={timestamps[index()].timestampTo} onChange={(v) => onToChange(v)} />
+            <EditableTextboxControlsComponent value={pageSurahAudioTimeStamps()[index()].timestampTo} onChange={(v) => onToChange(v)} />
             <div>
                 <Show when={index() !== 0}>
                     <div role={"button"} style={{ cursor: "pointer" }} onclick={() => onDelete()}>

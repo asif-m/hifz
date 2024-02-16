@@ -4,7 +4,7 @@ import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { FormControlLabel, IconButton, Radio, RadioGroup } from "@suid/material";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
-import { IReciterTimeStamp } from "~/models/ayah-info-interface";
+import { BISMI_INDEX, IReciterTimeStamp } from "~/models/ayah-info-interface";
 import Save from "@suid/icons-material/Save";
 import * as ST from "@suid/types";
 import { CSurah } from "~/models/surah";
@@ -60,7 +60,7 @@ export default function AyahTrackerComponent() {
 
 
         let hasModifications = false;
-        let  firstTimestamp =0;
+        let  firstTimestamp =-1;
         pageInfo.ayahs.forEach((ayah) => {
             const { chapterNumber, verseNumber, reciterTimestamps } = ayah;
             const { timestampFrom, timestampTo } = reciterTimestamps["Shaykh Samir al-Nass"];
@@ -74,6 +74,14 @@ export default function AyahTrackerComponent() {
             }
             if (!aTS.data[chapterNumber][verseNumber]) {
                 hasModifications = true;
+                if (CSurah.shouldAddBismi(chapterNumber, verseNumber)) {
+                    aTS.data[chapterNumber][BISMI_INDEX] = {
+                        chapterNumber,
+                        verseNumber: BISMI_INDEX,
+                        timestampFrom,
+                        timestampTo
+                    }
+                }
                 aTS.data[chapterNumber][verseNumber] = {
                     chapterNumber,
                     verseNumber,
@@ -85,15 +93,19 @@ export default function AyahTrackerComponent() {
                 if (CSurah.shouldAddBismi(chapterNumber, verseNumber)) {
                     //Place holder for Bismi
                     pageSurahAudioTimeStampsLocal.push({
-                        timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom || 0,
-                        timestampTo: aTS.data[chapterNumber][verseNumber].timestampTo || 0
+                        timestampFrom: aTS.data[chapterNumber][BISMI_INDEX].timestampFrom || 0,
+                        timestampTo: aTS.data[chapterNumber][BISMI_INDEX].timestampTo || 0
                     })
                     ayahInCurrentPageSurahLocal.push({
                         chapterNumber,
-                        verseNumber: 0
+                        verseNumber: BISMI_INDEX
                     })
+                    firstTimestamp = aTS.data[chapterNumber][BISMI_INDEX].timestampFrom ||0;
+                } else {
+                    if(firstTimestamp ===-1){
+                        firstTimestamp = aTS.data[chapterNumber][verseNumber].timestampFrom ||0;
+                    }
                 }
-                firstTimestamp = aTS.data[chapterNumber][verseNumber].timestampFrom ||0;
                 pageSurahAudioTimeStampsLocal.push({
                     timestampFrom: aTS.data[chapterNumber][verseNumber].timestampFrom || 0,
                     timestampTo: aTS.data[chapterNumber][verseNumber].timestampTo || 0
@@ -152,8 +164,12 @@ export default function AyahTrackerComponent() {
         const cIndex = captureIndex();
         const currentTime = audioCurrentTime();
         const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
+        const isPlaying = audioPlayerState () === AudioPlayerState.PLAYING;
 
         if (!autoUpdate) {
+            return;
+        }
+        if(!isPlaying){
             return;
         }
 
