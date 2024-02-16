@@ -222,9 +222,10 @@ export default function AyahTrackerComponent() {
             </IconButton>
         </div>
         <For each={pageSurahAudioTimeStamps()}>
-            {(ayah, i) => (
+            {(ayah, index) => (
                 <AyahPlayTrackEditComponent
-                    index={i()}
+                    index={index}
+                    captureIndex ={captureIndex}
                 />)}
         </For>
     </div>)
