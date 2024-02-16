@@ -1,10 +1,10 @@
 import { createSignal } from "solid-js";
-import { AudioPlayerState } from "~/models/audio-state";
+import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import { useStore } from "~/store/store";
 
 export default function EditableTextboxControlsComponent(props: { value: number, onChange: (value: number) => void }) {
     const { value, onChange } = props;
-    const { setAudioPlayerState, setAudioCurrentTime, setAudioTimetrackAutoUpdate } = useStore();
+    const { setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState } = useStore();
     const [localValue, setLocalValue] = createSignal<string | number>(value);
 
     function isValidNumber(value: any): boolean {
@@ -38,7 +38,7 @@ export default function EditableTextboxControlsComponent(props: { value: number,
             style={{width:"65px"}}
             onFocus={() => {
                 setAudioPlayerState(() => AudioPlayerState.STOPPED);
-                setAudioTimetrackAutoUpdate(() => false);
+                setAudioTrackerState(() => AudioTrackerState.EDIT);
                 setAudioCurrentTime(() => value);
             }}
             onChange={(e) => {

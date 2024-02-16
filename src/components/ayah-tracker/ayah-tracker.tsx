@@ -2,7 +2,7 @@ import { For, batch, createEffect, createSignal } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { IconButton, Switch } from "@suid/material";
-import { AudioPlayerState } from "~/models/audio-state";
+import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
@@ -29,8 +29,8 @@ export default function AyahTrackerComponent() {
         pressedKey,
         audioPlayerState,
         setAudioStartTime,
-        audioTimetrackAutoUpdate,
-        setAudioTimetrackAutoUpdate,
+        audioTrackerState,
+        setAudioTrackerState,
         pageSurahAudioTimeStamps,
         setPageSurahAudioTimeStamps,
         ayahInCurrentPageSurah,
@@ -126,11 +126,11 @@ export default function AyahTrackerComponent() {
         //NOTE: Do not remove this unused variables.
         const chapter = chapterNumber()
         const pageData = pageNumber();
-        setAudioTimetrackAutoUpdate(() => true);
+        setAudioTrackerState(() => AudioTrackerState.CAPTURE);
     }, [chapterNumber(), pageNumber()])
 
     createEffect(() => {
-        const autoUpdate = audioTimetrackAutoUpdate();
+        const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
         const key = pressedKey()
         const playerState = audioPlayerState()
         if (!autoUpdate) {
@@ -150,7 +150,7 @@ export default function AyahTrackerComponent() {
     createEffect(() => {
         const cIndex = captureIndex();
         const currentTime = audioCurrentTime();
-        const autoUpdate = audioTimetrackAutoUpdate();
+        const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
 
         if (!autoUpdate) {
             return;
@@ -206,9 +206,9 @@ export default function AyahTrackerComponent() {
         <div style={{ display: "flex", "flex-direction": "row" }}>
             <AudioPlayerControlsComponent />
             <Switch
-                checked={audioTimetrackAutoUpdate()}
+                checked={audioTrackerState() === AudioTrackerState.CAPTURE}
                 onChange={(event, value) => {
-                    setAudioTimetrackAutoUpdate(value);
+                    setAudioTrackerState(value?AudioTrackerState.CAPTURE: AudioTrackerState.EDIT);
                 }}
                 inputProps={{ "aria-label": "controlled" }}
             />

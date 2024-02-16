@@ -3,7 +3,7 @@ import type { ComponentProps } from "~/utils/component-type";
 import type { Accessor, Setter } from 'solid-js';
 import { IPageData } from "~/models/page";
 import { IArabicWord } from "~/models/word";
-import { AudioPlayerState } from "~/models/audio-state";
+import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import { IReciterTimeStamp, IAyahBase } from "~/models/ayah-info-interface";
 
 const StoreContext = createContext();
@@ -19,7 +19,7 @@ export interface IStoreData {
     audioLoaded: boolean;
     audioPlayerState: AudioPlayerState;
     pressedKey: string;
-    audioTimetrackAutoUpdate: boolean;
+    audioTrackerState: AudioTrackerState;
     pageSurahAudioTimeStamps: Array<IReciterTimeStamp>;
     ayahInCurrentPageSurah: Array<IAyahBase>;
 }
@@ -44,7 +44,7 @@ export function getInitialStoreData(): IStoreData {
         audioCurrentTime: 0,
         audioLoaded: false,
         audioPlayerState: AudioPlayerState.STOPPED,
-        audioTimetrackAutoUpdate: true,
+        audioTrackerState: AudioTrackerState.CAPTURE,
         pressedKey: "",
         pageSurahAudioTimeStamps: [],
         ayahInCurrentPageSurah: []
@@ -70,8 +70,8 @@ export interface IStoreUseContextData {
     setAudioLoaded: Setter<boolean>
     audioPlayerState: Accessor<AudioPlayerState>
     setAudioPlayerState: Setter<AudioPlayerState>
-    audioTimetrackAutoUpdate: Accessor<boolean>
-    setAudioTimetrackAutoUpdate: Setter<boolean>
+    audioTrackerState: Accessor<AudioTrackerState>
+    setAudioTrackerState: Setter<AudioTrackerState>
     pressedKey: Accessor<string>
     setPressedKey: Setter<string>
     pageSurahAudioTimeStamps: Accessor<Array<IReciterTimeStamp>>
@@ -91,7 +91,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [audioCurrentTime, setAudioCurrentTime] = createSignal(props.audioCurrentTime);
     const [audioLoaded, setAudioLoaded] = createSignal(props.audioLoaded);
     const [audioPlayerState, setAudioPlayerState] = createSignal(props.audioPlayerState);
-    const [audioTimetrackAutoUpdate, setAudioTimetrackAutoUpdate] = createSignal(props.audioTimetrackAutoUpdate);
+    const [audioTrackerState, setAudioTrackerState] = createSignal(props.audioTrackerState);
     const [pressedKey, setPressedKey] = createSignal(props.pressedKey);
     const [pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps] = createSignal<Array<IReciterTimeStamp>>(props.pageSurahAudioTimeStamps);
     const [ayahInCurrentPageSurah, setAyahInCurrentPageSurah] = createSignal<Array<IAyahBase>>(props.ayahInCurrentPageSurah)
@@ -106,7 +106,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         audioPlayerState, setAudioPlayerState,
         audioCurrentTime, setAudioCurrentTime,
         audioLoaded, setAudioLoaded,
-        audioTimetrackAutoUpdate, setAudioTimetrackAutoUpdate,
+        audioTrackerState, setAudioTrackerState,
         pressedKey, setPressedKey,
         pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps,
         ayahInCurrentPageSurah, setAyahInCurrentPageSurah,

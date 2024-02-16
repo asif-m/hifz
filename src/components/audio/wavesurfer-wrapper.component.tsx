@@ -10,7 +10,7 @@ import { IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
-import { AudioPlayerState } from "~/models/audio-state.jsx";
+import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state.jsx";
 import { timelinePluginConfig, waveSurferConfig, zoomPluginConfig } from "./wave-surfer-config";
 
 export default function WavesurferWrapperComponent() {
@@ -22,7 +22,7 @@ export default function WavesurferWrapperComponent() {
     audioLoaded,
     setAudioLoaded,
     setAudioPlayerState,
-    audioTimetrackAutoUpdate,
+    audioTrackerState,
   } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
@@ -128,7 +128,7 @@ export default function WavesurferWrapperComponent() {
     })
     /** On audio position change, fires continuously during playback */
     ws.on('timeupdate', (currentTime) => {
-      if (!audioTimetrackAutoUpdate()) {
+      if (audioTrackerState() === AudioTrackerState.EDIT) {
         return;
       }
       setAudioCurrentTime(() => parseFloat(currentTime.toFixed(1)))
@@ -170,7 +170,7 @@ export default function WavesurferWrapperComponent() {
   createEffect(() => {
     const ws = waveSurfer();
     const currentTime = audioCurrentTime();
-    const autoUpdate = audioTimetrackAutoUpdate()
+    const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE
     if (!ws) {
       return;
     }
