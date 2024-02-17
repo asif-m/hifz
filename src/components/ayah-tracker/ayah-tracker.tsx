@@ -6,9 +6,11 @@ import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 import { BISMI_INDEX, IReciterTimeStamp } from "~/models/ayah-info-interface";
 import Save from "@suid/icons-material/Save";
+import NavigateNext from "@suid/icons-material/NavigateNext";
 import * as ST from "@suid/types";
 import { CSurah } from "~/models/surah";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
+import { useNavigate } from "@solidjs/router";
 
 interface IAyahDataInLocalStorageIndividual {
     chapterNumber: number,
@@ -26,6 +28,7 @@ export default function AyahTrackerComponent() {
     const {
         pageData,
         chapterNumber,
+        setChapterNumber,
         setVerseNumber,
         pageNumber,
         audioCurrentTime,
@@ -47,6 +50,7 @@ export default function AyahTrackerComponent() {
         setSaveClickCounter,
     } = useStore();
     const key = `sameer-nass-audio-data-page-${pageNumber()}`;
+    const navigate = useNavigate();
 
     function getAllAudioTimeStamps() {
         return CLocalStorageHelper.read(key) as IAyahDataInLocalStorage;
@@ -193,10 +197,10 @@ export default function AyahTrackerComponent() {
         const ayahs = ayahInCurrentPageSurah();
         const cIndex = captureIndex();
 
-        if(timeStamps.length === cIndex){
-            batch(()=>{
+        if (timeStamps.length === cIndex) {
+            batch(() => {
                 setAudioTrackerState(() => AudioTrackerState.REVIEW);
-                setAudioPlayerState(()=> AudioPlayerState.PAUSE);
+                setAudioPlayerState(() => AudioPlayerState.PAUSE);
             })
             return;
         }
@@ -260,12 +264,41 @@ export default function AyahTrackerComponent() {
     function onSave() {
         setSaveClickCounter((prev) => prev + 1);
     }
+    function onNext() {
+        const ayahInCurrentPageSurahLocal = ayahInCurrentPageSurah();
+        const pData = pageData();
+        const { chapterNumber, verseNumber } = ayahInCurrentPageSurahLocal[ayahInCurrentPageSurahLocal.length - 1];
+        if (!pData) {
+            return;
+        }
+        const { pageNumber, ayahs } = pData;
+        let lastIndex = -1;
+        for (let i = 0; i < ayahs.length; i++) {
+            const ayah = ayahs[i];
+            if (ayah.chapterNumber === chapterNumber && ayah.verseNumber === verseNumber) {
+                lastIndex = i;
+                break;
+            }
+        }
+        if (lastIndex == -1 || lastIndex === ayahs.length - 1) {
+            //Last verse. Go to next page
+            navigate(`/page/${pageNumber + 1}`, { replace: true })
+        } else {
+            const { chapterNumber, verseNumber } = ayahs[lastIndex + 1];
+            navigate(`/surah/${chapterNumber}`, { replace: true })
+            batch(() => {
+                setChapterNumber(() => chapterNumber);
+                setVerseNumber(() => 1);
+                setCaptureIndex(() => 0);
+                setAudioStartTime(() => 0);
+            })
+        }
+    }
 
 
 
     return (<div>
         <div style={{ display: "flex", "flex-direction": "row", "margin-top": "4px" }}>
-            <AudioPlayerControlsComponent />
             <RadioGroup
                 value={audioTrackerState()}
                 onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
@@ -282,8 +315,12 @@ export default function AyahTrackerComponent() {
                     <FormControlLabel value={AudioTrackerState.REVIEW} control={<Radio />} label="R" />
                 </div>
             </RadioGroup>
+            <AudioPlayerControlsComponent />
             <IconButton aria-label="stop" onclick={() => onSave()}>
                 <Save />
+            </IconButton>
+            <IconButton aria-label="next" onclick={() => onNext()}>
+                <NavigateNext />
             </IconButton>
         </div>
         <For each={pageSurahAudioTimeStamps()}>
