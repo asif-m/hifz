@@ -226,7 +226,9 @@ export default function AyahTrackerComponent() {
         }else if(atState === AudioTrackerState.EDIT || atState === AudioTrackerState.CAPTURE){
             if(ayahs[cIndex]){
                 const {verseNumber} = ayahs[cIndex];
-                setVerseNumber(()=>verseNumber);
+                if(verseNumber!==0){
+                    setVerseNumber(()=>verseNumber);
+                }
             }
         }
 
