@@ -58,7 +58,7 @@ export default function AyahPlayTrackEditComponent(props: {
             <div style={{ padding: "4px 8px" }}>-</div>
             <EditableTextboxControlsComponent index={index} type={"to"} />
             <div>
-                <Show when={index() !== 0 && audioTrackerState() === AudioTrackerState.EDIT}>
+                <Show when={index() !== 0 && audioTrackerState() === AudioTrackerState.REVIEW}>
                     <div role={"button"} style={{ cursor: "pointer" }} onclick={() => onDelete()}>
                         ⌫
                     </div>

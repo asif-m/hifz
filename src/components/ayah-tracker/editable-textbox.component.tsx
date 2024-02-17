@@ -25,7 +25,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
 
         if (atState === AudioTrackerState.CAPTURE) {
             batch(() => {
-                setAudioTrackerState(() => AudioTrackerState.EDIT);
+                setAudioTrackerState(() => AudioTrackerState.REVIEW);
                 setAudioPlayerState(() => AudioPlayerState.PAUSE);
                 setAudioCurrentTime(() => value);
                 setCaptureIndex(() => i)
@@ -38,13 +38,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
                 setCaptureIndex(() => i);
                 setChapterNumber(() => chapterNumber)
                 setVerseNumber(() => verseNumber)
-            });
-        }
-
-        if (atState === AudioTrackerState.EDIT) {
-            batch(() => {
-                setAudioCurrentTime(() => value);
-                setCaptureIndex(() => i)
+                setAudioPlayerState(() => AudioPlayerState.PLAY);
             });
         }
     })
@@ -91,7 +85,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
             step="0.5"
             value={localValue()}
             style={{ width: "65px" }}
-            readOnly={audioTrackerState() !== AudioTrackerState.EDIT}
+            readOnly={true}
             onFocus={() => {
                 setFocusCounter((prev) => prev + 1);
             }}

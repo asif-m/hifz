@@ -61,18 +61,18 @@ export default function WavesurferWrapperComponent() {
     ws.load(`/audio/Sameer Nass/${SURAHS_INFO[chapterIndex].audioFile["Sameer Nass"]}`)
   });
 
-  createEffect(() => {
-    const ws = waveSurfer();
-    const regions = wsRegions();
+  // createEffect(() => {
+  //   const ws = waveSurfer();
+  //   const regions = wsRegions();
 
-    if (!ws || !regions) {
-      return;
-    }
+  //   if (!ws || !regions) {
+  //     return;
+  //   }
 
-    ws.on("decode", () => {
+  //   ws.on("decode", () => {
 
-    });
-  });
+  //   });
+  // });
 
 
   createEffect(() => {

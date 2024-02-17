@@ -222,7 +222,7 @@ export default function AyahTrackerComponent() {
                     break;
                 }
             }
-        } else if (atState === AudioTrackerState.EDIT || atState === AudioTrackerState.CAPTURE) {
+        } else if (atState === AudioTrackerState.CAPTURE) {
             if (ayahs[cIndex]) {
                 const { verseNumber } = ayahs[cIndex];
                 if (verseNumber !== 0) {
@@ -303,16 +303,15 @@ export default function AyahTrackerComponent() {
                 value={audioTrackerState()}
                 onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
                     const value = event.target.value as AudioTrackerState
-                    if (value === AudioTrackerState.EDIT || AudioTrackerState.REVIEW) {
-                        setAudioPlayerState(() => AudioPlayerState.PAUSE);
-                    }
+                    // if (value === AudioTrackerState.REVIEW) {
+                    //     setAudioPlayerState(() => AudioPlayerState.PAUSE);
+                    // }
                     setAudioTrackerState(() => value);
                 }}
             >
                 <div style={{ "display": "flex" }}>
-                    <FormControlLabel value={AudioTrackerState.CAPTURE} control={<Radio />} label="C" />
-                    <FormControlLabel value={AudioTrackerState.EDIT} control={<Radio />} label="E" />
-                    <FormControlLabel value={AudioTrackerState.REVIEW} control={<Radio />} label="R" />
+                    <FormControlLabel value={AudioTrackerState.CAPTURE} control={<Radio />} label={AudioTrackerState.CAPTURE} />
+                    <FormControlLabel value={AudioTrackerState.REVIEW} control={<Radio />} label={AudioTrackerState.REVIEW} />
                 </div>
             </RadioGroup>
             <AudioPlayerControlsComponent />
