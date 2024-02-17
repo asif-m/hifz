@@ -2,16 +2,22 @@ import { For } from "solid-js";
 import { Chip } from "@suid/material";
 import { IChapterAndAyahRange } from "~/models/page";
 import { useStore } from "~/store/store";
+import { useNavigate } from "@solidjs/router";
 
-const StylizedChip = (props: { label: number | string }) => {
-    const { label } = props;
-    return <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={label} />
+const StylizedChip = (props: { label: number | string, path?:string }) => {
+    const { label, path } = props;
+    const navigate = useNavigate();
+    return <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={label} onClick={()=>{
+        if(path){
+            navigate(path, { replace: true })
+        }
+    }}/>
 }
 export default function HeaderPageData() {
     const { pageData } = useStore();
 
-    function getSurahAyah(chapterAndAyahs: Array<IChapterAndAyahRange>) {
-        return chapterAndAyahs.map((c) => `${c.chapterNumber} : ${c.verseFrom}-${c.verseTo}`)
+    function getSurahAyah(c: IChapterAndAyahRange) {
+        return `${c.chapterNumber} : ${c.verseFrom}-${c.verseTo}`
     }
 
     return (<div
@@ -41,7 +47,7 @@ export default function HeaderPageData() {
         }}>
             <div>Juz</div>
             <div>
-                <For each={pageData().juzs}>{label => <StylizedChip label={label} />}</For>
+                <For each={pageData().juzs}>{label => <StylizedChip label={label} path={`/juz/${label}`}/>}</For>
             </div>
         </div>
 
@@ -52,7 +58,7 @@ export default function HeaderPageData() {
         }}>
             <div>Ruku</div>
             <div>
-                <For each={pageData().rukus}>{label => <StylizedChip label={label} />}</For>
+                <For each={pageData().rukus}>{label => <StylizedChip label={label} path={`/ruku/${label}`}/>}</For>
             </div>
         </div>
 
@@ -63,7 +69,7 @@ export default function HeaderPageData() {
         }}>
             <div>Rub-El-Hizb</div>
             <div>
-                <For each={pageData().rubElHizbs}>{label => <StylizedChip label={label} />}</For>
+                <For each={pageData().rubElHizbs}>{label => <StylizedChip label={label} path={`/rehizb/${label}`}/>}</For>
             </div>
         </div>
 
@@ -74,7 +80,7 @@ export default function HeaderPageData() {
         }}>
             <div>Hizb</div>
             <div>
-                <For each={pageData().hizbs}>{label => <StylizedChip label={label} />}</For>
+                <For each={pageData().hizbs}>{label => <StylizedChip label={label} path={`/hizb/${label}`}/>}</For>
             </div>
         </div>
 
@@ -85,7 +91,7 @@ export default function HeaderPageData() {
         }}>
             <div>Manzil</div>
             <div>
-                <For each={pageData().manzils}>{label => <StylizedChip label={label} />}</For>
+                <For each={pageData().manzils}>{label => <StylizedChip label={label} path={`/manzil/${label}`}/>}</For>
             </div>
         </div>
 
@@ -96,7 +102,7 @@ export default function HeaderPageData() {
         }}>
             <div>Ayahs</div>
             <div>
-                <For each={getSurahAyah(pageData().chapterAndAyahRange)}>{label => <StylizedChip label={label} />}</For>
+                <For each={pageData().chapterAndAyahRange}>{data => <StylizedChip label={getSurahAyah(data)} path={`/surah/${data.chapterNumber}:${data.verseFrom}`}/>}</For>
             </div>
         </div>
     </div>)
