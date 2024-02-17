@@ -265,7 +265,6 @@ export default function AyahTrackerComponent() {
         setSaveClickCounter((prev) => prev + 1);
     }
     function onNext() {
-        onSave();
         const ayahInCurrentPageSurahLocal = ayahInCurrentPageSurah();
         const pData = pageData();
         const { chapterNumber, verseNumber } = ayahInCurrentPageSurahLocal[ayahInCurrentPageSurahLocal.length - 1];
