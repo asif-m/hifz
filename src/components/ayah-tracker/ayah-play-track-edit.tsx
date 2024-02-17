@@ -32,11 +32,11 @@ export default function AyahPlayTrackEditComponent(props: {
         )
     }
 
-    createEffect(()=>{
-        const cIndex =captureIndex();
+    createEffect(() => {
+        const cIndex = captureIndex();
         const i = index();
-        if( cIndex=== i && divRef){
-            divRef.scrollIntoView({ behavior: 'smooth', block: "nearest", inline: "nearest"})
+        if (cIndex === i && divRef) {
+            divRef.scrollIntoView({ behavior: 'smooth', block: "nearest", inline: "nearest" })
         }
     })
 
@@ -51,8 +51,9 @@ export default function AyahPlayTrackEditComponent(props: {
             "font-size": "10px",
             "min-width": "160px"
         }}
+            ref={divRef!}
         >
-            <div ref={divRef!} style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
+            <div style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
             <EditableTextboxControlsComponent index={index} type={"from"} />
             <div style={{ padding: "4px 8px" }}>-</div>
             <EditableTextboxControlsComponent index={index} type={"to"} />

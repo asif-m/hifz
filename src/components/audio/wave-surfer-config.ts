@@ -52,6 +52,7 @@ export const timelinePluginConfig = {
   height: 20,
   timeInterval: 1,
   primaryLabelInterval: 1,
+  formatTimeCallback: (second: number) => second,
   style: {
     fontSize: "10px",
     color: "white",
