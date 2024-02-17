@@ -17,6 +17,7 @@ export default function WavesurferWrapperComponent() {
   const { chapterNumber,
     audioStartTime,
     setAudioCurrentTime,
+    setAudioCurrentTimeNonCapture,
     audioCurrentTime,
     audioPlayerState,
     audioLoaded,
@@ -135,6 +136,8 @@ export default function WavesurferWrapperComponent() {
     ws.on('timeupdate', (currentTime) => {
       if (audioTrackerState() === AudioTrackerState.CAPTURE) {
         setAudioCurrentTime(() => parseFloat(currentTime.toFixed(1)))
+      }else{
+        setAudioCurrentTimeNonCapture(()=> currentTime);
       }
       //console.log('Time', currentTime + 's')
     })

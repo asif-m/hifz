@@ -16,6 +16,7 @@ export interface IStoreData {
     lineData: Array<Array<IArabicWord>>;
     audioStartTime: number;
     audioCurrentTime: number;
+    audioCurrentTimeNonCapture:number;
     audioLoaded: boolean;
     audioPlayerState: AudioPlayerState;
     pressedKey: string;
@@ -44,6 +45,7 @@ export function getInitialStoreData(): IStoreData {
         lineData: [[]],
         audioStartTime: 0,
         audioCurrentTime: 0,
+        audioCurrentTimeNonCapture: 0,
         audioLoaded: false,
         audioPlayerState: AudioPlayerState.STOPPED,
         audioTrackerState: AudioTrackerState.CAPTURE,
@@ -70,6 +72,8 @@ export interface IStoreUseContextData {
     setAudioStartTime: Setter<number>
     audioCurrentTime: Accessor<number>
     setAudioCurrentTime: Setter<number>
+    audioCurrentTimeNonCapture: Accessor<number>
+    setAudioCurrentTimeNonCapture: Setter<number>
     audioLoaded: Accessor<boolean>
     setAudioLoaded: Setter<boolean>
     audioPlayerState: Accessor<AudioPlayerState>
@@ -97,6 +101,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [lineData, setLineData] = createSignal(props.lineData);
     const [audioStartTime, setAudioStartTime] = createSignal(props.audioStartTime);
     const [audioCurrentTime, setAudioCurrentTime] = createSignal(props.audioCurrentTime);
+    const [audioCurrentTimeNonCapture, setAudioCurrentTimeNonCapture] = createSignal(props.audioCurrentTimeNonCapture);
     const [audioLoaded, setAudioLoaded] = createSignal(props.audioLoaded);
     const [audioPlayerState, setAudioPlayerState] = createSignal(props.audioPlayerState);
     const [audioTrackerState, setAudioTrackerState] = createSignal(props.audioTrackerState);
@@ -115,6 +120,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         audioStartTime, setAudioStartTime,
         audioPlayerState, setAudioPlayerState,
         audioCurrentTime, setAudioCurrentTime,
+        audioCurrentTimeNonCapture, setAudioCurrentTimeNonCapture,
         audioLoaded, setAudioLoaded,
         audioTrackerState, setAudioTrackerState,
         pressedKey, setPressedKey,

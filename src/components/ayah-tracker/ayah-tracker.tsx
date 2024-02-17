@@ -1,4 +1,4 @@
-import { For, batch, createEffect, createSignal } from "solid-js";
+import { For, batch, createEffect } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
 import { FormControlLabel, IconButton, Radio, RadioGroup } from "@suid/material";
@@ -25,8 +25,10 @@ export default function AyahTrackerComponent() {
     const {
         pageData,
         chapterNumber,
+        setVerseNumber,
         pageNumber,
         audioCurrentTime,
+        audioCurrentTimeNonCapture,
         pressedKey,
         audioPlayerState,
         setAudioStartTime,
@@ -189,6 +191,24 @@ export default function AyahTrackerComponent() {
         });
     })
 
+    createEffect(()=>{
+        const currentTime = audioCurrentTimeNonCapture();
+        const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
+        const timeStamps = pageSurahAudioTimeStamps();
+        const ayahs = ayahInCurrentPageSurah();
+        if(autoUpdate){
+            return;
+        }
+
+        for(let i=0; i<timeStamps.length;i++){
+            const {timestampFrom, timestampTo} = timeStamps[i]
+            if(currentTime>=timestampFrom && currentTime<= timestampTo){
+                    const {verseNumber} = ayahs[i];
+                    setVerseNumber(()=>verseNumber);
+                    break;
+            }
+        }
+    })
 
 
     createEffect(() => {
