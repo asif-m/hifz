@@ -8,6 +8,7 @@ import { BISMI_INDEX, IReciterTimeStamp } from "~/models/ayah-info-interface";
 import Save from "@suid/icons-material/Save";
 import * as ST from "@suid/types";
 import { CSurah } from "~/models/surah";
+import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 
 interface IAyahDataInLocalStorageIndividual {
     chapterNumber: number,
@@ -30,6 +31,7 @@ export default function AyahTrackerComponent() {
         audioCurrentTime,
         audioCurrentTimeNonCapture,
         pressedKey,
+        setPressedKey,
         audioPlayerState,
         setAudioStartTime,
         audioTrackerState,
@@ -155,6 +157,12 @@ export default function AyahTrackerComponent() {
         if (!autoUpdate) {
             return;
         }
+        if (key === "Space" && playerState === AudioPlayerState.STOPPED) {
+            setPressedKey(()=>"");
+            setAudioPlayerState(()=>AudioPlayerState.PLAYING);
+            return;
+        }
+
         if (key === "Space" && playerState === AudioPlayerState.PLAYING) {
             setPageSurahAudioTimeStamps((prev) => {
                 const newValue = [...prev];
@@ -193,21 +201,36 @@ export default function AyahTrackerComponent() {
 
     createEffect(()=>{
         const currentTime = audioCurrentTimeNonCapture();
-        const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
+        const atState = audioTrackerState();
         const timeStamps = pageSurahAudioTimeStamps();
         const ayahs = ayahInCurrentPageSurah();
-        if(autoUpdate){
-            return;
-        }
+        const cIndex = captureIndex();
 
-        for(let i=0; i<timeStamps.length;i++){
-            const {timestampFrom, timestampTo} = timeStamps[i]
-            if(currentTime>=timestampFrom && currentTime<= timestampTo){
-                    const {verseNumber} = ayahs[i];
-                    setVerseNumber(()=>verseNumber);
-                    break;
+        if(atState === AudioTrackerState.REVIEW){
+            for(let i=0; i<timeStamps.length;i++){
+                const {timestampFrom, timestampTo} = timeStamps[i];
+                if(!ayahs[i]){
+                    continue;
+                }
+                if(currentTime>=timestampFrom && currentTime<= timestampTo){
+                        const {verseNumber} = ayahs[i];
+                        if(verseNumber!==0){
+                            batch(()=>{
+                                setVerseNumber(()=>verseNumber);
+                                setCaptureIndex(()=>i)
+                            })
+                        }
+                        break;
+                }
+            }
+        }else if(atState === AudioTrackerState.EDIT || atState === AudioTrackerState.CAPTURE){
+            if(ayahs[cIndex]){
+                const {verseNumber} = ayahs[cIndex];
+                setVerseNumber(()=>verseNumber);
             }
         }
+
+        
     })
 
 
@@ -245,6 +268,7 @@ export default function AyahTrackerComponent() {
 
     return (<div>
         <div style={{ display: "flex", "flex-direction": "row","margin-top":"4px" }}>
+            <AudioPlayerControlsComponent />
             <RadioGroup
                 value={audioTrackerState()}
                 onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {

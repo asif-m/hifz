@@ -20,7 +20,6 @@ export default function PlayingHeaderContainer() {
 
       <div style={{ width: `calc(100% - ${ayahTrackerWidth}px)` }}>
         <div style={{ display: "flex" }}>
-          <AudioPlayerControlsComponent />
           <HeaderPageData />
         </div>
         <div style={{ margin: "16px" }}>
