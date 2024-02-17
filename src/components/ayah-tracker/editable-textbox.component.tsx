@@ -1,29 +1,68 @@
-import { Accessor, createSignal } from "solid-js";
+import { Accessor, batch, createEffect, createSignal } from "solid-js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
+import { IAyahBase } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store";
 
-export default function EditableTextboxControlsComponent(props: {index: Accessor<number>, type: "from"|"to"}) {
+export default function EditableTextboxControlsComponent(props: { index: Accessor<number>, type: "from" | "to" }) {
     const { type, index } = props;
-    const { pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps,setCaptureIndex, setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState , audioTrackerState} = useStore();
-    const {timestampFrom, timestampTo} = pageSurahAudioTimeStamps()[index()]
-    const isFrom =(type === "from") 
-    const value =  isFrom? timestampFrom : timestampTo;
-    const onChange = isFrom? onFromChange:onToChange;
+    const { setVerseNumber, setChapterNumber, pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah, setCaptureIndex, setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState, audioTrackerState } = useStore();
+    const { timestampFrom, timestampTo } = pageSurahAudioTimeStamps()[index()]
+    const isFrom = (type === "from")
+    const value = isFrom ? timestampFrom : timestampTo;
+    const onChange = isFrom ? onFromChange : onToChange;
     const [localValue, setLocalValue] = createSignal<string | number>(value);
+    const { chapterNumber, verseNumber } = (ayahInCurrentPageSurah()[index()] || {}) as IAyahBase;
+
+    const [focusCounter, setFocusCounter] = createSignal(0);
+
+    createEffect(() => {
+        const atState = audioTrackerState()
+        if (focusCounter() === 0) {
+            return;
+        }
+
+        if (atState === AudioTrackerState.CAPTURE) {
+            batch(() => {
+                setAudioTrackerState(() => AudioTrackerState.EDIT);
+                setAudioPlayerState(() => AudioPlayerState.STOPPED);
+                setAudioCurrentTime(() => value);
+                setCaptureIndex(() => index())
+            });
+        }
+
+        if (atState === AudioTrackerState.REVIEW) {
+            batch(() => {
+                //setAudioPlayerState(() => AudioPlayerState.STOPPED);
+                setAudioCurrentTime(() => timestampFrom);
+                setCaptureIndex(() => index());
+                setChapterNumber(() => chapterNumber)
+                setVerseNumber(() => verseNumber)
+                //setAudioPlayerState(() => AudioPlayerState.PLAYING);
+            });
+        }
+
+        if (atState === AudioTrackerState.EDIT) {
+            batch(() => {
+                //setAudioPlayerState(() => AudioPlayerState.STOPPED);
+                setAudioCurrentTime(() => value);
+                setCaptureIndex(() => index())
+            });
+        }
+    })
 
     function onFromChange(v: number) {
-        const aIndex =  index();
+        const aIndex = index();
         setPageSurahAudioTimeStamps((prev) => prev
             .map((t, i) => (i === aIndex) ? { ...t, timestampFrom: v } : t)
         )
     }
     function onToChange(v: number) {
-        const aIndex =  index();
+        const aIndex = index();
         setPageSurahAudioTimeStamps((prev) => prev
             .map((t, i) => (i === aIndex) ? { ...t, timestampTo: v } : t)
         )
     }
-    
+
     function isValidNumber(value: any): boolean {
         // Check if the value is of type number and not NaN
         return typeof value === 'number' && !isNaN(value);
@@ -52,13 +91,10 @@ export default function EditableTextboxControlsComponent(props: {index: Accessor
             pattern="[0-9]+([\.,][0-9]+)?"
             step="0.5"
             value={localValue()}
-            style={{width:"65px"}}
-            readOnly = {audioTrackerState() !== AudioTrackerState.EDIT}
+            style={{ width: "65px" }}
+            readOnly={audioTrackerState() !== AudioTrackerState.EDIT}
             onFocus={() => {
-                setAudioPlayerState(() => AudioPlayerState.STOPPED);
-                setAudioTrackerState(() => AudioTrackerState.EDIT);
-                setAudioCurrentTime(() => value);
-                setCaptureIndex(()=>index())
+                setFocusCounter((prev) => prev + 1);
             }}
             onChange={(e) => {
                 onValueChange(e.target.value)
