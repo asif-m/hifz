@@ -46,7 +46,7 @@ export default function AyahTrackerComponent() {
         saveClickCounter, 
         setSaveClickCounter,
     } = useStore();
-    const key = `sameer-nass-audio-data`;
+    const key = `sameer-nass-audio-data-page-${pageNumber()}`;
 
     
 

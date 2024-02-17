@@ -15,7 +15,7 @@ const StylizedChip = (props: { label: number | string, path?:string }) => {
 }
 export default function HeaderPageData() {
     const { pageData } = useStore();
-
+    const navigate = useNavigate();
     function getSurahAyah(c: IChapterAndAyahRange) {
         return `${c.chapterNumber} : ${c.verseFrom}-${c.verseTo}`
     }
@@ -36,7 +36,11 @@ export default function HeaderPageData() {
         }}>
             <div>Page</div>
             <div>
-                <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={pageData().pageNumber} />
+                <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={pageData().pageNumber} 
+                onClick={()=>{
+                        navigate(`/page/${pageData().pageNumber}`, { replace: true })
+                }}
+                />
             </div>
         </div>
 
