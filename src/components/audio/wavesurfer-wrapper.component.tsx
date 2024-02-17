@@ -6,15 +6,17 @@ import ZoomPlugin from "wavesurfer.js/dist/plugins/zoom.esm.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.esm.js";
 import TimelinePlugin from "wavesurfer.js/dist/plugins/timeline.esm.js";
 
-import { IReciterTimeStamp } from "~/models/ayah-info-interface";
+import { IAyahBase, IReciterTimeStamp } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state.jsx";
 import { timelinePluginConfig, waveSurferConfig, zoomPluginConfig } from "./wave-surfer-config";
 
+export type TRegionData = IReciterTimeStamp & IAyahBase;
 export default function WavesurferWrapperComponent() {
   const { chapterNumber,
+    verseNumber,
     audioStartTime,
     setAudioCurrentTime,
     setAudioCurrentTimeNonCapture,
@@ -24,16 +26,14 @@ export default function WavesurferWrapperComponent() {
     setAudioLoaded,
     setAudioPlayerState,
     audioTrackerState,
+    pageSurahAudioTimeStamps,
+    ayahInCurrentPageSurah,
+    captureIndex,
   } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
   const [wsRegions, setWsRegions] = createSignal<any>();
-  const timeStamps: Array<IReciterTimeStamp> = [
-    // {
-    //   timestampFrom: 0,
-    //   timestampTo: 2,
-    // },
-  ];
+  const [timeStamps, setTimeStamps] = createSignal< Array<TRegionData>>([]);
 
   createEffect(() => {
     const ws = WaveSurfer.create(waveSurferConfig);
@@ -70,18 +70,7 @@ export default function WavesurferWrapperComponent() {
     }
 
     ws.on("decode", () => {
-      // Regions
-      regions.clearRegions();
-      timeStamps.forEach((timeStamp, index) => {
-        regions.addRegion({
-          start: timeStamp.timestampFrom,
-          end: timeStamp.timestampTo,
-          content: `${index + 1}`,
-          color: index === 2 ? colors.waveActiveAyahRegion : colors.waveAyahRegion,
-          drag: false,
-          resize: true,
-        });
-      });
+
     });
   });
 
@@ -184,6 +173,33 @@ export default function WavesurferWrapperComponent() {
       return;
     }
     ws.setTime(currentTime);
+  })
+
+  createEffect(() => {
+    const ws = waveSurfer();
+    const ts = pageSurahAudioTimeStamps();
+    const ayahs = ayahInCurrentPageSurah()
+    if (!ws) {
+      return;
+    }
+    setTimeStamps(()=> ts.map((timeStamp:IReciterTimeStamp, i)=> ({...timeStamp, ...ayahs[i]})));
+  })
+
+  createEffect(()=>{
+    const regions = wsRegions();
+    const cIndex = captureIndex();
+    regions.clearRegions();
+
+    timeStamps().forEach((timeStamp, index) => {
+      regions.addRegion({
+        start: timeStamp.timestampFrom,
+        end: timeStamp.timestampTo,
+        content: `${timeStamp.verseNumber}`,
+        color: index === cIndex ? colors.waveActiveAyahRegion : colors.waveAyahRegion,
+        drag: false,
+        resize: true,
+      });
+    });
   })
 
   return (
