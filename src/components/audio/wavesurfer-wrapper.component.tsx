@@ -11,7 +11,7 @@ import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state.jsx";
-import { timelinePluginConfig, waveSurferConfig, zoomPluginConfig } from "./wave-surfer-config";
+import { regionPlugins, timelinePluginConfig, waveSurferConfig, zoomPluginConfig } from "./wave-surfer-config";
 
 export type TRegionData = IReciterTimeStamp & IAyahBase;
 export default function WavesurferWrapperComponent() {
@@ -27,6 +27,7 @@ export default function WavesurferWrapperComponent() {
     setAudioPlayerState,
     audioTrackerState,
     pageSurahAudioTimeStamps,
+    setPageSurahAudioTimeStamps,
     ayahInCurrentPageSurah,
     captureIndex,
   } = useStore();
@@ -45,8 +46,7 @@ export default function WavesurferWrapperComponent() {
     ws.registerPlugin(TimelinePlugin.create(timelinePluginConfig))
 
     //Initialize Regions plugin
-    const wsRegions = ws.registerPlugin(RegionsPlugin.create());
-
+    const wsRegions = ws.registerPlugin(RegionsPlugin.create(regionPlugins));
     setWaveSurfer(ws);
     setWsRegions(wsRegions);
   });
@@ -130,6 +130,7 @@ export default function WavesurferWrapperComponent() {
       //console.log('Time', currentTime + 's')
     })
 
+
     // ws.on('loading', (percent) => {
     //   //console.log('Loading', percent + '%')
     // })
@@ -192,6 +193,7 @@ export default function WavesurferWrapperComponent() {
 
     timeStamps().forEach((timeStamp, index) => {
       regions.addRegion({
+        id:index+1,
         start: timeStamp.timestampFrom,
         end: timeStamp.timestampTo,
         content: `${timeStamp.verseNumber}`,
@@ -200,6 +202,25 @@ export default function WavesurferWrapperComponent() {
         resize: true,
       });
     });
+  })
+
+  createEffect(()=>{
+    const wsr = wsRegions();
+    if(!wsr){
+      return ;
+    }
+    wsr.on('region-updated', (region:any) => {
+      const {id, start, end} = region;
+      const timestampFrom = parseFloat(parseFloat(start).toFixed(1));
+      const timestampTo = parseFloat(parseFloat(end).toFixed(1));
+      const index = id-1;
+      setPageSurahAudioTimeStamps((prev)=>prev.map((a, i)=>{
+        if(index  === i){
+          return {...a, timestampFrom,timestampTo}
+        }
+        return a;
+      }))
+    })
   })
 
   return (

@@ -58,3 +58,6 @@ export const timelinePluginConfig = {
     color: "white",
   },
 };
+
+export const regionPlugins = {
+}
