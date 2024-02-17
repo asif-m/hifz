@@ -1,6 +1,6 @@
 export const enum AudioPlayerState{
-    PLAYING = "Playing",
-    STOPPED = "Stopped",
+    PLAY = "Play",
+    PAUSE = "Stop",
 }
 
 export const enum AudioTrackerState{

@@ -47,7 +47,7 @@ export function getInitialStoreData(): IStoreData {
         audioCurrentTime: 0,
         audioCurrentTimeNonCapture: 0,
         audioLoaded: false,
-        audioPlayerState: AudioPlayerState.STOPPED,
+        audioPlayerState: AudioPlayerState.PAUSE,
         audioTrackerState: AudioTrackerState.CAPTURE,
         pressedKey: "",
         pageSurahAudioTimeStamps: [],

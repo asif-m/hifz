@@ -95,9 +95,9 @@ export default function WavesurferWrapperComponent() {
       return;
     }
     
-    if(audioPlayer === AudioPlayerState.PLAYING){
+    if(audioPlayer === AudioPlayerState.PLAY){
       ws.play();
-    }else if(audioPlayer === AudioPlayerState.STOPPED){
+    }else if(audioPlayer === AudioPlayerState.PAUSE){
       ws.pause();
     }
   });
@@ -128,7 +128,7 @@ export default function WavesurferWrapperComponent() {
         // setChapterNumber((prev)=> prev ===114? 1: prev+1);
         // setVerseNumber(0);
         // setAudioLoaded(false);
-        setAudioPlayerState(() => AudioPlayerState.STOPPED);
+        setAudioPlayerState(() => AudioPlayerState.PAUSE);
       })
       //console.log('Finish');
     })

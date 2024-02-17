@@ -24,7 +24,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
         if (atState === AudioTrackerState.CAPTURE) {
             batch(() => {
                 setAudioTrackerState(() => AudioTrackerState.EDIT);
-                setAudioPlayerState(() => AudioPlayerState.STOPPED);
+                setAudioPlayerState(() => AudioPlayerState.PAUSE);
                 setAudioCurrentTime(() => value);
                 setCaptureIndex(() => index())
             });
@@ -32,18 +32,15 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
 
         if (atState === AudioTrackerState.REVIEW) {
             batch(() => {
-                //setAudioPlayerState(() => AudioPlayerState.STOPPED);
                 setAudioCurrentTime(() => timestampFrom);
                 setCaptureIndex(() => index());
                 setChapterNumber(() => chapterNumber)
                 setVerseNumber(() => verseNumber)
-                //setAudioPlayerState(() => AudioPlayerState.PLAYING);
             });
         }
 
         if (atState === AudioTrackerState.EDIT) {
             batch(() => {
-                //setAudioPlayerState(() => AudioPlayerState.STOPPED);
                 setAudioCurrentTime(() => value);
                 setCaptureIndex(() => index())
             });

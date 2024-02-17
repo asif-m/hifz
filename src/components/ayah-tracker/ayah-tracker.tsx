@@ -150,13 +150,13 @@ export default function AyahTrackerComponent() {
         if (!autoUpdate) {
             return;
         }
-        if (key === "Space" && playerState === AudioPlayerState.STOPPED) {
+        if (key === "Space" && playerState === AudioPlayerState.PAUSE) {
             setPressedKey(()=>"");
-            setAudioPlayerState(()=>AudioPlayerState.PLAYING);
+            setAudioPlayerState(()=>AudioPlayerState.PLAY);
             return;
         }
 
-        if (key === "Space" && playerState === AudioPlayerState.PLAYING) {
+        if (key === "Space" && playerState === AudioPlayerState.PLAY) {
             setPageSurahAudioTimeStamps((prev) => {
                 const newValue = [...prev];
                 const lastItem = prev[prev.length - 1];
@@ -171,7 +171,7 @@ export default function AyahTrackerComponent() {
         const cIndex = captureIndex();
         const currentTime = audioCurrentTime();
         const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
-        const isPlaying = audioPlayerState () === AudioPlayerState.PLAYING;
+        const isPlaying = audioPlayerState () === AudioPlayerState.PLAY;
 
         if (!autoUpdate) {
             return;
@@ -269,7 +269,7 @@ export default function AyahTrackerComponent() {
                 onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
                     const value = event.target.value as AudioTrackerState
                     if(value === AudioTrackerState.EDIT || AudioTrackerState.REVIEW){
-                        setAudioPlayerState(() => AudioPlayerState.STOPPED);
+                        setAudioPlayerState(() => AudioPlayerState.PAUSE);
                     }
                     setAudioTrackerState(()=> value);
                   }}
