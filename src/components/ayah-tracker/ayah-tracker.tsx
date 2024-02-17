@@ -48,8 +48,6 @@ export default function AyahTrackerComponent() {
     } = useStore();
     const key = `sameer-nass-audio-data-page-${pageNumber()}`;
 
-    
-
     function getAllAudioTimeStamps() {
         return CLocalStorageHelper.read(key) as IAyahDataInLocalStorage;
     }
@@ -128,6 +126,9 @@ export default function AyahTrackerComponent() {
 
         if (hasModifications) {
             saveToLocalStorage(aTS);
+            setAudioTrackerState(() => AudioTrackerState.CAPTURE);
+        }else{
+            setAudioTrackerState(()=> AudioTrackerState.REVIEW);
         }
 
         batch(() => {
@@ -135,20 +136,12 @@ export default function AyahTrackerComponent() {
             setAyahInCurrentPageSurah(() => ayahInCurrentPageSurahLocal);
             setAudioStartTime(()=>firstTimestamp);
         })
-
     })
 
     createEffect(() => {
         const c = chapterNumber();
         setCaptureIndex(() => 0);
     })
-
-    createEffect(() => {
-        //NOTE: Do not remove this unused variables.
-        const chapter = chapterNumber()
-        const pageData = pageNumber();
-        setAudioTrackerState(() => AudioTrackerState.CAPTURE);
-    }, [chapterNumber(), pageNumber()])
 
     createEffect(() => {
         const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
