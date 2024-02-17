@@ -16,8 +16,10 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
     const [focusCounter, setFocusCounter] = createSignal(0);
 
     createEffect(() => {
-        const atState = audioTrackerState()
-        if (focusCounter() === 0) {
+        const atState = audioTrackerState();
+        const fCounter =focusCounter()
+        const i= index();
+        if ( fCounter=== 0) {
             return;
         }
 
@@ -26,14 +28,14 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
                 setAudioTrackerState(() => AudioTrackerState.EDIT);
                 setAudioPlayerState(() => AudioPlayerState.PAUSE);
                 setAudioCurrentTime(() => value);
-                setCaptureIndex(() => index())
+                setCaptureIndex(() => i)
             });
         }
 
         if (atState === AudioTrackerState.REVIEW) {
             batch(() => {
                 setAudioCurrentTime(() => timestampFrom);
-                setCaptureIndex(() => index());
+                setCaptureIndex(() => i);
                 setChapterNumber(() => chapterNumber)
                 setVerseNumber(() => verseNumber)
             });
@@ -42,7 +44,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
         if (atState === AudioTrackerState.EDIT) {
             batch(() => {
                 setAudioCurrentTime(() => value);
-                setCaptureIndex(() => index())
+                setCaptureIndex(() => i)
             });
         }
     })

@@ -157,12 +157,6 @@ export default function AyahTrackerComponent() {
         }
 
         if (key === "Space" && playerState === AudioPlayerState.PLAY) {
-            setPageSurahAudioTimeStamps((prev) => {
-                const newValue = [...prev];
-                const lastItem = prev[prev.length - 1];
-                newValue.push({ timestampFrom: lastItem.timestampTo, timestampTo: lastItem.timestampTo })
-                return newValue;
-            })
             setCaptureIndex((prev) => prev + 1);
         }
     })
@@ -198,6 +192,14 @@ export default function AyahTrackerComponent() {
         const timeStamps = pageSurahAudioTimeStamps();
         const ayahs = ayahInCurrentPageSurah();
         const cIndex = captureIndex();
+
+        if(timeStamps.length === cIndex){
+            batch(()=>{
+                setAudioTrackerState(() => AudioTrackerState.REVIEW);
+                setAudioPlayerState(()=> AudioPlayerState.PAUSE);
+            })
+            return;
+        }
 
         if (atState === AudioTrackerState.REVIEW) {
             for (let i = 0; i < timeStamps.length; i++) {
