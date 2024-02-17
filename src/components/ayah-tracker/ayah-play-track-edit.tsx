@@ -13,19 +13,19 @@ export default function AyahPlayTrackEditComponent(props: {
     const chapter = ayahs[index()]?.chapterNumber || 0;
     const verse = ayahs[index()]?.verseNumber === 0 ? "B" : (ayahs[index()]?.verseNumber || 0)
 
-   
+
     function onDelete() {
         const timestamps = pageSurahAudioTimeStamps();
-        const {timestampTo:timestampToOfItemDeleted} = timestamps[index()];
-        const aIndex =  index();
+        const { timestampTo: timestampToOfItemDeleted } = timestamps[index()];
+        const aIndex = index();
         setPageSurahAudioTimeStamps((prev) => prev
             .map((t, i) => {
-                if(i === aIndex-1){
+                if (i === aIndex - 1) {
                     return { ...t, timestampTo: timestampToOfItemDeleted }
                 }
-                if(i>=aIndex && i<timestamps.length-1){
-                    const {timestampTo, timestampFrom} = timestamps[i+1]
-                    return { ...t, timestampTo, timestampFrom}
+                if (i >= aIndex && i < timestamps.length - 1) {
+                    const { timestampTo, timestampFrom } = timestamps[i + 1]
+                    return { ...t, timestampTo, timestampFrom }
                 }
                 return t;
             })
@@ -34,19 +34,19 @@ export default function AyahPlayTrackEditComponent(props: {
 
     return (
         <div style={{
-            display: "flex", 
+            display: "flex",
             "align-items": "center",
             gap: "3px",
             border: captureIndex() === index() ? `solid ${colors.ayahsTrackBorderColor} 2px` : "",
             "border-radius": "2px",
             //margin: "8px",
             "font-size": "10px",
-            "min-width":"160px"
+            "min-width": "160px"
         }}>
             <div style={{ padding: "4px 8px" }}>{`${chapter} : ${verse} `}</div>
-            <EditableTextboxControlsComponent index ={index} type= {"from" }/>
-            <div  style={{ padding: "4px 8px" }}>-</div>
-            <EditableTextboxControlsComponent index ={index} type={"to"}/>
+            <EditableTextboxControlsComponent index={index} type={"from"} />
+            <div style={{ padding: "4px 8px" }}>-</div>
+            <EditableTextboxControlsComponent index={index} type={"to"} />
             <div>
                 <Show when={index() !== 0 && audioTrackerState() === AudioTrackerState.EDIT}>
                     <div role={"button"} style={{ cursor: "pointer" }} onclick={() => onDelete()}>

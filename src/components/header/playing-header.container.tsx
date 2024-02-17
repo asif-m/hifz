@@ -29,7 +29,7 @@ export default function PlayingHeaderContainer() {
       <div style={{
         width: `${ayahTrackerWidth}px`,
         "min-width": `${ayahTrackerWidth}px`,
-       
+
         "overflow-y": "scroll",
         "scrollbar-color": `${colors.scrollbarColor}`
       }}>

@@ -1292,7 +1292,7 @@ export class CSurah {
       ? LAST_SURAH.surahNumber
       : currentSurah - 1;
   }
-  public static shouldAddBismi(chapterNumber: number, verseNumber:number){
-    return verseNumber===1 && chapterNumber !== 1 && chapterNumber !== 9;
+  public static shouldAddBismi(chapterNumber: number, verseNumber: number) {
+    return verseNumber === 1 && chapterNumber !== 1 && chapterNumber !== 9;
   }
 }

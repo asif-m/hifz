@@ -41,9 +41,9 @@ export default function AyahTrackerComponent() {
         ayahInCurrentPageSurah,
         setAyahInCurrentPageSurah,
         setAudioPlayerState,
-        captureIndex, 
+        captureIndex,
         setCaptureIndex,
-        saveClickCounter, 
+        saveClickCounter,
         setSaveClickCounter,
     } = useStore();
     const key = `sameer-nass-audio-data-page-${pageNumber()}`;
@@ -66,7 +66,7 @@ export default function AyahTrackerComponent() {
 
 
         let hasModifications = false;
-        let  firstTimestamp =-1;
+        let firstTimestamp = -1;
         pageInfo.ayahs.forEach((ayah) => {
             const { chapterNumber, verseNumber, reciterTimestamps } = ayah;
             const { timestampFrom, timestampTo } = reciterTimestamps["Shaykh Samir al-Nass"];
@@ -106,10 +106,10 @@ export default function AyahTrackerComponent() {
                         chapterNumber,
                         verseNumber: BISMI_INDEX
                     })
-                    firstTimestamp = aTS.data[chapterNumber][BISMI_INDEX].timestampFrom ||0;
+                    firstTimestamp = aTS.data[chapterNumber][BISMI_INDEX].timestampFrom || 0;
                 } else {
-                    if(firstTimestamp ===-1){
-                        firstTimestamp = aTS.data[chapterNumber][verseNumber].timestampFrom ||0;
+                    if (firstTimestamp === -1) {
+                        firstTimestamp = aTS.data[chapterNumber][verseNumber].timestampFrom || 0;
                     }
                 }
                 pageSurahAudioTimeStampsLocal.push({
@@ -127,14 +127,14 @@ export default function AyahTrackerComponent() {
         if (hasModifications) {
             saveToLocalStorage(aTS);
             setAudioTrackerState(() => AudioTrackerState.CAPTURE);
-        }else{
-            setAudioTrackerState(()=> AudioTrackerState.REVIEW);
+        } else {
+            setAudioTrackerState(() => AudioTrackerState.REVIEW);
         }
 
         batch(() => {
             setPageSurahAudioTimeStamps(() => pageSurahAudioTimeStampsLocal);
             setAyahInCurrentPageSurah(() => ayahInCurrentPageSurahLocal);
-            setAudioStartTime(()=>firstTimestamp);
+            setAudioStartTime(() => firstTimestamp);
         })
     })
 
@@ -151,8 +151,8 @@ export default function AyahTrackerComponent() {
             return;
         }
         if (key === "Space" && playerState === AudioPlayerState.PAUSE) {
-            setPressedKey(()=>"");
-            setAudioPlayerState(()=>AudioPlayerState.PLAY);
+            setPressedKey(() => "");
+            setAudioPlayerState(() => AudioPlayerState.PLAY);
             return;
         }
 
@@ -171,12 +171,12 @@ export default function AyahTrackerComponent() {
         const cIndex = captureIndex();
         const currentTime = audioCurrentTime();
         const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
-        const isPlaying = audioPlayerState () === AudioPlayerState.PLAY;
+        const isPlaying = audioPlayerState() === AudioPlayerState.PLAY;
 
         if (!autoUpdate) {
             return;
         }
-        if(!isPlaying){
+        if (!isPlaying) {
             return;
         }
 
@@ -192,40 +192,40 @@ export default function AyahTrackerComponent() {
         });
     })
 
-    createEffect(()=>{
+    createEffect(() => {
         const currentTime = audioCurrentTimeNonCapture();
         const atState = audioTrackerState();
         const timeStamps = pageSurahAudioTimeStamps();
         const ayahs = ayahInCurrentPageSurah();
         const cIndex = captureIndex();
 
-        if(atState === AudioTrackerState.REVIEW){
-            for(let i=0; i<timeStamps.length;i++){
-                const {timestampFrom, timestampTo} = timeStamps[i];
-                if(!ayahs[i]){
+        if (atState === AudioTrackerState.REVIEW) {
+            for (let i = 0; i < timeStamps.length; i++) {
+                const { timestampFrom, timestampTo } = timeStamps[i];
+                if (!ayahs[i]) {
                     continue;
                 }
-                if(currentTime>=timestampFrom && currentTime<= timestampTo){
-                        const {verseNumber} = ayahs[i];
-                        if(verseNumber!==0){
-                            batch(()=>{
-                                setVerseNumber(()=>verseNumber);
-                                setCaptureIndex(()=>i)
-                            })
-                        }
-                        break;
+                if (currentTime >= timestampFrom && currentTime <= timestampTo) {
+                    const { verseNumber } = ayahs[i];
+                    if (verseNumber !== 0) {
+                        batch(() => {
+                            setVerseNumber(() => verseNumber);
+                            setCaptureIndex(() => i)
+                        })
+                    }
+                    break;
                 }
             }
-        }else if(atState === AudioTrackerState.EDIT || atState === AudioTrackerState.CAPTURE){
-            if(ayahs[cIndex]){
-                const {verseNumber} = ayahs[cIndex];
-                if(verseNumber!==0){
-                    setVerseNumber(()=>verseNumber);
+        } else if (atState === AudioTrackerState.EDIT || atState === AudioTrackerState.CAPTURE) {
+            if (ayahs[cIndex]) {
+                const { verseNumber } = ayahs[cIndex];
+                if (verseNumber !== 0) {
+                    setVerseNumber(() => verseNumber);
                 }
             }
         }
 
-        
+
     })
 
 
@@ -239,7 +239,7 @@ export default function AyahTrackerComponent() {
             return;
         }
 
-        for (let i = 0; i < ayahInCurrentPageSurahLocal.length ; i++) {
+        for (let i = 0; i < ayahInCurrentPageSurahLocal.length; i++) {
             const { timestampFrom, timestampTo } = pageTime[i];
             const { chapterNumber, verseNumber } = ayahInCurrentPageSurahLocal[i]
             allAudio.data[chapterNumber][verseNumber] = {
@@ -262,19 +262,19 @@ export default function AyahTrackerComponent() {
 
 
     return (<div>
-        <div style={{ display: "flex", "flex-direction": "row","margin-top":"4px" }}>
+        <div style={{ display: "flex", "flex-direction": "row", "margin-top": "4px" }}>
             <AudioPlayerControlsComponent />
             <RadioGroup
                 value={audioTrackerState()}
                 onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
                     const value = event.target.value as AudioTrackerState
-                    if(value === AudioTrackerState.EDIT || AudioTrackerState.REVIEW){
+                    if (value === AudioTrackerState.EDIT || AudioTrackerState.REVIEW) {
                         setAudioPlayerState(() => AudioPlayerState.PAUSE);
                     }
-                    setAudioTrackerState(()=> value);
-                  }}
+                    setAudioTrackerState(() => value);
+                }}
             >
-                <div style={{"display":"flex"}}>
+                <div style={{ "display": "flex" }}>
                     <FormControlLabel value={AudioTrackerState.CAPTURE} control={<Radio />} label="C" />
                     <FormControlLabel value={AudioTrackerState.EDIT} control={<Radio />} label="E" />
                     <FormControlLabel value={AudioTrackerState.REVIEW} control={<Radio />} label="R" />

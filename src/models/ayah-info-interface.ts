@@ -12,8 +12,8 @@ export interface IAyahBase {
 }
 
 export interface IAyah extends IAyahBase {
-  chapterNumber:number;
-  verseNumber:number;
+  chapterNumber: number;
+  verseNumber: number;
   verseKey: string;
   pageNumber: number;
   isManzil: boolean;
@@ -23,15 +23,15 @@ export interface IAyah extends IAyahBase {
   isHizb: boolean;
   hizbNumber: number;
   isRubElHizb: boolean;
-  rubElHizbNumber:number;
+  rubElHizbNumber: number;
   isRuku: boolean;
   rukuNumber: number;
   isSajdah: boolean;
-  sajdahNumber: null,
+  sajdahNumber: null;
   textUthmani: string;
   wordByWord: string;
   transliteration: string;
-  reciterTimestamps: IReciterTimeStamp,
+  reciterTimestamps: IReciterTimeStamp;
   words: Array<IArabicWord>;
 }
 
@@ -71,4 +71,4 @@ export class CAyah {
   }
 }
 
-export const BISMI_INDEX=0
+export const BISMI_INDEX = 0;

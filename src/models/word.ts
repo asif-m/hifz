@@ -20,7 +20,8 @@ export class CWord {
   public static shouldAddBismi(word: IArabicWord) {
     const { chapterNumber, verseNumber } = word;
     return (
-      CWord.isFirstWord(word) && CSurah.shouldAddBismi(chapterNumber,verseNumber)
+      CWord.isFirstWord(word) &&
+      CSurah.shouldAddBismi(chapterNumber, verseNumber)
     );
   }
   public static isFirstWord(word: IArabicWord) {

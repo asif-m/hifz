@@ -1,9 +1,9 @@
-export const enum AudioPlayerState{
+export const enum AudioPlayerState {
     PLAY = "Play",
     PAUSE = "Stop",
 }
 
-export const enum AudioTrackerState{
+export const enum AudioTrackerState {
     CAPTURE = "C",
     EDIT = "E",
     REVIEW = "R"

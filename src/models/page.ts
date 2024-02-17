@@ -1,7 +1,7 @@
 import type { IAyah, IAyahBase } from "./ayah-info-interface";
 import { IArabicWord } from "./word";
 
-export interface IChapterAndAyahRange{
+export interface IChapterAndAyahRange {
   chapterNumber: number;
   verseFrom: number;
   verseTo: number;

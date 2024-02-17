@@ -94,10 +94,10 @@ export default function WavesurferWrapperComponent() {
     if (!ws) {
       return;
     }
-    
-    if(audioPlayer === AudioPlayerState.PLAY){
+
+    if (audioPlayer === AudioPlayerState.PLAY) {
       ws.play();
-    }else if(audioPlayer === AudioPlayerState.PAUSE){
+    } else if (audioPlayer === AudioPlayerState.PAUSE) {
       ws.pause();
     }
   });
@@ -134,7 +134,7 @@ export default function WavesurferWrapperComponent() {
     })
     /** On audio position change, fires continuously during playback */
     ws.on('timeupdate', (currentTime) => {
-      setAudioCurrentTimeNonCapture(()=> currentTime);
+      setAudioCurrentTimeNonCapture(() => currentTime);
       if (audioTrackerState() === AudioTrackerState.CAPTURE) {
         setAudioCurrentTime(() => parseFloat(currentTime.toFixed(1)))
       }

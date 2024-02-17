@@ -16,14 +16,14 @@ export interface IStoreData {
     lineData: Array<Array<IArabicWord>>;
     audioStartTime: number;
     audioCurrentTime: number;
-    audioCurrentTimeNonCapture:number;
+    audioCurrentTimeNonCapture: number;
     audioLoaded: boolean;
     audioPlayerState: AudioPlayerState;
     pressedKey: string;
     audioTrackerState: AudioTrackerState;
     pageSurahAudioTimeStamps: Array<IReciterTimeStamp>;
     ayahInCurrentPageSurah: Array<IAyahBase>;
-    captureIndex : number;
+    captureIndex: number;
     saveClickCounter: number;
 }
 
@@ -52,8 +52,8 @@ export function getInitialStoreData(): IStoreData {
         pressedKey: "",
         pageSurahAudioTimeStamps: [],
         ayahInCurrentPageSurah: [],
-        captureIndex:0,
-        saveClickCounter:0,
+        captureIndex: 0,
+        saveClickCounter: 0,
     }
 }
 
@@ -86,10 +86,10 @@ export interface IStoreUseContextData {
     setPageSurahAudioTimeStamps: Setter<Array<IReciterTimeStamp>>
     ayahInCurrentPageSurah: Accessor<Array<IAyahBase>>
     setAyahInCurrentPageSurah: Setter<Array<IAyahBase>>
-    captureIndex :Accessor<number>
-    setCaptureIndex:Setter<number>
+    captureIndex: Accessor<number>
+    setCaptureIndex: Setter<number>
     saveClickCounter: Accessor<number>
-    setSaveClickCounter:Setter<number>
+    setSaveClickCounter: Setter<number>
 }
 
 
@@ -110,7 +110,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [ayahInCurrentPageSurah, setAyahInCurrentPageSurah] = createSignal<Array<IAyahBase>>(props.ayahInCurrentPageSurah)
     const [captureIndex, setCaptureIndex] = createSignal(props.captureIndex);
     const [saveClickCounter, setSaveClickCounter] = createSignal(props.saveClickCounter);
-    
+
     const value = {
         verseNumber, setVerseNumber,
         chapterNumber, setChapterNumber,

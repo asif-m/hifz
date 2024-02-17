@@ -20,7 +20,7 @@ export default function ScrollToVerseComponent(props: { word: IArabicWord, shoul
         }
 
         const elementTop = divRef.getBoundingClientRect().top + window.scrollY;
-        const offset = elementTop - headerHeight-10;
+        const offset = elementTop - headerHeight - 10;
         window.scrollTo({
             top: offset,
             behavior: 'smooth',
