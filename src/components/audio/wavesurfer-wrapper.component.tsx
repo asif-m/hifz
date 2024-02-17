@@ -176,11 +176,11 @@ export default function WavesurferWrapperComponent() {
   createEffect(() => {
     const ws = waveSurfer();
     const currentTime = audioCurrentTime();
-    const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE
+    const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE
     if (!ws) {
       return;
     }
-    if (autoUpdate) {
+    if (isCaptureMode) {
       return;
     }
     ws.setTime(currentTime);

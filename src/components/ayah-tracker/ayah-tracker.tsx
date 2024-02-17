@@ -144,10 +144,10 @@ export default function AyahTrackerComponent() {
     })
 
     createEffect(() => {
-        const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
+        const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
         const key = pressedKey()
         const playerState = audioPlayerState()
-        if (!autoUpdate) {
+        if (!isCaptureMode) {
             return;
         }
         if (key === "Space" && playerState === AudioPlayerState.PAUSE) {
@@ -170,10 +170,10 @@ export default function AyahTrackerComponent() {
     createEffect(() => {
         const cIndex = captureIndex();
         const currentTime = audioCurrentTime();
-        const autoUpdate = audioTrackerState() === AudioTrackerState.CAPTURE;
+        const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
         const isPlaying = audioPlayerState() === AudioPlayerState.PLAY;
 
-        if (!autoUpdate) {
+        if (!isCaptureMode) {
             return;
         }
         if (!isPlaying) {
