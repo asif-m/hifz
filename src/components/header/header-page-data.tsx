@@ -10,6 +10,9 @@ const StylizedChip = (props: { label: number | string, path?: string }) => {
     return <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={label} onClick={() => {
         if (path) {
             navigate(path, { replace: true })
+            setTimeout(function(){
+                location.reload();
+            }, 1000);
         }
     }} />
 }
@@ -39,6 +42,9 @@ export default function HeaderPageData() {
                 <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={pageData().pageNumber}
                     onClick={() => {
                         navigate(`/page/${pageData().pageNumber}`, { replace: true })
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1000);
                     }}
                 />
             </div>

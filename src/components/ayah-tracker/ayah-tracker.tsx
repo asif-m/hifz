@@ -283,15 +283,15 @@ export default function AyahTrackerComponent() {
         if (lastIndex == -1 || lastIndex === ayahs.length - 1) {
             //Last verse. Go to next page
             navigate(`/page/${pageNumber + 1}`, { replace: true })
+            setTimeout(function(){
+                location.reload();
+            }, 1000);
         } else {
             const { chapterNumber, verseNumber } = ayahs[lastIndex + 1];
             navigate(`/surah/${chapterNumber}`, { replace: true })
-            batch(() => {
-                setChapterNumber(() => chapterNumber);
-                setVerseNumber(() => 1);
-                setCaptureIndex(() => 0);
-                setAudioStartTime(() => 0);
-            })
+            setTimeout(function(){
+                location.reload();
+            }, 1000);
         }
     }
 
