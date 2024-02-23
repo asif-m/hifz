@@ -82,7 +82,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
         <input type="number"
             name="price"
             pattern="[0-9]+([\.,][0-9]+)?"
-            step="0.5"
+            step="0.1"
             value={localValue()}
             style={{ width: "65px" }}
             readOnly={audioTrackerState() === AudioTrackerState.CAPTURE}
