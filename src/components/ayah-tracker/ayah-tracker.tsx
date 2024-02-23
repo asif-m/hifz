@@ -285,13 +285,13 @@ export default function AyahTrackerComponent() {
             navigate(`/page/${pageNumber + 1}`, { replace: true })
             setTimeout(function(){
                 location.reload();
-            }, 1000);
+            }, 100);
         } else {
             const { chapterNumber, verseNumber } = ayahs[lastIndex + 1];
             navigate(`/surah/${chapterNumber}`, { replace: true })
             setTimeout(function(){
                 location.reload();
-            }, 1000);
+            }, 100);
         }
     }
 

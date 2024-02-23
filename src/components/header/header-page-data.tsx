@@ -12,7 +12,7 @@ const StylizedChip = (props: { label: number | string, path?: string }) => {
             navigate(path, { replace: true })
             setTimeout(function(){
                 location.reload();
-            }, 1000);
+            }, 100);
         }
     }} />
 }
@@ -44,7 +44,7 @@ export default function HeaderPageData() {
                         navigate(`/page/${pageData().pageNumber}`, { replace: true })
                         setTimeout(function(){
                             location.reload();
-                        }, 1000);
+                        }, 100);
                     }}
                 />
             </div>
