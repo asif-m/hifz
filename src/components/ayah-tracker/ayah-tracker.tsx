@@ -315,10 +315,15 @@ export default function AyahTrackerComponent() {
                 </div>
             </RadioGroup>
             <AudioPlayerControlsComponent />
-            <IconButton aria-label="stop" onclick={() => onSave()}>
+            <IconButton aria-label="save" onclick={() => onSave()}>
                 <Save />
             </IconButton>
-            <IconButton aria-label="next" onclick={() => onNext()}>
+            <IconButton aria-label="next" onclick={() => {
+                onSave();
+                setTimeout(()=>{
+                    onNext()
+                }, 500)
+                }}>
                 <NavigateNext />
             </IconButton>
         </div>
