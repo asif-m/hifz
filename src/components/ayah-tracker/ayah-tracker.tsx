@@ -151,17 +151,24 @@ export default function AyahTrackerComponent() {
         const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
         const key = pressedKey()
         const playerState = audioPlayerState()
-        if (!isCaptureMode) {
-            return;
-        }
-        if (key === "Space" && playerState === AudioPlayerState.PAUSE) {
-            setPressedKey(() => "");
-            setAudioPlayerState(() => AudioPlayerState.PLAY);
+
+        if (isCaptureMode && key === "Space") {
+            if(playerState === AudioPlayerState.PAUSE){
+                setPressedKey(() => "");
+                setAudioPlayerState(() => AudioPlayerState.PLAY);
+            }else if(playerState === AudioPlayerState.PLAY){
+                setCaptureIndex((prev) => prev + 1);
+            }
             return;
         }
 
-        if (key === "Space" && playerState === AudioPlayerState.PLAY) {
-            setCaptureIndex((prev) => prev + 1);
+        if(key ==="KeyC"){
+            setAudioTrackerState(()=> AudioTrackerState.CAPTURE);
+            return;
+        }
+        if(key ==="KeyR"){
+            setAudioTrackerState(()=> AudioTrackerState.REVIEW);
+            return;
         }
     })
 
