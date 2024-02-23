@@ -16,7 +16,6 @@ import { regionPlugins, timelinePluginConfig, waveSurferConfig, zoomPluginConfig
 export type TRegionData = IReciterTimeStamp & IAyahBase;
 export default function WavesurferWrapperComponent() {
   const { chapterNumber,
-    verseNumber,
     audioStartTime,
     setAudioCurrentTime,
     setAudioCurrentTimeNonCapture,
@@ -34,7 +33,7 @@ export default function WavesurferWrapperComponent() {
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
   const [wsRegions, setWsRegions] = createSignal<any>();
-  const [timeStamps, setTimeStamps] = createSignal< Array<TRegionData>>([]);
+  const [timeStamps, setTimeStamps] = createSignal<Array<TRegionData>>([]);
 
   createEffect(() => {
     const ws = WaveSurfer.create(waveSurferConfig);
@@ -183,17 +182,17 @@ export default function WavesurferWrapperComponent() {
     if (!ws) {
       return;
     }
-    setTimeStamps(()=> ts.map((timeStamp:IReciterTimeStamp, i)=> ({...timeStamp, ...ayahs[i]})));
+    setTimeStamps(() => ts.map((timeStamp: IReciterTimeStamp, i) => ({ ...timeStamp, ...ayahs[i] })));
   })
 
-  createEffect(()=>{
+  createEffect(() => {
     const regions = wsRegions();
     const cIndex = captureIndex();
     regions.clearRegions();
 
     timeStamps().forEach((timeStamp, index) => {
       regions.addRegion({
-        id:index+1,
+        id: index + 1,
         start: timeStamp.timestampFrom,
         end: timeStamp.timestampTo,
         content: `${timeStamp.verseNumber}`,
@@ -204,19 +203,19 @@ export default function WavesurferWrapperComponent() {
     });
   })
 
-  createEffect(()=>{
+  createEffect(() => {
     const wsr = wsRegions();
-    if(!wsr){
-      return ;
+    if (!wsr) {
+      return;
     }
-    wsr.on('region-updated', (region:any) => {
-      const {id, start, end} = region;
+    wsr.on('region-updated', (region: any) => {
+      const { id, start, end } = region;
       const timestampFrom = parseFloat(parseFloat(start).toFixed(1));
       const timestampTo = parseFloat(parseFloat(end).toFixed(1));
-      const index = id-1;
-      setPageSurahAudioTimeStamps((prev)=>prev.map((a, i)=>{
-        if(index  === i){
-          return {...a, timestampFrom,timestampTo}
+      const index = id - 1;
+      setPageSurahAudioTimeStamps((prev) => prev.map((a, i) => {
+        if (index === i) {
+          return { ...a, timestampFrom, timestampTo }
         }
         return a;
       }))

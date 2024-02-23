@@ -59,5 +59,4 @@ export const timelinePluginConfig = {
   },
 };
 
-export const regionPlugins = {
-}
+export const regionPlugins = {};

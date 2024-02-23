@@ -17,9 +17,9 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
 
     createEffect(() => {
         const atState = audioTrackerState();
-        const fCounter =focusCounter()
-        const i= index();
-        if ( fCounter=== 0) {
+        const fCounter = focusCounter()
+        const i = index();
+        if (fCounter === 0) {
             return;
         }
 
@@ -85,7 +85,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
             step="0.5"
             value={localValue()}
             style={{ width: "65px" }}
-            readOnly={true}
+            readOnly={audioTrackerState() === AudioTrackerState.CAPTURE}
             onFocus={() => {
                 setFocusCounter((prev) => prev + 1);
             }}
