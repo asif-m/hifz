@@ -28,10 +28,10 @@ export const colors = {
   // waveAyahRegion: "rgba(44, 164, 171, 0.1)",
   waveProgress: "white",
   waveAyahRegion: "rgb(44, 164, 171,0.1)",
-  waveActiveAyahRegion: "rgba(255, 255, 255, 0.5)",
-  ayahsTrackBorderColor: "rgb(0, 200, 200)",
-  currentVerseColor: "white",
-  normalVerseColor : "rgb(44, 164, 171)",
+  waveActiveAyahRegion: "rgba(0, 255, 255, 0.5)",
+  ayahsTrackBorderColor: "rgba(255, 255, 255, 0.5)",
+  currentVerseColor: "rgb(0, 255, 255,1)",
+  normalVerseColor : "#9e9e9e",
   scrollbarColor: "#ffffff #272727",
 };
 

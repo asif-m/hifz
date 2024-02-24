@@ -46,7 +46,15 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
     function onFromChange(v: number) {
         const aIndex = index();
         setPageSurahAudioTimeStamps((prev) => prev
-            .map((t, i) => (i === aIndex) ? { ...t, timestampFrom: v } : t)
+            .map((t, i,array) => {
+                if(i===aIndex){
+                    return { ...t, timestampFrom: v }
+                }
+                if(aIndex!==0 && i===aIndex-1){
+                    return { ...t, timestampTo: v }
+                }
+                return t;
+            })
         )
     }
     function onToChange(v: number) {

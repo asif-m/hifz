@@ -134,6 +134,12 @@ export default function AyahTrackerComponent() {
         } else {
             setAudioTrackerState(() => AudioTrackerState.REVIEW);
         }
+        for(let i=pageSurahAudioTimeStampsLocal.length-1;i>=0; i--){
+            if(i===pageSurahAudioTimeStampsLocal.length-1){
+                continue;
+            }
+            pageSurahAudioTimeStampsLocal[i].timestampTo = pageSurahAudioTimeStampsLocal[i+1].timestampFrom;
+        }
 
         batch(() => {
             setPageSurahAudioTimeStamps(() => pageSurahAudioTimeStampsLocal);
