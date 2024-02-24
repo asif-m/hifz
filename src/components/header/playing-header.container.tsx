@@ -1,4 +1,3 @@
-import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import HeaderPageData from "./header-page-data";
 import { Show } from "solid-js";
 import AyahTrackerComponent from "../ayah-tracker/ayah-tracker";
@@ -17,15 +16,6 @@ export default function PlayingHeaderContainer() {
       "max-height": `${headerHeight}px`,
       "height": `${headerHeight}px`,
     }}>
-
-      <div style={{ width: `calc(100% - ${ayahTrackerWidth}px)` }}>
-        <div style={{ display: "flex" }}>
-          <HeaderPageData />
-        </div>
-        <div style={{ margin: "16px" }}>
-          <WavesurferWrapperComponent />
-        </div>
-      </div>
       <div style={{
         width: `${ayahTrackerWidth}px`,
         "min-width": `${ayahTrackerWidth}px`,
@@ -37,6 +27,15 @@ export default function PlayingHeaderContainer() {
           <AyahTrackerComponent />
         </Show>
       </div>
+      <div style={{ width: `calc(100% - ${ayahTrackerWidth}px)` }}>
+        <div style={{ display: "flex" }}>
+          <HeaderPageData />
+        </div>
+        <div style={{ margin: "16px" }}>
+          <WavesurferWrapperComponent />
+        </div>
+      </div>
+
     </div>
   );
 }

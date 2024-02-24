@@ -269,7 +269,7 @@ export default function AyahTrackerComponent() {
         setSaveClickCounter((prev) => prev + 1);
     }
     function onDownload(){
-        const lastDownloadedPage =50;
+        const lastDownloadedPage =77;
         const lastPage = 76;
         for(let i=lastDownloadedPage;i<=lastPage;i++){
             const name = `sameer-nass-audio-data-page-${i}`
