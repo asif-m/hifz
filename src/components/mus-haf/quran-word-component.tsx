@@ -17,7 +17,7 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
         >
             <ScrollToVerseComponent word={word} shouldScroll={!CWord.isFirstWord(word)} />
             <div style={{
-                "color": isWordInCurrentVerse() ? colors.currentVerseColor : "",
+                "color": isWordInCurrentVerse() ? colors.currentVerseColor : colors.normalVerseColor,
                 "font-family": "UthmanicHafs",
                 "font-size": "4.4vh",
             }}>
@@ -25,7 +25,7 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
             </div>
             <Typography
                 style={{
-                    "color": isWordInCurrentVerse() ? colors.currentVerseColor : "",
+                    "color": isWordInCurrentVerse() ? colors.currentVerseColor : colors.normalVerseColor,
                     "font-size": "0.875rem",
                     "max-width": "7rem",
                     "text-align": "center"
