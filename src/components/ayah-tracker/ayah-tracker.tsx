@@ -5,8 +5,8 @@ import { FormControlLabel, IconButton, Radio, RadioGroup } from "@suid/material"
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 import { BISMI_INDEX, IReciterTimeStamp } from "~/models/ayah-info-interface";
-import Save from "@suid/icons-material/Save";
 import NavigateNext from "@suid/icons-material/NavigateNext";
+import Download from "@suid/icons-material/Download";
 import * as ST from "@suid/types";
 import { CSurah } from "~/models/surah";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
@@ -162,14 +162,14 @@ export default function AyahTrackerComponent() {
             return;
         }
 
-        if(key ==="KeyC"){
-            setAudioTrackerState(()=> AudioTrackerState.CAPTURE);
-            return;
-        }
-        if(key ==="KeyR"){
-            setAudioTrackerState(()=> AudioTrackerState.REVIEW);
-            return;
-        }
+        // if(key ==="KeyC"){
+        //     setAudioTrackerState(()=> AudioTrackerState.CAPTURE);
+        //     return;
+        // }
+        // if(key ==="KeyR"){
+        //     setAudioTrackerState(()=> AudioTrackerState.REVIEW);
+        //     return;
+        // }
     })
 
     createEffect(() => {
@@ -271,6 +271,27 @@ export default function AyahTrackerComponent() {
     function onSave() {
         setSaveClickCounter((prev) => prev + 1);
     }
+    function onDownload(){
+        for(let i=1;i<=604;i++){
+            const name = `sameer-nass-audio-data-page-${i}`
+            const data = localStorage.getItem(name);
+            if(data){
+                console.log({name, data,i});
+                setTimeout(()=>{downloadJsonFile(JSON.parse(data), `${name}.json`);}, i*300)
+            }
+        }
+    }
+    function downloadJsonFile(data:any, filename: string){
+        // Creating a blob object from non-blob data using the Blob constructor
+        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        // Create a new anchor element
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename || 'download';
+        a.click();
+        a.remove();
+    }
     function onNext() {
         const ayahInCurrentPageSurahLocal = ayahInCurrentPageSurah();
         const pData = pageData();
@@ -322,8 +343,11 @@ export default function AyahTrackerComponent() {
                 </div>
             </RadioGroup>
             <AudioPlayerControlsComponent />
-            <IconButton aria-label="save" onclick={() => onSave()}>
+            {/* <IconButton aria-label="save" onclick={() => onSave()}>
                 <Save />
+            </IconButton> */}
+            <IconButton aria-label="download" onclick={() => onDownload()}>
+                <Download />
             </IconButton>
             <IconButton aria-label="next" onclick={() => {
                 onSave();
