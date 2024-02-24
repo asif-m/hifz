@@ -17,7 +17,7 @@ export default function QuranSurahTitleComponent(props: { word: IArabicWord }) {
             <ScrollToVerseComponent word={word} />
             <div style={{
                 margin: "10px",
-                border: `solid ${colors.surahTitle} 2px`,
+                border: `solid ${colors.surahTitleBorder} 2px`,
                 color: colors.surahTitle,
                 "border-radius": "4px"
             }}>

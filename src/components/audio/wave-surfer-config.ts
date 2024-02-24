@@ -4,7 +4,7 @@ export const waveSurferConfig = {
   container: "#waveform",
   waveColor: colors.wave,
   progressColor: colors.waveProgress,
-  minPxPerSec: 100,
+  minPxPerSec: 200,
   audioRate:1.5,
   renderFunction: (
     channels: Array<Float32Array | number[]>,
