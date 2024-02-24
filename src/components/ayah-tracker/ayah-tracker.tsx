@@ -167,15 +167,6 @@ export default function AyahTrackerComponent() {
             }
             return;
         }
-
-        // if(key ==="KeyC"){
-        //     setAudioTrackerState(()=> AudioTrackerState.CAPTURE);
-        //     return;
-        // }
-        // if(key ==="KeyR"){
-        //     setAudioTrackerState(()=> AudioTrackerState.REVIEW);
-        //     return;
-        // }
     })
 
     createEffect(() => {
