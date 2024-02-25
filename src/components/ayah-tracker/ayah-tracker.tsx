@@ -48,6 +48,7 @@ export default function AyahTrackerComponent() {
         setCaptureIndex,
         saveClickCounter,
         setSaveClickCounter,
+        audioLoaded
     } = useStore();
     const key = `sameer-nass-audio-data-page-${pageNumber()}`;
     const navigate = useNavigate();
@@ -157,6 +158,11 @@ export default function AyahTrackerComponent() {
         const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
         const key = pressedKey()
         const playerState = audioPlayerState()
+        const loaded = audioLoaded();
+
+        if (!loaded) {
+            return;
+        }
 
         if (key === "Space") {
             if (!isCaptureMode) {
@@ -318,13 +324,13 @@ export default function AyahTrackerComponent() {
             navigate(`/page/${pageNumber + 1}`, { replace: true })
             setTimeout(function () {
                 location.reload();
-            }, 100);
+            }, 500);
         } else {
             const { chapterNumber, verseNumber } = ayahs[lastIndex + 1];
             navigate(`/surah/${chapterNumber}`, { replace: true })
             setTimeout(function () {
                 location.reload();
-            }, 100);
+            }, 500);
         }
     }
 

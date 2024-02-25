@@ -5,7 +5,7 @@ import { useStore } from "~/store/store";
 
 export default function EditableTextboxControlsComponent(props: { index: Accessor<number>, type: "from" | "to" }) {
     const { type, index } = props;
-    const { setVerseNumber, setChapterNumber, pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah, captureIndex, setCaptureIndex, setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState, audioTrackerState, pressedKey } = useStore();
+    const { setVerseNumber, setChapterNumber, pageSurahAudioTimeStamps, setPageSurahAudioTimeStamps, ayahInCurrentPageSurah, captureIndex, setCaptureIndex, setAudioPlayerState, setAudioCurrentTime, setAudioTrackerState, audioTrackerState, pressedKey, audioLoaded } = useStore();
     const { timestampFrom, timestampTo } = pageSurahAudioTimeStamps()[index()]
     const isFrom = (type === "from")
     const value = isFrom ? timestampFrom : timestampTo;
@@ -22,6 +22,12 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
         const cIndex = captureIndex();
         const length = pageSurahAudioTimeStamps().length;
         const reminder = cIndex % length;
+        const loaded = audioLoaded();
+
+        if (!loaded) {
+            return;
+        }
+
         if (!inputRef) {
             return;
         }
