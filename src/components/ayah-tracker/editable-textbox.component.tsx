@@ -52,7 +52,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
             }
         }
 
-        if (key === "KeyZ") {
+        if (key === "KeyA") {
             setAudioTrackerState(() => AudioTrackerState.REVIEW)
             if (i === reminder) {
                 inputRef.blur();
