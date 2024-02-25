@@ -21,7 +21,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
         const i = index();
         const cIndex = captureIndex();
         const length = pageSurahAudioTimeStamps().length;
-        const reminder = cIndex % length;
+        const reminder = Math.min(cIndex, length) % length;
         const loaded = audioLoaded();
 
         if (!loaded) {
@@ -48,6 +48,16 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
                 inputRef.blur();
             }
             if (isFrom && (i + 1) === reminder) {
+                setTimeout(() => { inputRef.focus(); }, 350)
+            }
+        }
+
+        if (key === "KeyZ") {
+            setAudioTrackerState(() => AudioTrackerState.REVIEW)
+            if (i === reminder) {
+                inputRef.blur();
+            }
+            if (isFrom && i === 0) {
                 setTimeout(() => { inputRef.focus(); }, 350)
             }
         }
