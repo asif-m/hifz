@@ -158,7 +158,10 @@ export default function AyahTrackerComponent() {
         const key = pressedKey()
         const playerState = audioPlayerState()
 
-        if (isCaptureMode && key === "Space") {
+        if (key === "Space") {
+            if (!isCaptureMode) {
+                setAudioTrackerState(() => AudioTrackerState.CAPTURE);
+            }
             if (playerState === AudioPlayerState.PAUSE) {
                 setPressedKey(() => "");
                 setAudioPlayerState(() => AudioPlayerState.PLAY);
@@ -273,9 +276,9 @@ export default function AyahTrackerComponent() {
         setSaveClickCounter((prev) => prev + 1);
     }
     function onDownload() {
-        const lastDownloadedPage = 77;
-        const lastPage = 76;
-        for (let i = lastDownloadedPage; i <= lastPage; i++) {
+        const lastDownloadedPage = 101;
+        const lastPage = 604;
+        for (let i = lastDownloadedPage + 1; i <= lastPage; i++) {
             const name = `sameer-nass-audio-data-page-${i}`
             const data = localStorage.getItem(name);
             if (data) {

@@ -20,27 +20,29 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
         const key = pressedKey();
         const i = index();
         const cIndex = captureIndex();
-        const length = pageSurahAudioTimeStamps();
+        const length = pageSurahAudioTimeStamps().length;
+        const reminder = cIndex % length;
         if (!inputRef) {
             return;
         }
 
-        if (key === "KeyZ") {
+        if (key === "KeyX") {
+            console.log({ i, cIndex, length });
             setAudioTrackerState(() => AudioTrackerState.REVIEW)
-            if (i === cIndex) {
+            if (i === reminder) {
                 inputRef.blur();
             }
-            if (isFrom && (i - 1) === cIndex) {
+            if (isFrom && (i - 1) === reminder) {
                 setTimeout(() => { inputRef.focus(); }, 350)
             }
         }
 
-        if (key === "KeyX") {
+        if (key === "KeyZ") {
             setAudioTrackerState(() => AudioTrackerState.REVIEW)
-            if (i === cIndex) {
+            if (i === reminder) {
                 inputRef.blur();
             }
-            if (isFrom && (i + 1) === cIndex) {
+            if (isFrom && (i + 1) === reminder) {
                 setTimeout(() => { inputRef.focus(); }, 350)
             }
         }
