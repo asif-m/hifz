@@ -134,11 +134,11 @@ export default function AyahTrackerComponent() {
         } else {
             setAudioTrackerState(() => AudioTrackerState.REVIEW);
         }
-        for(let i=pageSurahAudioTimeStampsLocal.length-1;i>=0; i--){
-            if(i===pageSurahAudioTimeStampsLocal.length-1){
+        for (let i = pageSurahAudioTimeStampsLocal.length - 1; i >= 0; i--) {
+            if (i === pageSurahAudioTimeStampsLocal.length - 1) {
                 continue;
             }
-            pageSurahAudioTimeStampsLocal[i].timestampTo = pageSurahAudioTimeStampsLocal[i+1].timestampFrom;
+            pageSurahAudioTimeStampsLocal[i].timestampTo = pageSurahAudioTimeStampsLocal[i + 1].timestampFrom;
         }
 
         batch(() => {
@@ -159,13 +159,17 @@ export default function AyahTrackerComponent() {
         const playerState = audioPlayerState()
 
         if (isCaptureMode && key === "Space") {
-            if(playerState === AudioPlayerState.PAUSE){
+            if (playerState === AudioPlayerState.PAUSE) {
                 setPressedKey(() => "");
                 setAudioPlayerState(() => AudioPlayerState.PLAY);
-            }else if(playerState === AudioPlayerState.PLAY){
+            } else if (playerState === AudioPlayerState.PLAY) {
                 setCaptureIndex((prev) => prev + 1);
             }
             return;
+        }
+
+        if (key === "KeyN") {
+            saveAndOpenNext();
         }
     })
 
@@ -268,18 +272,18 @@ export default function AyahTrackerComponent() {
     function onSave() {
         setSaveClickCounter((prev) => prev + 1);
     }
-    function onDownload(){
-        const lastDownloadedPage =77;
+    function onDownload() {
+        const lastDownloadedPage = 77;
         const lastPage = 76;
-        for(let i=lastDownloadedPage;i<=lastPage;i++){
+        for (let i = lastDownloadedPage; i <= lastPage; i++) {
             const name = `sameer-nass-audio-data-page-${i}`
             const data = localStorage.getItem(name);
-            if(data){
-                setTimeout(()=>{downloadJsonFile(JSON.parse(data), `${name}.json`);}, i*300)
+            if (data) {
+                setTimeout(() => { downloadJsonFile(JSON.parse(data), `${name}.json`); }, i * 300)
             }
         }
     }
-    function downloadJsonFile(data:any, filename: string){
+    function downloadJsonFile(data: any, filename: string) {
         // Creating a blob object from non-blob data using the Blob constructor
         const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -309,16 +313,23 @@ export default function AyahTrackerComponent() {
         if (lastIndex == -1 || lastIndex === ayahs.length - 1) {
             //Last verse. Go to next page
             navigate(`/page/${pageNumber + 1}`, { replace: true })
-            setTimeout(function(){
+            setTimeout(function () {
                 location.reload();
             }, 100);
         } else {
             const { chapterNumber, verseNumber } = ayahs[lastIndex + 1];
             navigate(`/surah/${chapterNumber}`, { replace: true })
-            setTimeout(function(){
+            setTimeout(function () {
                 location.reload();
             }, 100);
         }
+    }
+
+    function saveAndOpenNext() {
+        onSave();
+        setTimeout(() => {
+            onNext()
+        }, 500)
     }
 
 
@@ -348,11 +359,8 @@ export default function AyahTrackerComponent() {
                 <Download />
             </IconButton>
             <IconButton aria-label="next" onclick={() => {
-                onSave();
-                setTimeout(()=>{
-                    onNext()
-                }, 500)
-                }}>
+                saveAndOpenNext();
+            }}>
                 <NavigateNext />
             </IconButton>
         </div>

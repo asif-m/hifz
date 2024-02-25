@@ -107,12 +107,12 @@ export default function QuranReader(props: IAyahBase) {
             <div style={{ display: "flex", "flex-direction": "row" }}>
               <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
                 <For each={lineData()}>{words => <QuranLineComponent words={words} />}</For>
-                <div style={{ 
-                  padding:"4px",
+                <div style={{
+                  padding: "4px",
                   "border-radius": "4px",
                   border: `solid ${colors.footerPageNumber} 2px`,
                   color: colors.footerBorder,
-                  }}>{pageData().pageNumber}</div>
+                }}>{pageData().pageNumber}</div>
               </div>
             </div>
           </div>

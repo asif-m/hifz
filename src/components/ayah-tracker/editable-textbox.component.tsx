@@ -16,34 +16,35 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
     const [focusCounter, setFocusCounter] = createSignal(0);
     let inputRef: HTMLInputElement;
 
-    // createEffect(() => {
-    //     const key = pressedKey();
-    //     const i = index();
-    //     const cIndex = captureIndex();
-    //     const length = pageSurahAudioTimeStamps();
-    //     if(!inputRef){
-    //         return;
-    //     }
-      
-    //     if(key==="KeyJ"){
-    //         if(i===cIndex){
-    //             inputRef.blur();
-    //         }
-    //         if(isFrom && (i-1)=== cIndex){
-    //             setTimeout(()=>{inputRef.focus();}, 500)
-    //         }
-    //     }
+    createEffect(() => {
+        const key = pressedKey();
+        const i = index();
+        const cIndex = captureIndex();
+        const length = pageSurahAudioTimeStamps();
+        if (!inputRef) {
+            return;
+        }
 
-    //     if(key==="KeyK"){
-    //         if(i===cIndex){
-    //             inputRef.blur();
-    //         }
-    //         if(isFrom && (i+1)=== cIndex){
-    //             setTimeout(()=>{inputRef.focus();}, 500)
-    //         }
-    //     }
-        
-    // })
+        if (key === "KeyZ") {
+            setAudioTrackerState(() => AudioTrackerState.REVIEW)
+            if (i === cIndex) {
+                inputRef.blur();
+            }
+            if (isFrom && (i - 1) === cIndex) {
+                setTimeout(() => { inputRef.focus(); }, 350)
+            }
+        }
+
+        if (key === "KeyX") {
+            setAudioTrackerState(() => AudioTrackerState.REVIEW)
+            if (i === cIndex) {
+                inputRef.blur();
+            }
+            if (isFrom && (i + 1) === cIndex) {
+                setTimeout(() => { inputRef.focus(); }, 350)
+            }
+        }
+    })
     createEffect(() => {
         const atState = audioTrackerState();
         const fCounter = focusCounter()
@@ -75,11 +76,11 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
     function onFromChange(v: number) {
         const aIndex = index();
         setPageSurahAudioTimeStamps((prev) => prev
-            .map((t, i,array) => {
-                if(i===aIndex){
+            .map((t, i, array) => {
+                if (i === aIndex) {
                     return { ...t, timestampFrom: v }
                 }
-                if(aIndex!==0 && i===aIndex-1){
+                if (aIndex !== 0 && i === aIndex - 1) {
                     return { ...t, timestampTo: v }
                 }
                 return t;
@@ -117,7 +118,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
 
     return (
         <input type="number"
-            ref = {inputRef}
+            ref={inputRef}
             name="price"
             pattern="[0-9]+([\.,][0-9]+)?"
             step="0.1"

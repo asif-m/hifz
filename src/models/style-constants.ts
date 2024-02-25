@@ -31,7 +31,7 @@ export const colors = {
   waveActiveAyahRegion: "rgba(0, 255, 255, 0.5)",
   ayahsTrackBorderColor: "rgba(255, 255, 255, 0.5)",
   currentVerseColor: "rgb(0, 255, 255,1)",
-  normalVerseColor : "#9e9e9e",
+  normalVerseColor: "#9e9e9e",
   scrollbarColor: "#ffffff #272727",
 };
 
