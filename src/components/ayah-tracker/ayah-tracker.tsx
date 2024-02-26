@@ -282,13 +282,13 @@ export default function AyahTrackerComponent() {
         setSaveClickCounter((prev) => prev + 1);
     }
     function onDownload() {
-        const lastDownloadedPage = 101;
+        const lastDownloadedPage = 161;
         const lastPage = 604;
         for (let i = lastDownloadedPage + 1; i <= lastPage; i++) {
             const name = `sameer-nass-audio-data-page-${i}`
             const data = localStorage.getItem(name);
             if (data) {
-                setTimeout(() => { downloadJsonFile(JSON.parse(data), `${name}.json`); }, i * 300)
+                setTimeout(() => { downloadJsonFile(JSON.parse(data), `${name}.json`); }, (i-lastDownloadedPage) * 300)
             }
         }
     }
