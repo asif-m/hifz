@@ -1,7 +1,7 @@
 import { IReciterTimeStamp } from "~/models/ayah-info-interface"
 
 export function extractSilenceRegions(audioData:Float32Array, duration:number):Array<IReciterTimeStamp> {
-  const minValue = 0.01
+  const minValue = 0.04
   const minSilenceDuration = 0.1
   const mergeDuration = 0.2
   const scale = duration / audioData.length
@@ -53,7 +53,8 @@ export function extractSilenceRegions(audioData:Float32Array, duration:number):A
         closestRegion = silentRegions[i];
       }
     }
-    return {region: closestRegion, middle:(closestRegion.timestampFrom+closestRegion.timestampTo)/2}
+    const middle = parseFloat(((closestRegion.timestampFrom+closestRegion.timestampTo)/2).toFixed(2));
+    return {region: closestRegion, middle}
   }
 
   function distanceFromRegion(region: IReciterTimeStamp, timeStamp:number){

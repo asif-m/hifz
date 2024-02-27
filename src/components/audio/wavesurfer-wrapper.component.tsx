@@ -30,7 +30,8 @@ export default function WavesurferWrapperComponent() {
     setPageSurahAudioTimeStamps,
     ayahInCurrentPageSurah,
     captureIndex,
-    setSilentRegions
+    setSilentRegions,
+    //silentRegions
   } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
@@ -195,9 +196,11 @@ export default function WavesurferWrapperComponent() {
   createEffect(() => {
     const regions = wsRegions();
     const cIndex = captureIndex();
+    // const sRegions = silentRegions();
+    const tStamps = timeStamps();
     regions.clearRegions();
 
-    timeStamps().forEach((timeStamp, index) => {
+    tStamps.forEach((timeStamp, index) => {
       regions.addRegion({
         id: index + 1,
         start: timeStamp.timestampFrom,
@@ -208,6 +211,17 @@ export default function WavesurferWrapperComponent() {
         resize: true,
       });
     });
+    // sRegions.forEach((timeStamp, index) => {
+    //   regions.addRegion({
+    //     id: tStamps.length+index + 1,
+    //     start: timeStamp.timestampFrom,
+    //     end: timeStamp.timestampTo,
+    //     content: ``,
+    //     color: colors.silentRegionColor,
+    //     drag: false,
+    //     resize: true,
+    //   });
+    // });
   })
 
   createEffect(() => {

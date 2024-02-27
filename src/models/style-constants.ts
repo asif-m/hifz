@@ -29,6 +29,7 @@ export const colors = {
   waveProgress: "white",
   waveAyahRegion: "rgb(44, 164, 171,0.1)",
   waveActiveAyahRegion: "rgba(0, 255, 255, 0.5)",
+  silentRegionColor : "rgba(255, 0, 0, 0.2)",
   ayahsTrackBorderColor: "rgba(255, 255, 255, 0.5)",
   currentVerseColor: "rgb(0, 255, 255,1)",
   normalVerseColor: "#9e9e9e",

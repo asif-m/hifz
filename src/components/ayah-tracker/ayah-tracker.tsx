@@ -12,6 +12,7 @@ import { CSurah } from "~/models/surah";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { useNavigate } from "@solidjs/router";
 import { downloadJsonFile } from "~/utils/download-helpers";
+import { findClosestSilentRegion } from "~/utils/audio-helper";
 
 interface IAyahDataInLocalStorageIndividual {
     chapterNumber: number,
@@ -161,6 +162,7 @@ export default function AyahTrackerComponent() {
         const key = pressedKey()
         const playerState = audioPlayerState()
         const loaded = audioLoaded();
+        const sRegions = silentRegions();
 
         if (!loaded) {
             return;
@@ -181,6 +183,25 @@ export default function AyahTrackerComponent() {
 
         if (key === "KeyN") {
             saveAndOpenNext();
+            return;
+        }
+        if (key === "KeyF") {
+            const bandWidth = 1.5;
+            setPageSurahAudioTimeStamps((ts) =>
+                ts.map((prev)=>{
+                    let {timestampFrom, timestampTo} = prev;
+                    const {middle:fromMiddle} = findClosestSilentRegion(sRegions, timestampFrom);
+                    const {middle:toMiddle} = findClosestSilentRegion(sRegions, timestampTo);
+                    if(Math.abs(fromMiddle-timestampFrom)<=bandWidth){
+                        timestampFrom = fromMiddle;
+                    }
+                    if(Math.abs(toMiddle-timestampTo)<=bandWidth){
+                        timestampTo = toMiddle;
+                    }
+                    return {timestampFrom, timestampTo};
+                })
+            );
+            return;
         }
     })
 
@@ -189,7 +210,7 @@ export default function AyahTrackerComponent() {
         const currentTime = audioCurrentTime();
         const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
         const isPlaying = audioPlayerState() === AudioPlayerState.PLAY;
-        const cData = channelData()
+
 
         if (!isCaptureMode) {
             return;
@@ -333,7 +354,6 @@ export default function AyahTrackerComponent() {
             onNext()
         }, 500)
     }
-
 
 
     return (<div>
