@@ -22,8 +22,8 @@ export function extractSilenceRegions(audioData:Float32Array, duration:number):A
       isSilent = false
       if (scale * (end - start) > minSilenceDuration) {
         silentRegions.push({
-          start: scale * start,
-          end: scale * end,
+          timestampFrom: scale * start,
+          timestampTo: scale * end,
         })
       }
     }
@@ -33,26 +33,14 @@ export function extractSilenceRegions(audioData:Float32Array, duration:number):A
   const mergedRegions = []
   let lastRegion = null
   for (let i = 0; i < silentRegions.length; i++) {
-    if (lastRegion && silentRegions[i].start - lastRegion.end < mergeDuration) {
-      lastRegion.end = silentRegions[i].end
+    if (lastRegion && silentRegions[i].timestampFrom - lastRegion.timestampTo < mergeDuration) {
+      lastRegion.timestampTo = silentRegions[i].timestampTo
     } else {
       lastRegion = silentRegions[i]
       mergedRegions.push(lastRegion)
     }
   }
-
-  // Find regions that are not silent
-  const regions = []
-  let lastEnd = 0
-  for (let i = 0; i < mergedRegions.length; i++) {
-    regions.push({
-      start: lastEnd,
-      end: mergedRegions[i].start,
-    })
-    lastEnd = mergedRegions[i].end
-  }
-
-  return regions
+  return mergedRegions
 }
 
   export function findClosestSilentRegion(silentRegions:Array<IReciterTimeStamp>, timeStamp: number){
