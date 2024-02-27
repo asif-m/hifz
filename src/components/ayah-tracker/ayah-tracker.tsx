@@ -11,6 +11,7 @@ import * as ST from "@suid/types";
 import { CSurah } from "~/models/surah";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { useNavigate } from "@solidjs/router";
+import { downloadJsonFile } from "~/utils/download-helpers";
 
 interface IAyahDataInLocalStorageIndividual {
     chapterNumber: number,
@@ -282,27 +283,17 @@ export default function AyahTrackerComponent() {
         setSaveClickCounter((prev) => prev + 1);
     }
     function onDownload() {
-        const lastDownloadedPage = 161;
+        const lastDownloadedPage = 176;
         const lastPage = 604;
         for (let i = lastDownloadedPage + 1; i <= lastPage; i++) {
             const name = `sameer-nass-audio-data-page-${i}`
             const data = localStorage.getItem(name);
             if (data) {
-                setTimeout(() => { downloadJsonFile(JSON.parse(data), `${name}.json`); }, (i-lastDownloadedPage) * 300)
+                setTimeout(() => { downloadJsonFile(JSON.parse(data), `${name}.json`); }, (i - lastDownloadedPage) * 300)
             }
         }
     }
-    function downloadJsonFile(data: any, filename: string) {
-        // Creating a blob object from non-blob data using the Blob constructor
-        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        // Create a new anchor element
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename || 'download';
-        a.click();
-        a.remove();
-    }
+
     function onNext() {
         const ayahInCurrentPageSurahLocal = ayahInCurrentPageSurah();
         const pData = pageData();
