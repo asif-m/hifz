@@ -12,6 +12,7 @@ import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state.jsx";
 import { regionPlugins, timelinePluginConfig, waveSurferConfig, zoomPluginConfig } from "./wave-surfer-config";
+import { extractSilenceRegions } from "~/utils/audio-helper";
 
 export type TRegionData = IReciterTimeStamp & IAyahBase;
 export default function WavesurferWrapperComponent() {
@@ -29,6 +30,7 @@ export default function WavesurferWrapperComponent() {
     setPageSurahAudioTimeStamps,
     ayahInCurrentPageSurah,
     captureIndex,
+    setSilentRegions
   } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
@@ -101,6 +103,11 @@ export default function WavesurferWrapperComponent() {
     /** When the audio has been decoded */
     ws.on('decode', (duration) => {
       //console.log('Decode', duration + 's')
+      const decodedData = ws.getDecodedData();
+      if(decodedData){
+        const regions = extractSilenceRegions(decodedData.getChannelData(0), duration)
+        setSilentRegions(()=>regions);
+      }
       setAudioLoaded(() => true);
     })
 

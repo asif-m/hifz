@@ -49,7 +49,8 @@ export default function AyahTrackerComponent() {
         setCaptureIndex,
         saveClickCounter,
         setSaveClickCounter,
-        audioLoaded
+        audioLoaded,
+        silentRegions
     } = useStore();
     const key = `sameer-nass-audio-data-page-${pageNumber()}`;
     const navigate = useNavigate();
@@ -188,6 +189,7 @@ export default function AyahTrackerComponent() {
         const currentTime = audioCurrentTime();
         const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
         const isPlaying = audioPlayerState() === AudioPlayerState.PLAY;
+        const cData = channelData()
 
         if (!isCaptureMode) {
             return;

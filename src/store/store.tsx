@@ -25,6 +25,7 @@ export interface IStoreData {
     ayahInCurrentPageSurah: Array<IAyahBase>;
     captureIndex: number;
     saveClickCounter: number;
+    silentRegions:Array<IReciterTimeStamp>;
 }
 
 export function getInitialStoreData(): IStoreData {
@@ -54,6 +55,7 @@ export function getInitialStoreData(): IStoreData {
         ayahInCurrentPageSurah: [],
         captureIndex: 0,
         saveClickCounter: 0,
+        silentRegions:[],
     }
 }
 
@@ -90,6 +92,8 @@ export interface IStoreUseContextData {
     setCaptureIndex: Setter<number>
     saveClickCounter: Accessor<number>
     setSaveClickCounter: Setter<number>
+    silentRegions:Accessor<Array<IReciterTimeStamp>>
+    setSilentRegions:Setter<Array<IReciterTimeStamp>>
 }
 
 
@@ -110,6 +114,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
     const [ayahInCurrentPageSurah, setAyahInCurrentPageSurah] = createSignal<Array<IAyahBase>>(props.ayahInCurrentPageSurah)
     const [captureIndex, setCaptureIndex] = createSignal(props.captureIndex);
     const [saveClickCounter, setSaveClickCounter] = createSignal(props.saveClickCounter);
+    const [silentRegions, setSilentRegions] = createSignal(props.silentRegions);
 
     const value = {
         verseNumber, setVerseNumber,
@@ -128,6 +133,7 @@ export function StoreProvider(props: ComponentProps<IStoreData>) {
         ayahInCurrentPageSurah, setAyahInCurrentPageSurah,
         captureIndex, setCaptureIndex,
         saveClickCounter, setSaveClickCounter,
+        silentRegions, setSilentRegions
     };
 
     return (
