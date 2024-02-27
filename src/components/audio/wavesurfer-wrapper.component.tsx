@@ -132,7 +132,7 @@ export default function WavesurferWrapperComponent() {
     ws.on('timeupdate', (currentTime) => {
       setAudioCurrentTimeNonCapture(() => currentTime);
       if (audioTrackerState() === AudioTrackerState.CAPTURE) {
-        setAudioCurrentTime(() => parseFloat(currentTime.toFixed(2)))
+        setAudioCurrentTime(() => parseFloat(currentTime.toFixed(1)))
       }
       //console.log('Time', currentTime + 's')
     })
@@ -231,8 +231,8 @@ export default function WavesurferWrapperComponent() {
     }
     wsr.on('region-updated', (region: any) => {
       const { id, start, end } = region;
-      const timestampFrom = parseFloat(parseFloat(start).toFixed(2));
-      const timestampTo = parseFloat(parseFloat(end).toFixed(2));
+      const timestampFrom = parseFloat(parseFloat(start).toFixed(1));
+      const timestampTo = parseFloat(parseFloat(end).toFixed(1));
       const index = id - 1;
       setPageSurahAudioTimeStamps((prev) => prev.map((a, i) => {
         if (index === i) {

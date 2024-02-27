@@ -122,7 +122,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
             return;
         }
         try {
-            const time = parseFloat(parseFloat(v).toFixed(2));
+            const time = parseFloat(parseFloat(v).toFixed(1));
             if (!isValidNumber(time)) {
                 return;
             }
