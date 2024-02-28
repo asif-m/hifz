@@ -55,7 +55,6 @@ export function extractSilenceRegions(audioData:Float32Array, duration:number):A
     }
     const middlePoint = Math.ceil((closestRegion.timestampFrom+closestRegion.timestampTo)/2*100)/100;
     const middle = parseFloat(middlePoint.toFixed(1));
-    console.log({region: closestRegion, middle});
     return {region: closestRegion, middle}
   }
 
