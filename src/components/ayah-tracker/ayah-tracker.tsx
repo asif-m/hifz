@@ -30,7 +30,6 @@ export default function AyahTrackerComponent() {
     const {
         pageData,
         chapterNumber,
-        setChapterNumber,
         setVerseNumber,
         pageNumber,
         audioCurrentTime,
@@ -186,7 +185,6 @@ export default function AyahTrackerComponent() {
             return;
         }
         if (key === "KeyF") {
-            const bandWidth = 1.0;
             setPageSurahAudioTimeStamps((ts) => ts.map((prev) => ({
                 timestampFrom: findClosestSilentRegionMidPoint(sRegions, prev.timestampFrom),
                 timestampTo: findClosestSilentRegionMidPoint(sRegions, prev.timestampTo)

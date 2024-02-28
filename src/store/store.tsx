@@ -25,7 +25,7 @@ export interface IStoreData {
     ayahInCurrentPageSurah: Array<IAyahBase>;
     captureIndex: number;
     saveClickCounter: number;
-    silentRegions:Array<IReciterTimeStamp>;
+    silentRegions: Array<IReciterTimeStamp>;
 }
 
 export function getInitialStoreData(): IStoreData {
@@ -55,7 +55,7 @@ export function getInitialStoreData(): IStoreData {
         ayahInCurrentPageSurah: [],
         captureIndex: 0,
         saveClickCounter: 0,
-        silentRegions:[],
+        silentRegions: [],
     }
 }
 
@@ -92,8 +92,8 @@ export interface IStoreUseContextData {
     setCaptureIndex: Setter<number>
     saveClickCounter: Accessor<number>
     setSaveClickCounter: Setter<number>
-    silentRegions:Accessor<Array<IReciterTimeStamp>>
-    setSilentRegions:Setter<Array<IReciterTimeStamp>>
+    silentRegions: Accessor<Array<IReciterTimeStamp>>
+    setSilentRegions: Setter<Array<IReciterTimeStamp>>
 }
 
 

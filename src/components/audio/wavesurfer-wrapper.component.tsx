@@ -105,9 +105,9 @@ export default function WavesurferWrapperComponent() {
     ws.on('decode', (duration) => {
       //console.log('Decode', duration + 's')
       const decodedData = ws.getDecodedData();
-      if(decodedData){
+      if (decodedData) {
         const regions = extractSilenceRegions(decodedData.getChannelData(0), duration)
-        setSilentRegions(()=>regions);
+        setSilentRegions(() => regions);
       }
       setAudioLoaded(() => true);
     })
@@ -213,7 +213,7 @@ export default function WavesurferWrapperComponent() {
     });
     sRegions.forEach((timeStamp, index) => {
       regions.addRegion({
-        id: tStamps.length+index + 1,
+        id: tStamps.length + index + 1,
         start: timeStamp.timestampFrom,
         end: timeStamp.timestampTo,
         content: ``,
