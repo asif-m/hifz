@@ -31,7 +31,7 @@ export default function WavesurferWrapperComponent() {
     ayahInCurrentPageSurah,
     captureIndex,
     setSilentRegions,
-    //silentRegions
+    silentRegions
   } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
@@ -196,7 +196,7 @@ export default function WavesurferWrapperComponent() {
   createEffect(() => {
     const regions = wsRegions();
     const cIndex = captureIndex();
-    // const sRegions = silentRegions();
+    const sRegions = silentRegions();
     const tStamps = timeStamps();
     regions.clearRegions();
 
@@ -211,17 +211,17 @@ export default function WavesurferWrapperComponent() {
         resize: true,
       });
     });
-    // sRegions.forEach((timeStamp, index) => {
-    //   regions.addRegion({
-    //     id: tStamps.length+index + 1,
-    //     start: timeStamp.timestampFrom,
-    //     end: timeStamp.timestampTo,
-    //     content: ``,
-    //     color: colors.silentRegionColor,
-    //     drag: false,
-    //     resize: true,
-    //   });
-    // });
+    sRegions.forEach((timeStamp, index) => {
+      regions.addRegion({
+        id: tStamps.length+index + 1,
+        start: timeStamp.timestampFrom,
+        end: timeStamp.timestampTo,
+        content: ``,
+        color: colors.silentRegionColor,
+        drag: false,
+        resize: true,
+      });
+    });
   })
 
   createEffect(() => {

@@ -186,7 +186,7 @@ export default function AyahTrackerComponent() {
             return;
         }
         if (key === "KeyF") {
-            const bandWidth = 1.5;
+            const bandWidth = 1.0;
             setPageSurahAudioTimeStamps((ts) =>
                 ts.map((prev)=>{
                     let {timestampFrom, timestampTo} = prev;
