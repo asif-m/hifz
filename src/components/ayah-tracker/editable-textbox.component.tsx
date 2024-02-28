@@ -2,6 +2,7 @@ import { Accessor, batch, createEffect, createSignal } from "solid-js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import { IAyahBase } from "~/models/ayah-info-interface";
 import { useStore } from "~/store/store";
+import { parseStringToFixed } from "~/utils/param-convertor";
 
 export default function EditableTextboxControlsComponent(props: { index: Accessor<number>, type: "from" | "to" }) {
     const { type, index } = props;
@@ -122,7 +123,7 @@ export default function EditableTextboxControlsComponent(props: { index: Accesso
             return;
         }
         try {
-            const time = parseFloat(parseFloat(v).toFixed(1));
+            const time = parseStringToFixed(v)
             if (!isValidNumber(time)) {
                 return;
             }

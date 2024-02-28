@@ -1,4 +1,5 @@
 import { IReciterTimeStamp } from "~/models/ayah-info-interface";
+import { parseFloatToFloatFixed } from "./param-convertor";
 
 export function extractSilenceRegions(
   audioData: Float32Array,
@@ -66,7 +67,7 @@ export function findClosestSilentRegion(
     Math.ceil(
       ((closestRegion.timestampFrom + closestRegion.timestampTo) / 2) * 100
     ) / 100;
-  const middle = parseFloat(middlePoint.toFixed(1));
+  const middle = parseFloatToFloatFixed(middlePoint);
   return { region: closestRegion, middle };
 }
 

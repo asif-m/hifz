@@ -16,6 +16,7 @@ export function getSurahAndAyahFromSurahUrl(param: string): IAyahBase {
     verseNumber,
   };
 }
+
 export function getSurahAndAyahFromUrl(
   paramValue: string,
   data: Array<IAyahBase>
@@ -30,5 +31,21 @@ export function parse(s: string, defaultValue: number): number {
     return parseInt(s);
   } catch (e) {
     return defaultValue;
+  }
+}
+
+export function parseFloatToFloatFixed(v: number, precision:number =1):number {
+  try {
+    return parseFloat(v.toFixed(precision));
+  }catch(e){
+    return v;
+  }
+}
+
+export function parseStringToFixed(v: string):number {
+  try {
+    return parseFloat(parseFloat(v).toFixed(1))
+  }catch(e){
+    return 0;
   }
 }

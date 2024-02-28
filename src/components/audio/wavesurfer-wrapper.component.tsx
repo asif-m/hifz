@@ -13,6 +13,7 @@ import { colors } from "~/models/style-constants.js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state.jsx";
 import { regionPlugins, timelinePluginConfig, waveSurferConfig, zoomPluginConfig } from "./wave-surfer-config";
 import { extractSilenceRegions } from "~/utils/audio-helper";
+import { parseFloatToFloatFixed, parseStringToFixed } from "~/utils/param-convertor";
 
 export type TRegionData = IReciterTimeStamp & IAyahBase;
 export default function WavesurferWrapperComponent() {
@@ -132,7 +133,7 @@ export default function WavesurferWrapperComponent() {
     ws.on('timeupdate', (currentTime) => {
       setAudioCurrentTimeNonCapture(() => currentTime);
       if (audioTrackerState() === AudioTrackerState.CAPTURE) {
-        setAudioCurrentTime(() => parseFloat(currentTime.toFixed(1)))
+        setAudioCurrentTime(() => parseFloatToFloatFixed(currentTime))
       }
       //console.log('Time', currentTime + 's')
     })
@@ -231,8 +232,8 @@ export default function WavesurferWrapperComponent() {
     }
     wsr.on('region-updated', (region: any) => {
       const { id, start, end } = region;
-      const timestampFrom = parseFloat(parseFloat(start).toFixed(1));
-      const timestampTo = parseFloat(parseFloat(end).toFixed(1));
+      const timestampFrom = parseStringToFixed(start);
+      const timestampTo = parseStringToFixed(end);
       const index = id - 1;
       setPageSurahAudioTimeStamps((prev) => prev.map((a, i) => {
         if (index === i) {
