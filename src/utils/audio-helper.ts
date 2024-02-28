@@ -58,6 +58,15 @@ export function extractSilenceRegions(audioData:Float32Array, duration:number):A
     return {region: closestRegion, middle}
   }
 
+  export function findClosestSilentRegionMidPoint(silentRegions:Array<IReciterTimeStamp>, timeStamp: number){
+    const bandWidth = 1.0;
+    const {middle} = findClosestSilentRegion(silentRegions, timeStamp);
+    if(Math.abs(middle-timeStamp)<=bandWidth){
+        return middle;
+    }
+    return timeStamp;
+  }
+
   function distanceFromRegion(region: IReciterTimeStamp, timeStamp:number){
     if(timeStamp > region.timestampTo){
       return (timeStamp - region.timestampTo);

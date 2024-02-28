@@ -12,7 +12,7 @@ import { CSurah } from "~/models/surah";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { useNavigate } from "@solidjs/router";
 import { downloadJsonFile } from "~/utils/download-helpers";
-import { findClosestSilentRegion } from "~/utils/audio-helper";
+import { findClosestSilentRegionMidPoint } from "~/utils/audio-helper";
 
 interface IAyahDataInLocalStorageIndividual {
     chapterNumber: number,
@@ -187,20 +187,10 @@ export default function AyahTrackerComponent() {
         }
         if (key === "KeyF") {
             const bandWidth = 1.0;
-            setPageSurahAudioTimeStamps((ts) =>
-                ts.map((prev)=>{
-                    let {timestampFrom, timestampTo} = prev;
-                    const {middle:fromMiddle} = findClosestSilentRegion(sRegions, timestampFrom);
-                    const {middle:toMiddle} = findClosestSilentRegion(sRegions, timestampTo);
-                    if(Math.abs(fromMiddle-timestampFrom)<=bandWidth){
-                        timestampFrom = fromMiddle;
-                    }
-                    if(Math.abs(toMiddle-timestampTo)<=bandWidth){
-                        timestampTo = toMiddle;
-                    }
-                    return {timestampFrom, timestampTo};
-                })
-            );
+            setPageSurahAudioTimeStamps((ts) => ts.map((prev) => ({
+                timestampFrom: findClosestSilentRegionMidPoint(sRegions, prev.timestampFrom),
+                timestampTo: findClosestSilentRegionMidPoint(sRegions, prev.timestampTo)
+            })));
             return;
         }
     })
