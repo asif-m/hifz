@@ -2440,7 +2440,7 @@ export const PAGE_INFO: Array<IAyahBase> = [
 export class CPage {
   public static getPageNumberForAyah(
     chapterToFind: number,
-    verseToFind: number
+    verseToFind: number,
   ) {
     let pageNumber = 0;
     if (chapterToFind === 0 || verseToFind === 0) {

@@ -2,7 +2,7 @@ export function downloadAudio(
   wavesurfer: any,
   start: number,
   end: number,
-  fileName: string
+  fileName: string,
 ) {
   const audioData = wavesurfer.backend.buffer.slice(start, end);
   const blob = new Blob([audioData], { type: "audio/mp3" });

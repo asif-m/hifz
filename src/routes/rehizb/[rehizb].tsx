@@ -7,7 +7,7 @@ export default function Index() {
   const params = useParams();
   const { verseNumber, chapterNumber } = getSurahAndAyahFromUrl(
     params.rehizb,
-    RUB_EL_HIZB_INFO
+    RUB_EL_HIZB_INFO,
   );
   return (
     <QuranReader verseNumber={verseNumber} chapterNumber={chapterNumber} />

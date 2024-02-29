@@ -8,7 +8,7 @@ export const waveSurferConfig = {
   audioRate: 1.5,
   renderFunction: (
     channels: Array<Float32Array | number[]>,
-    ctx: CanvasRenderingContext2D
+    ctx: CanvasRenderingContext2D,
   ) => {
     const { width, height } = ctx.canvas;
     const scale = channels[0].length / width;

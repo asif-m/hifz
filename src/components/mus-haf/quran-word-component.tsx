@@ -5,32 +5,52 @@ import { CWord, IArabicWord } from "~/models/word";
 import { colors } from "~/models/style-constants";
 
 export default function QuranWordComponent(props: { word: IArabicWord }) {
-    const { word } = props;
-    const { verseNumber, chapterNumber } = useStore();
+  const { word } = props;
+  const { verseNumber, chapterNumber } = useStore();
 
-    function isWordInCurrentVerse() {
-        return word.chapterNumber === chapterNumber() && word.verseNumber === verseNumber()
-    }
-
+  function isWordInCurrentVerse() {
     return (
-        <div style={{ display: "flex", "flex-direction": "column", "align-items": "center", margin: "4px" }}
-        >
-            <ScrollToVerseComponent word={word} shouldScroll={!CWord.isFirstWord(word)} />
-            <div style={{
-                "color": isWordInCurrentVerse() ? colors.currentVerseColor : colors.normalVerseColor,
-                "font-family": "UthmanicHafs",
-                "font-size": "4.4vh",
-            }}>
-                {word.qpcUthmaniHafs}
-            </div>
-            <Typography
-                style={{
-                    "color": isWordInCurrentVerse() ? colors.currentVerseColor : colors.normalVerseColor,
-                    "font-size": "0.875rem",
-                    "max-width": "7rem",
-                    "text-align": "center"
-                }}
-            >{word.translation}</Typography>
-        </div>
-    )
+      word.chapterNumber === chapterNumber() &&
+      word.verseNumber === verseNumber()
+    );
+  }
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        "flex-direction": "column",
+        "align-items": "center",
+        margin: "4px",
+      }}
+    >
+      <ScrollToVerseComponent
+        word={word}
+        shouldScroll={!CWord.isFirstWord(word)}
+      />
+      <div
+        style={{
+          color: isWordInCurrentVerse()
+            ? colors.currentVerseColor
+            : colors.normalVerseColor,
+          "font-family": "UthmanicHafs",
+          "font-size": "4.4vh",
+        }}
+      >
+        {word.qpcUthmaniHafs}
+      </div>
+      <Typography
+        style={{
+          color: isWordInCurrentVerse()
+            ? colors.currentVerseColor
+            : colors.normalVerseColor,
+          "font-size": "0.875rem",
+          "max-width": "7rem",
+          "text-align": "center",
+        }}
+      >
+        {word.translation}
+      </Typography>
+    </div>
+  );
 }

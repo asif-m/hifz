@@ -38,7 +38,7 @@ export interface IAyah extends IAyahBase {
 export class CAyah {
   public static getNextAyah(
     currentSurah: number,
-    currentAyah: number
+    currentAyah: number,
   ): { nextSurah: number; nextAyah: number } {
     if (
       currentSurah === LAST_SURAH.surahNumber &&
@@ -53,7 +53,7 @@ export class CAyah {
   }
   public static getPrevAyah(
     currentSurah: number,
-    currentAyah: number
+    currentAyah: number,
   ): { nextSurah: number; nextAyah: number } {
     if (currentSurah === FIRST_SURAH.surahNumber && currentAyah === 1) {
       return {

@@ -3,26 +3,34 @@ import { Show } from "solid-js";
 import AyahTrackerComponent from "../ayah-tracker/ayah-tracker";
 import { useStore } from "~/store/store";
 import WavesurferWrapperComponent from "../audio/wavesurfer-wrapper.component";
-import { ayahTrackerWidth, colors, headerHeight } from "~/models/style-constants";
+import {
+  ayahTrackerWidth,
+  colors,
+  headerHeight,
+} from "~/models/style-constants";
 
 export default function PlayingHeaderContainer() {
   const { audioLoaded } = useStore();
   return (
-    <div style={{
-      width: "100%",
-      margin: "4px",
-      display: "flex",
-      "flex-direction": "row",
-      "max-height": `${headerHeight}px`,
-      "height": `${headerHeight}px`,
-    }}>
-      <div style={{
-        width: `${ayahTrackerWidth}px`,
-        "min-width": `${ayahTrackerWidth}px`,
+    <div
+      style={{
+        width: "100%",
+        margin: "4px",
+        display: "flex",
+        "flex-direction": "row",
+        "max-height": `${headerHeight}px`,
+        height: `${headerHeight}px`,
+      }}
+    >
+      <div
+        style={{
+          width: `${ayahTrackerWidth}px`,
+          "min-width": `${ayahTrackerWidth}px`,
 
-        "overflow-y": "scroll",
-        "scrollbar-color": `${colors.scrollbarColor}`
-      }}>
+          "overflow-y": "scroll",
+          "scrollbar-color": `${colors.scrollbarColor}`,
+        }}
+      >
         <Show when={audioLoaded()}>
           <AyahTrackerComponent />
         </Show>
@@ -35,9 +43,6 @@ export default function PlayingHeaderContainer() {
           <WavesurferWrapperComponent />
         </div>
       </div>
-
     </div>
   );
 }
-
-

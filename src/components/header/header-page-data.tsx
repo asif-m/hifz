@@ -4,116 +4,161 @@ import { IChapterAndAyahRange } from "~/models/page";
 import { useStore } from "~/store/store";
 import { useNavigate } from "@solidjs/router";
 
-const StylizedChip = (props: { label: number | string, path?: string }) => {
-    const { label, path } = props;
-    const navigate = useNavigate();
-    return <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={label} onClick={() => {
+const StylizedChip = (props: { label: number | string; path?: string }) => {
+  const { label, path } = props;
+  const navigate = useNavigate();
+  return (
+    <Chip
+      style={{ margin: "2px", "font-size": "10px", height: "20px" }}
+      label={label}
+      onClick={() => {
         if (path) {
-            navigate(path, { replace: true })
-            setTimeout(function () {
-                location.reload();
-            }, 100);
+          navigate(path, { replace: true });
+          setTimeout(function () {
+            location.reload();
+          }, 100);
         }
-    }} />
-}
+      }}
+    />
+  );
+};
 export default function HeaderPageData() {
-    const { pageData } = useStore();
-    const navigate = useNavigate();
-    function getSurahAyah(c: IChapterAndAyahRange) {
-        return `${c.chapterNumber} : ${c.verseFrom}-${c.verseTo}`
-    }
+  const { pageData } = useStore();
+  const navigate = useNavigate();
+  function getSurahAyah(c: IChapterAndAyahRange) {
+    return `${c.chapterNumber} : ${c.verseFrom}-${c.verseTo}`;
+  }
 
-    return (<div
+  return (
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        "flex-direction": "row",
+        "justify-content": "space-evenly",
+        "font-size": "8px",
+      }}
+    >
+      <div
         style={{
-            width: "100%",
-            display: "flex",
-            "flex-direction": "row",
-            "justify-content": "space-evenly",
-            "font-size": "8px"
-        }}>
-
-        <div style={{
-            display: "flex",
-            "flex-direction": "column",
-            "align-items": "center"
-        }}>
-            <div>Page</div>
-            <div>
-                <Chip style={{ margin: "2px", "font-size": "10px", height: "20px" }} label={pageData().pageNumber}
-                    onClick={() => {
-                        navigate(`/page/${pageData().pageNumber}`, { replace: true })
-                        setTimeout(function () {
-                            location.reload();
-                        }, 100);
-                    }}
-                />
-            </div>
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        }}
+      >
+        <div>Page</div>
+        <div>
+          <Chip
+            style={{ margin: "2px", "font-size": "10px", height: "20px" }}
+            label={pageData().pageNumber}
+            onClick={() => {
+              navigate(`/page/${pageData().pageNumber}`, { replace: true });
+              setTimeout(function () {
+                location.reload();
+              }, 100);
+            }}
+          />
         </div>
+      </div>
 
-        <div style={{
-            display: "flex",
-            "flex-direction": "column",
-            "align-items": "center"
-        }}>
-            <div>Juz</div>
-            <div>
-                <For each={pageData().juzs}>{label => <StylizedChip label={label} path={`/juz/${label}`} />}</For>
-            </div>
+      <div
+        style={{
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        }}
+      >
+        <div>Juz</div>
+        <div>
+          <For each={pageData().juzs}>
+            {(label) => <StylizedChip label={label} path={`/juz/${label}`} />}
+          </For>
         </div>
+      </div>
 
-        <div style={{
-            display: "flex",
-            "flex-direction": "column",
-            "align-items": "center"
-        }}>
-            <div>Ruku</div>
-            <div>
-                <For each={pageData().rukus}>{label => <StylizedChip label={label} path={`/ruku/${label}`} />}</For>
-            </div>
+      <div
+        style={{
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        }}
+      >
+        <div>Ruku</div>
+        <div>
+          <For each={pageData().rukus}>
+            {(label) => <StylizedChip label={label} path={`/ruku/${label}`} />}
+          </For>
         </div>
+      </div>
 
-        <div style={{
-            display: "flex",
-            "flex-direction": "column",
-            "align-items": "center"
-        }}>
-            <div>Rub-El-Hizb</div>
-            <div>
-                <For each={pageData().rubElHizbs}>{label => <StylizedChip label={label} path={`/rehizb/${label}`} />}</For>
-            </div>
+      <div
+        style={{
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        }}
+      >
+        <div>Rub-El-Hizb</div>
+        <div>
+          <For each={pageData().rubElHizbs}>
+            {(label) => (
+              <StylizedChip label={label} path={`/rehizb/${label}`} />
+            )}
+          </For>
         </div>
+      </div>
 
-        <div style={{
-            display: "flex",
-            "flex-direction": "column",
-            "align-items": "center"
-        }}>
-            <div>Hizb</div>
-            <div>
-                <For each={pageData().hizbs}>{label => <StylizedChip label={label} path={`/hizb/${label}`} />}</For>
-            </div>
+      <div
+        style={{
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        }}
+      >
+        <div>Hizb</div>
+        <div>
+          <For each={pageData().hizbs}>
+            {(label) => <StylizedChip label={label} path={`/hizb/${label}`} />}
+          </For>
         </div>
+      </div>
 
-        <div style={{
-            display: "flex",
-            "flex-direction": "column",
-            "align-items": "center"
-        }}>
-            <div>Manzil</div>
-            <div>
-                <For each={pageData().manzils}>{label => <StylizedChip label={label} path={`/manzil/${label}`} />}</For>
-            </div>
+      <div
+        style={{
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        }}
+      >
+        <div>Manzil</div>
+        <div>
+          <For each={pageData().manzils}>
+            {(label) => (
+              <StylizedChip label={label} path={`/manzil/${label}`} />
+            )}
+          </For>
         </div>
+      </div>
 
-        <div style={{
-            display: "flex",
-            "flex-direction": "column",
-            "align-items": "center"
-        }}>
-            <div>Ayahs</div>
-            <div>
-                <For each={pageData().chapterAndAyahRange}>{data => <StylizedChip label={getSurahAyah(data)} path={`/surah/${data.chapterNumber}:${data.verseFrom}`} />}</For>
-            </div>
+      <div
+        style={{
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        }}
+      >
+        <div>Ayahs</div>
+        <div>
+          <For each={pageData().chapterAndAyahRange}>
+            {(data) => (
+              <StylizedChip
+                label={getSurahAyah(data)}
+                path={`/surah/${data.chapterNumber}:${data.verseFrom}`}
+              />
+            )}
+          </For>
         </div>
-    </div>)
+      </div>
+    </div>
+  );
 }

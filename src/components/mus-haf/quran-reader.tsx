@@ -3,10 +3,7 @@ import PlayingHeaderContainer from "../header/playing-header.container";
 import { useStore } from "~/store/store";
 import { createEffect, batch, For, onCleanup } from "solid-js";
 import QuranLineComponent from "./quran-line-component";
-import {
-  AppBar,
-  Box, Toolbar, Container
-} from "@suid/material";
+import { AppBar, Box, Toolbar, Container } from "@suid/material";
 import { CPage, IPageData } from "~/models/page";
 import { colors, headerHeight } from "~/models/style-constants";
 export default function QuranReader(props: IAyahBase) {
@@ -23,21 +20,21 @@ export default function QuranReader(props: IAyahBase) {
     lineData,
     setLineData,
     setPressedKey,
-    audioLoaded
+    audioLoaded,
   } = useStore();
 
   createEffect(() => {
     batch(() => {
       setVerseNumber(() => props.verseNumber);
       setChapterNumber(() => props.chapterNumber);
-    })
-  }, [props.verseNumber, props.chapterNumber])
+    });
+  }, [props.verseNumber, props.chapterNumber]);
 
   createEffect(() => {
     const chapter = chapterNumber();
     const verse = verseNumber();
-    setPageNumber(() => CPage.getPageNumberForAyah(chapter, verse))
-  })
+    setPageNumber(() => CPage.getPageNumberForAyah(chapter, verse));
+  });
 
   createEffect(() => {
     const page = pageNumber();
@@ -48,12 +45,12 @@ export default function QuranReader(props: IAyahBase) {
       import(`../../../public/page/${page}.json`)
         .then((res) => {
           const pageData = res.default as IPageData;
-          setLineData(() => CPage.getLineData(pageData))
+          setLineData(() => CPage.getLineData(pageData));
           setPageData(() => pageData);
         })
         .catch((e) => console.error(e));
-    })
-  })
+    });
+  });
 
   createEffect(() => {
     const pageInfo = pageData();
@@ -64,10 +61,14 @@ export default function QuranReader(props: IAyahBase) {
       return;
     }
 
-    const currentAyah = pageInfo?.ayahs?.filter((ayah) => ayah.chapterNumber === chapter && ayah.verseNumber == verse)[0];
-    const { timeStampFrom = 0 } = currentAyah?.reciterTimestamps?.["Shaykh Samir al-Nass"]?.timestampFrom || 0
+    const currentAyah = pageInfo?.ayahs?.filter(
+      (ayah) => ayah.chapterNumber === chapter && ayah.verseNumber == verse,
+    )[0];
+    const { timeStampFrom = 0 } =
+      currentAyah?.reciterTimestamps?.["Shaykh Samir al-Nass"]?.timestampFrom ||
+      0;
     setAudioStartTime(() => timeStampFrom);
-  })
+  });
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if ("Space" === event.code) {
@@ -105,14 +106,26 @@ export default function QuranReader(props: IAyahBase) {
         <Container>
           <div style={{ "scrollbar-color": `${colors.scrollbarColor}` }}>
             <div style={{ display: "flex", "flex-direction": "row" }}>
-              <div style={{ display: "flex", "flex-direction": "column", "align-items": "center" }}>
-                <For each={lineData()}>{words => <QuranLineComponent words={words} />}</For>
-                <div style={{
-                  padding: "4px",
-                  "border-radius": "4px",
-                  border: `solid ${colors.footerPageNumber} 2px`,
-                  color: colors.footerBorder,
-                }}>{pageData().pageNumber}</div>
+              <div
+                style={{
+                  display: "flex",
+                  "flex-direction": "column",
+                  "align-items": "center",
+                }}
+              >
+                <For each={lineData()}>
+                  {(words) => <QuranLineComponent words={words} />}
+                </For>
+                <div
+                  style={{
+                    padding: "4px",
+                    "border-radius": "4px",
+                    border: `solid ${colors.footerPageNumber} 2px`,
+                    color: colors.footerBorder,
+                  }}
+                >
+                  {pageData().pageNumber}
+                </div>
               </div>
             </div>
           </div>

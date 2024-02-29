@@ -11,13 +11,22 @@ import { useStore } from "~/store/store.jsx";
 import { SURAHS_INFO } from "~/models/surah.js";
 import { colors } from "~/models/style-constants.js";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state.jsx";
-import { regionPlugins, timelinePluginConfig, waveSurferConfig, zoomPluginConfig } from "./wave-surfer-config";
+import {
+  regionPlugins,
+  timelinePluginConfig,
+  waveSurferConfig,
+  zoomPluginConfig,
+} from "./wave-surfer-config";
 import { extractSilenceRegions } from "~/utils/audio-helper";
-import { parseFloatToFloatFixed, parseStringToFixed } from "~/utils/param-convertor";
+import {
+  parseFloatToFloatFixed,
+  parseStringToFixed,
+} from "~/utils/param-convertor";
 
 export type TRegionData = IReciterTimeStamp & IAyahBase;
 export default function WavesurferWrapperComponent() {
-  const { chapterNumber,
+  const {
+    chapterNumber,
     audioStartTime,
     setAudioCurrentTime,
     setAudioCurrentTimeNonCapture,
@@ -32,7 +41,7 @@ export default function WavesurferWrapperComponent() {
     ayahInCurrentPageSurah,
     captureIndex,
     setSilentRegions,
-    silentRegions
+    silentRegions,
   } = useStore();
 
   const [waveSurfer, setWaveSurfer] = createSignal<WaveSurfer | null>(null);
@@ -46,7 +55,7 @@ export default function WavesurferWrapperComponent() {
     ws.registerPlugin(ZoomPlugin.create(zoomPluginConfig));
 
     //Initialize timeline plugin.
-    ws.registerPlugin(TimelinePlugin.create(timelinePluginConfig))
+    ws.registerPlugin(TimelinePlugin.create(timelinePluginConfig));
 
     //Initialize Regions plugin
     const wsRegions = ws.registerPlugin(RegionsPlugin.create(regionPlugins));
@@ -60,8 +69,10 @@ export default function WavesurferWrapperComponent() {
     if (!ws || chapterIndex === -1) {
       return;
     }
-    setAudioLoaded(() => false)
-    ws.load(`/audio/Sameer Nass/${SURAHS_INFO[chapterIndex].audioFile["Sameer Nass"]}`)
+    setAudioLoaded(() => false);
+    ws.load(
+      `/audio/Sameer Nass/${SURAHS_INFO[chapterIndex].audioFile["Sameer Nass"]}`,
+    );
   });
 
   // createEffect(() => {
@@ -77,9 +88,8 @@ export default function WavesurferWrapperComponent() {
   //   });
   // });
 
-
   createEffect(() => {
-    //Note : Do not delete this local variable. 
+    //Note : Do not delete this local variable.
     //Here we have to toggle the player based on this signal
     const audioPlayer = audioPlayerState();
     const ws = waveSurfer();
@@ -94,8 +104,6 @@ export default function WavesurferWrapperComponent() {
     }
   });
 
-
-
   createEffect(() => {
     const ws = waveSurfer();
     if (!ws) {
@@ -103,46 +111,47 @@ export default function WavesurferWrapperComponent() {
     }
 
     /** When the audio has been decoded */
-    ws.on('decode', (duration) => {
+    ws.on("decode", (duration) => {
       //console.log('Decode', duration + 's')
       const decodedData = ws.getDecodedData();
       if (decodedData) {
-        const regions = extractSilenceRegions(decodedData.getChannelData(0), duration)
+        const regions = extractSilenceRegions(
+          decodedData.getChannelData(0),
+          duration,
+        );
         setSilentRegions(() => regions);
       }
       setAudioLoaded(() => true);
-    })
+    });
 
     /** When the audio is both decoded and can play */
-    ws.on('ready', (duration) => {
+    ws.on("ready", (duration) => {
       //console.log('Ready', duration + 's')
       ws.setTime(audioStartTime());
-    })
+    });
 
     /** When the audio finishes playing */
-    ws.on('finish', () => {
+    ws.on("finish", () => {
       batch(() => {
         // setChapterNumber((prev)=> prev ===114? 1: prev+1);
         // setVerseNumber(0);
         // setAudioLoaded(false);
         setAudioPlayerState(() => AudioPlayerState.PAUSE);
-      })
+      });
       //console.log('Finish');
-    })
+    });
     /** On audio position change, fires continuously during playback */
-    ws.on('timeupdate', (currentTime) => {
+    ws.on("timeupdate", (currentTime) => {
       setAudioCurrentTimeNonCapture(() => currentTime);
       if (audioTrackerState() === AudioTrackerState.CAPTURE) {
-        setAudioCurrentTime(() => parseFloatToFloatFixed(currentTime))
+        setAudioCurrentTime(() => parseFloatToFloatFixed(currentTime));
       }
       //console.log('Time', currentTime + 's')
-    })
-
+    });
 
     // ws.on('loading', (percent) => {
     //   //console.log('Loading', percent + '%')
     // })
-
 
     // /** When visible waveform is drawn */
     // ws.on('redraw', () => {
@@ -168,13 +177,12 @@ export default function WavesurferWrapperComponent() {
     // ws.on('seeking', (currentTime) => {
     //   //console.log('Seeking', currentTime + 's')
     // })
-
-  })
+  });
 
   createEffect(() => {
     const ws = waveSurfer();
     const currentTime = audioCurrentTime();
-    const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE
+    const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
     if (!ws) {
       return;
     }
@@ -182,17 +190,22 @@ export default function WavesurferWrapperComponent() {
       return;
     }
     ws.setTime(currentTime);
-  })
+  });
 
   createEffect(() => {
     const ws = waveSurfer();
     const ts = pageSurahAudioTimeStamps();
-    const ayahs = ayahInCurrentPageSurah()
+    const ayahs = ayahInCurrentPageSurah();
     if (!ws) {
       return;
     }
-    setTimeStamps(() => ts.map((timeStamp: IReciterTimeStamp, i) => ({ ...timeStamp, ...ayahs[i] })));
-  })
+    setTimeStamps(() =>
+      ts.map((timeStamp: IReciterTimeStamp, i) => ({
+        ...timeStamp,
+        ...ayahs[i],
+      })),
+    );
+  });
 
   createEffect(() => {
     const regions = wsRegions();
@@ -207,7 +220,10 @@ export default function WavesurferWrapperComponent() {
         start: timeStamp.timestampFrom,
         end: timeStamp.timestampTo,
         content: `${timeStamp.verseNumber}`,
-        color: index === cIndex ? colors.waveActiveAyahRegion : colors.waveAyahRegion,
+        color:
+          index === cIndex
+            ? colors.waveActiveAyahRegion
+            : colors.waveAyahRegion,
         drag: false,
         resize: true,
       });
@@ -223,26 +239,28 @@ export default function WavesurferWrapperComponent() {
         resize: true,
       });
     });
-  })
+  });
 
   createEffect(() => {
     const wsr = wsRegions();
     if (!wsr) {
       return;
     }
-    wsr.on('region-updated', (region: any) => {
+    wsr.on("region-updated", (region: any) => {
       const { id, start, end } = region;
       const timestampFrom = parseStringToFixed(start);
       const timestampTo = parseStringToFixed(end);
       const index = id - 1;
-      setPageSurahAudioTimeStamps((prev) => prev.map((a, i) => {
-        if (index === i) {
-          return { ...a, timestampFrom, timestampTo }
-        }
-        return a;
-      }))
-    })
-  })
+      setPageSurahAudioTimeStamps((prev) =>
+        prev.map((a, i) => {
+          if (index === i) {
+            return { ...a, timestampFrom, timestampTo };
+          }
+          return a;
+        }),
+      );
+    });
+  });
 
   return (
     <div style={{ width: "100%" }}>
@@ -251,7 +269,10 @@ export default function WavesurferWrapperComponent() {
           <CircularProgress color="success" />
         </div>
       </Show>
-      <div id="waveform" style={{ "scrollbar-color": `${colors.scrollbarColor}` }}></div>
+      <div
+        id="waveform"
+        style={{ "scrollbar-color": `${colors.scrollbarColor}` }}
+      ></div>
     </div>
   );
 }

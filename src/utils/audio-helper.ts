@@ -3,7 +3,7 @@ import { parseFloatToFloatFixed } from "./param-convertor";
 
 export function extractSilenceRegions(
   audioData: Float32Array,
-  duration: number
+  duration: number,
 ): Array<IReciterTimeStamp> {
   const minValue = 0.1;
   const minSilenceDuration = 0.2;
@@ -52,7 +52,7 @@ export function extractSilenceRegions(
 
 export function findClosestSilentRegion(
   silentRegions: Array<IReciterTimeStamp>,
-  timeStamp: number
+  timeStamp: number,
 ) {
   let closestRegion = silentRegions[0];
   let prevDistance = distanceFromRegion(silentRegions[0], timeStamp);
@@ -65,7 +65,7 @@ export function findClosestSilentRegion(
   }
   const middlePoint =
     Math.ceil(
-      ((closestRegion.timestampFrom + closestRegion.timestampTo) / 2) * 100
+      ((closestRegion.timestampFrom + closestRegion.timestampTo) / 2) * 100,
     ) / 100;
   const middle = parseFloatToFloatFixed(middlePoint);
   return { region: closestRegion, middle };
@@ -73,7 +73,7 @@ export function findClosestSilentRegion(
 
 export function findClosestSilentRegionMidPoint(
   silentRegions: Array<IReciterTimeStamp>,
-  timeStamp: number
+  timeStamp: number,
 ) {
   const bandWidth = 1.0;
   const { middle } = findClosestSilentRegion(silentRegions, timeStamp);

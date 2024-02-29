@@ -7,7 +7,7 @@ export default function Index() {
   const params = useParams();
   const { verseNumber, chapterNumber } = getSurahAndAyahFromUrl(
     params.ruku,
-    RUKU_INFO
+    RUKU_INFO,
   );
   return (
     <QuranReader verseNumber={verseNumber} chapterNumber={chapterNumber} />
