@@ -20,7 +20,6 @@ export default function QuranReader(props: IAyahBase) {
     lineData,
     setLineData,
     setPressedKey,
-    audioLoaded,
   } = useStore();
 
   createEffect(() => {
