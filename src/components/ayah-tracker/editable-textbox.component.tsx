@@ -42,6 +42,10 @@ export default function EditableTextboxControlsComponent(props: {
     const length = pageSurahAudioTimeStamps().length;
     const reminder = Math.min(cIndex, length) % length;
     const loaded = audioLoaded();
+    const isCurrentEditbox = i === reminder;
+    const isFirstFromEditbox = isFrom && i === 0;
+    const isPrevFromEditbox = isFrom && i === reminder - 1;
+    const isNextFromEditbox = isFrom && i === reminder + 1;
 
     if (!loaded) {
       return;
@@ -51,40 +55,19 @@ export default function EditableTextboxControlsComponent(props: {
       return;
     }
 
-    if (key === "KeyX") {
-      setAudioTrackerState(() => AudioTrackerState.REVIEW);
-      if (i === reminder) {
-        inputRef?.blur();
-      }
-      if (isFrom && i - 1 === reminder) {
-        setTimeout(() => {
-          inputRef?.focus();
-        }, 350);
-      }
+    if (key === "KeyA") {
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, isFirstFromEditbox);
+      return;
     }
 
     if (key === "KeyZ") {
-      setAudioTrackerState(() => AudioTrackerState.REVIEW);
-      if (i === reminder) {
-        inputRef?.blur();
-      }
-      if (isFrom && i + 1 === reminder) {
-        setTimeout(() => {
-          inputRef?.focus();
-        }, 350);
-      }
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, isPrevFromEditbox);
+      return;
     }
 
-    if (key === "KeyA") {
-      setAudioTrackerState(() => AudioTrackerState.REVIEW);
-      if (i === reminder) {
-        inputRef?.blur();
-      }
-      if (isFrom && i === 0) {
-        setTimeout(() => {
-          inputRef?.focus();
-        }, 350);
-      }
+    if (key === "KeyX") {
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, isNextFromEditbox);
+      return;
     }
   });
   createEffect(() => {
@@ -115,6 +98,20 @@ export default function EditableTextboxControlsComponent(props: {
     }
   });
 
+  function blurIfCurrentAndFocusOnIntended(
+    isCurrentEditbox: boolean,
+    isIntendedEditbox: boolean,
+  ) {
+    setAudioTrackerState(() => AudioTrackerState.REVIEW);
+    if (isCurrentEditbox) {
+      inputRef?.blur();
+    }
+    if (isIntendedEditbox) {
+      setTimeout(() => {
+        inputRef?.focus();
+      }, 350);
+    }
+  }
   function onFromChange(v: number) {
     const aIndex = index();
     setPageSurahAudioTimeStamps((prev) =>

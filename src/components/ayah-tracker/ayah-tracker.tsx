@@ -166,10 +166,8 @@ export default function AyahTrackerComponent() {
   });
 
   createEffect(() => {
-    //NOTE :Do not delete this variable. This is needed to reset the captureIndex to zero when the chapter changes.
-    const c = chapterNumber();
     setCaptureIndex(() => 0);
-  });
+  }, [chapterNumber()]);
 
   createEffect(() => {
     const isCaptureMode = audioTrackerState() === AudioTrackerState.CAPTURE;
@@ -183,15 +181,7 @@ export default function AyahTrackerComponent() {
     }
 
     if (key === "Space") {
-      if (!isCaptureMode) {
-        setAudioTrackerState(() => AudioTrackerState.CAPTURE);
-      }
-      if (playerState === AudioPlayerState.PAUSE) {
-        setPressedKey(() => "");
-        setAudioPlayerState(() => AudioPlayerState.PLAY);
-      } else if (playerState === AudioPlayerState.PLAY) {
-        setCaptureIndex((prev) => prev + 1);
-      }
+      handleSpaceKeyPress(isCaptureMode, playerState);
       return;
     }
 
@@ -200,18 +190,7 @@ export default function AyahTrackerComponent() {
       return;
     }
     if (key === "KeyF") {
-      setPageSurahAudioTimeStamps((ts) =>
-        ts.map((prev) => ({
-          timestampFrom: findClosestSilentRegionMidPoint(
-            sRegions,
-            prev.timestampFrom,
-          ),
-          timestampTo: findClosestSilentRegionMidPoint(
-            sRegions,
-            prev.timestampTo,
-          ),
-        })),
-      );
+      autoAdjustTimestampToClosestSilentRegionMidPoint(sRegions);
       return;
     }
   });
@@ -313,9 +292,11 @@ export default function AyahTrackerComponent() {
   function saveToLocalStorage(data: IAyahDataInLocalStorage) {
     CLocalStorageHelper.update(key, data);
   }
+
   function onSave() {
     setSaveClickCounter((prev) => prev + 1);
   }
+
   function onDownload() {
     const lastDownloadedPage = 261;
     const lastPage = 604;
@@ -375,6 +356,38 @@ export default function AyahTrackerComponent() {
     }, 500);
   }
 
+  function handleSpaceKeyPress(
+    isCaptureMode: boolean,
+    playerState: AudioPlayerState,
+  ) {
+    if (!isCaptureMode) {
+      setAudioTrackerState(() => AudioTrackerState.CAPTURE);
+    }
+    if (playerState === AudioPlayerState.PAUSE) {
+      setPressedKey(() => "");
+      setAudioPlayerState(() => AudioPlayerState.PLAY);
+    } else if (playerState === AudioPlayerState.PLAY) {
+      setCaptureIndex((prev) => prev + 1);
+    }
+  }
+
+  function autoAdjustTimestampToClosestSilentRegionMidPoint(
+    sRegions: Array<IReciterTimeStamp>,
+  ) {
+    setPageSurahAudioTimeStamps((ts) =>
+      ts.map((prev) => ({
+        timestampFrom: findClosestSilentRegionMidPoint(
+          sRegions,
+          prev.timestampFrom,
+        ),
+        timestampTo: findClosestSilentRegionMidPoint(
+          sRegions,
+          prev.timestampTo,
+        ),
+      })),
+    );
+  }
+
   return (
     <div>
       <div
@@ -388,9 +401,6 @@ export default function AyahTrackerComponent() {
           value={audioTrackerState()}
           onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
             const value = event.target.value as AudioTrackerState;
-            // if (value === AudioTrackerState.REVIEW) {
-            //     setAudioPlayerState(() => AudioPlayerState.PAUSE);
-            // }
             setAudioTrackerState(() => value);
           }}
         >
