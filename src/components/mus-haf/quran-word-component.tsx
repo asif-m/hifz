@@ -15,6 +15,12 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
     );
   }
 
+  function getVerseColor() {
+    return isWordInCurrentVerse()
+      ? colors.currentVerseColor
+      : colors.normalVerseColor;
+  }
+
   return (
     <div
       style={{
@@ -30,9 +36,7 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
       />
       <div
         style={{
-          color: isWordInCurrentVerse()
-            ? colors.currentVerseColor
-            : colors.normalVerseColor,
+          color: getVerseColor(),
           "font-family": "UthmanicHafs",
           "font-size": "4.4vh",
         }}
@@ -41,9 +45,7 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
       </div>
       <Typography
         style={{
-          color: isWordInCurrentVerse()
-            ? colors.currentVerseColor
-            : colors.normalVerseColor,
+          color: getVerseColor(),
           "font-size": "0.875rem",
           "max-width": "7rem",
           "text-align": "center",

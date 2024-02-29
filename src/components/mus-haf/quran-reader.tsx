@@ -16,7 +16,6 @@ export default function QuranReader(props: IAyahBase) {
     setPageNumber,
     pageData,
     setPageData,
-    setAudioStartTime,
     lineData,
     setLineData,
     setPressedKey,
@@ -51,36 +50,19 @@ export default function QuranReader(props: IAyahBase) {
     });
   });
 
-  // createEffect(() => {
-  //   const pageInfo = pageData();
-  //   const chapter = chapterNumber();
-  //   const verse = verseNumber();
-
-  //   if (!pageInfo) {
-  //     return;
-  //   }
-
-  //   const currentAyah = pageInfo?.ayahs?.filter(
-  //     (ayah) => ayah.chapterNumber === chapter && ayah.verseNumber == verse,
-  //   )[0];
-  //   const { timeStampFrom = 0 } = currentAyah?.reciterTimestamps?.[
-  //     "Shaykh Samir al-Nass"
-  //   ] || { timestampFrom: 0 };
-  //   setAudioStartTime(() => timeStampFrom);
-  // });
-
-  const handleKeyDown = (event: KeyboardEvent) => {
+  // Event handler for keydown
+  function handleKeyDown(event: KeyboardEvent) {
     if ("Space" === event.code) {
       event.preventDefault();
       event.stopPropagation();
     }
     setPressedKey(event.code);
-  };
+  }
 
   // Event handler for keyup
-  const handleKeyUp = () => {
+  function handleKeyUp() {
     setPressedKey("");
-  };
+  }
 
   // Attach event listeners to the window object
   window.addEventListener("keydown", handleKeyDown);

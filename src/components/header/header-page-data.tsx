@@ -3,25 +3,8 @@ import { Chip } from "@suid/material";
 import { IChapterAndAyahRange } from "~/models/page";
 import { useStore } from "~/store/store";
 import { useNavigate } from "@solidjs/router";
+import { StylizedChip } from "./stylized-chip";
 
-const StylizedChip = (props: { label: number | string; path?: string }) => {
-  const { label, path } = props;
-  const navigate = useNavigate();
-  return (
-    <Chip
-      style={{ margin: "2px", "font-size": "10px", height: "20px" }}
-      label={label}
-      onClick={() => {
-        if (path) {
-          navigate(path, { replace: true });
-          setTimeout(function () {
-            location.reload();
-          }, 100);
-        }
-      }}
-    />
-  );
-};
 export default function HeaderPageData() {
   const { pageData } = useStore();
   const navigate = useNavigate();
