@@ -129,6 +129,7 @@ export default function EditableTextboxControlsComponent(props: {
       }),
     );
   }
+
   function onToChange(v: number) {
     const aIndex = index();
     setPageSurahAudioTimeStamps((prev) =>

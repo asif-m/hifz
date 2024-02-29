@@ -75,19 +75,6 @@ export default function WavesurferWrapperComponent() {
     );
   });
 
-  // createEffect(() => {
-  //   const ws = waveSurfer();
-  //   const regions = wsRegions();
-
-  //   if (!ws || !regions) {
-  //     return;
-  //   }
-
-  //   ws.on("decode", () => {
-
-  //   });
-  // });
-
   createEffect(() => {
     //Note : Do not delete this local variable.
     //Here we have to toggle the player based on this signal

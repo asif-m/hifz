@@ -166,6 +166,7 @@ export default function AyahTrackerComponent() {
   });
 
   createEffect(() => {
+    //NOTE :Do not delete this variable. This is needed to reset the captureIndex to zero when the chapter changes.
     const c = chapterNumber();
     setCaptureIndex(() => 0);
   });
@@ -272,13 +273,17 @@ export default function AyahTrackerComponent() {
           break;
         }
       }
-    } else if (atState === AudioTrackerState.CAPTURE) {
+      return;
+    }
+
+    if (atState === AudioTrackerState.CAPTURE) {
       if (ayahs[cIndex]) {
         const { verseNumber } = ayahs[cIndex];
         if (verseNumber !== 0) {
           setVerseNumber(() => verseNumber);
         }
       }
+      return;
     }
   });
 
@@ -355,7 +360,7 @@ export default function AyahTrackerComponent() {
         location.reload();
       }, 500);
     } else {
-      const { chapterNumber, verseNumber } = ayahs[lastIndex + 1];
+      const { chapterNumber } = ayahs[lastIndex + 1];
       navigate(`/surah/${chapterNumber}`, { replace: true });
       setTimeout(function () {
         location.reload();
@@ -403,9 +408,6 @@ export default function AyahTrackerComponent() {
           </div>
         </RadioGroup>
         <AudioPlayerControlsComponent />
-        {/* <IconButton aria-label="save" onclick={() => onSave()}>
-                <Save />
-            </IconButton> */}
         <IconButton aria-label="download" onclick={() => onDownload()}>
           <Download />
         </IconButton>
@@ -419,7 +421,7 @@ export default function AyahTrackerComponent() {
         </IconButton>
       </div>
       <For each={pageSurahAudioTimeStamps()}>
-        {(ayah, index) => <AyahPlayTrackEditComponent index={index} />}
+        {(_, index) => <AyahPlayTrackEditComponent index={index} />}
       </For>
     </div>
   );
