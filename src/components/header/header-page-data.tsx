@@ -4,6 +4,7 @@ import { IChapterAndAyahRange } from "~/models/page";
 import { useStore } from "~/store/store";
 import { useNavigate } from "@solidjs/router";
 import { StylizedChip } from "./stylized-chip";
+import { navigateToUrlAndReload } from "~/utils/navigation";
 
 export default function HeaderPageData() {
   const { pageData } = useStore();
@@ -35,10 +36,7 @@ export default function HeaderPageData() {
             style={{ margin: "2px", "font-size": "10px", height: "20px" }}
             label={pageData().pageNumber}
             onClick={() => {
-              navigate(`/page/${pageData().pageNumber}`, { replace: true });
-              setTimeout(function () {
-                location.reload();
-              }, 100);
+              navigateToUrlAndReload(navigate, `/page/${pageData().pageNumber}`);
             }}
           />
         </div>

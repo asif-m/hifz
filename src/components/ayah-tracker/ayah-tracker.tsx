@@ -18,6 +18,7 @@ import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { useNavigate } from "@solidjs/router";
 import { downloadJsonFile } from "~/utils/download-helpers";
 import { findClosestSilentRegionMidPoint } from "~/utils/audio-helper";
+import { navigateToUrlAndReload } from "~/utils/navigation";
 
 interface IAyahDataInLocalStorageIndividual {
   chapterNumber: number;
@@ -336,16 +337,10 @@ export default function AyahTrackerComponent() {
     }
     if (lastIndex == -1 || lastIndex === ayahs.length - 1) {
       //Last verse. Go to next page
-      navigate(`/page/${pageNumber + 1}`, { replace: true });
-      setTimeout(function () {
-        location.reload();
-      }, 500);
+      navigateToUrlAndReload(navigate, `/page/${pageNumber + 1}`);
     } else {
       const { chapterNumber } = ayahs[lastIndex + 1];
-      navigate(`/surah/${chapterNumber}`, { replace: true });
-      setTimeout(function () {
-        location.reload();
-      }, 500);
+      navigateToUrlAndReload(navigate, `/surah/${chapterNumber}`);
     }
   }
 

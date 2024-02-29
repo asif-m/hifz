@@ -1,5 +1,6 @@
 import { Chip } from "@suid/material";
 import { useNavigate } from "@solidjs/router";
+import { navigateToUrlAndReload } from "~/utils/navigation";
 
 export function StylizedChip(props: { label: number | string; path?: string }) {
   const { label, path } = props;
@@ -10,10 +11,7 @@ export function StylizedChip(props: { label: number | string; path?: string }) {
       label={label}
       onClick={() => {
         if (path) {
-          navigate(path, { replace: true });
-          setTimeout(function () {
-            location.reload();
-          }, 100);
+          navigateToUrlAndReload(navigate, path);
         }
       }}
     />
