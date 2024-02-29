@@ -51,23 +51,23 @@ export default function QuranReader(props: IAyahBase) {
     });
   });
 
-  createEffect(() => {
-    const pageInfo = pageData();
-    const chapter = chapterNumber();
-    const verse = verseNumber();
+  // createEffect(() => {
+  //   const pageInfo = pageData();
+  //   const chapter = chapterNumber();
+  //   const verse = verseNumber();
 
-    if (!pageInfo) {
-      return;
-    }
+  //   if (!pageInfo) {
+  //     return;
+  //   }
 
-    const currentAyah = pageInfo?.ayahs?.filter(
-      (ayah) => ayah.chapterNumber === chapter && ayah.verseNumber == verse,
-    )[0];
-    const { timeStampFrom = 0 } =
-      currentAyah?.reciterTimestamps?.["Shaykh Samir al-Nass"]?.timestampFrom ||
-      0;
-    setAudioStartTime(() => timeStampFrom);
-  });
+  //   const currentAyah = pageInfo?.ayahs?.filter(
+  //     (ayah) => ayah.chapterNumber === chapter && ayah.verseNumber == verse,
+  //   )[0];
+  //   const { timeStampFrom = 0 } = currentAyah?.reciterTimestamps?.[
+  //     "Shaykh Samir al-Nass"
+  //   ] || { timestampFrom: 0 };
+  //   setAudioStartTime(() => timeStampFrom);
+  // });
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if ("Space" === event.code) {

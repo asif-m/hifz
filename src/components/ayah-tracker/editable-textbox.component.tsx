@@ -33,7 +33,7 @@ export default function EditableTextboxControlsComponent(props: {
     {}) as IAyahBase;
 
   const [focusCounter, setFocusCounter] = createSignal(0);
-  let inputRef: HTMLInputElement;
+  let inputRef: HTMLInputElement | undefined = undefined;
 
   createEffect(() => {
     const key = pressedKey();
@@ -54,11 +54,11 @@ export default function EditableTextboxControlsComponent(props: {
     if (key === "KeyX") {
       setAudioTrackerState(() => AudioTrackerState.REVIEW);
       if (i === reminder) {
-        inputRef.blur();
+        inputRef?.blur();
       }
       if (isFrom && i - 1 === reminder) {
         setTimeout(() => {
-          inputRef.focus();
+          inputRef?.focus();
         }, 350);
       }
     }
@@ -66,11 +66,11 @@ export default function EditableTextboxControlsComponent(props: {
     if (key === "KeyZ") {
       setAudioTrackerState(() => AudioTrackerState.REVIEW);
       if (i === reminder) {
-        inputRef.blur();
+        inputRef?.blur();
       }
       if (isFrom && i + 1 === reminder) {
         setTimeout(() => {
-          inputRef.focus();
+          inputRef?.focus();
         }, 350);
       }
     }
@@ -78,11 +78,11 @@ export default function EditableTextboxControlsComponent(props: {
     if (key === "KeyA") {
       setAudioTrackerState(() => AudioTrackerState.REVIEW);
       if (i === reminder) {
-        inputRef.blur();
+        inputRef?.blur();
       }
       if (isFrom && i === 0) {
         setTimeout(() => {
-          inputRef.focus();
+          inputRef?.focus();
         }, 350);
       }
     }
