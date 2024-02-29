@@ -31,7 +31,7 @@ export interface IAyah extends IAyahBase {
   textUthmani: string;
   wordByWord: string;
   transliteration: string;
-  reciterTimestamps: IReciterTimeStamp;
+  reciterTimestamps: { [key in string]: IReciterTimeStamp };
   words: Array<IArabicWord>;
 }
 
