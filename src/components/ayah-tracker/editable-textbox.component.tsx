@@ -64,12 +64,20 @@ export default function EditableTextboxControlsComponent(props: {
     }
 
     if (key === "KeyZ") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, reminder - 1);
+      console.log({ length, reminder });
+      blurIfCurrentAndFocusOnIntended(
+        isCurrentEditbox,
+        (reminder - 1 + length) % length,
+      );
       return;
     }
 
     if (key === "KeyX") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, reminder + 1);
+      console.log({ length, reminder });
+      blurIfCurrentAndFocusOnIntended(
+        isCurrentEditbox,
+        (reminder + 1) % length,
+      );
       return;
     }
   });
