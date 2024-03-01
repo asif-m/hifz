@@ -33,6 +33,7 @@ export default function EditableTextboxControlsComponent(props: {
     {}) as IAyahBase;
 
   const [focusCounter, setFocusCounter] = createSignal(0);
+  const [focusIndex, setFocusIndex] = createSignal(-1);
   let inputRef: HTMLInputElement | undefined = undefined;
 
   createEffect(() => {
@@ -43,9 +44,9 @@ export default function EditableTextboxControlsComponent(props: {
     const reminder = Math.min(cIndex, length) % length;
     const loaded = audioLoaded();
     const isCurrentEditbox = i === reminder;
-    const isFirstFromEditbox = isFrom && i === 0;
-    const isPrevFromEditbox = isFrom && i === reminder - 1;
-    const isNextFromEditbox = isFrom && i === reminder + 1;
+    const firstEditBoxIndex = 0;
+    const prevEditBoxIndex = reminder - 1;
+    const nextEditBoxIndex = reminder + 1;
 
     if (!loaded) {
       return;
@@ -55,18 +56,25 @@ export default function EditableTextboxControlsComponent(props: {
       return;
     }
 
+    if (!isFrom) {
+      return;
+    }
+
     if (key === "KeyA") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, isFirstFromEditbox);
+      blurIfCurrentAndFocusOnIntended(
+        isCurrentEditbox,
+        i === firstEditBoxIndex,
+      );
       return;
     }
 
     if (key === "KeyZ") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, isPrevFromEditbox);
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i === prevEditBoxIndex);
       return;
     }
 
     if (key === "KeyX") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, isNextFromEditbox);
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i === nextEditBoxIndex);
       return;
     }
   });
