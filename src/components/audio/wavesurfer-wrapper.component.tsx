@@ -59,8 +59,10 @@ export default function WavesurferWrapperComponent() {
 
     //Initialize Regions plugin
     const wsRegions = ws.registerPlugin(RegionsPlugin.create(regionPlugins));
-    setWaveSurfer(ws);
-    setWsRegions(wsRegions);
+    batch(() => {
+      setWaveSurfer(ws);
+      setWsRegions(wsRegions);
+    });
   });
 
   createEffect(() => {
@@ -100,15 +102,17 @@ export default function WavesurferWrapperComponent() {
     /** When the audio has been decoded */
     ws.on("decode", (duration) => {
       //console.log('Decode', duration + 's')
-      const decodedData = ws.getDecodedData();
-      if (decodedData) {
-        const regions = extractSilenceRegions(
-          decodedData.getChannelData(0),
-          duration,
-        );
-        setSilentRegions(() => regions);
-      }
-      setAudioLoaded(() => true);
+      batch(() => {
+        const decodedData = ws.getDecodedData();
+        if (decodedData) {
+          const regions = extractSilenceRegions(
+            decodedData.getChannelData(0),
+            duration,
+          );
+          setSilentRegions(() => regions);
+        }
+        setAudioLoaded(() => true);
+      });
     });
 
     /** When the audio is both decoded and can play */
@@ -129,11 +133,13 @@ export default function WavesurferWrapperComponent() {
     });
     /** On audio position change, fires continuously during playback */
     ws.on("timeupdate", (currentTime) => {
-      setAudioCurrentTimeNonCapture(() => currentTime);
-      if (audioTrackerState() === AudioTrackerState.CAPTURE) {
-        setAudioCurrentTime(() => parseFloatToFloatFixed(currentTime));
-      }
-      //console.log('Time', currentTime + 's')
+      batch(() => {
+        setAudioCurrentTimeNonCapture(() => currentTime);
+        if (audioTrackerState() === AudioTrackerState.CAPTURE) {
+          setAudioCurrentTime(() => parseFloatToFloatFixed(currentTime));
+        }
+        //console.log('Time', currentTime + 's')
+      });
     });
 
     // ws.on('loading', (percent) => {

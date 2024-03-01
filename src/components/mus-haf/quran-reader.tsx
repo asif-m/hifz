@@ -39,15 +39,16 @@ export default function QuranReader(props: IAyahBase) {
     if (!page) {
       return;
     }
-    batch(() => {
-      import(`../../../public/page/${page}.json`)
-        .then((res) => {
-          const pageData = res.default as IPageData;
+
+    import(`../../../public/page/${page}.json`)
+      .then((res) => {
+        const pageData = res.default as IPageData;
+        batch(() => {
           setLineData(() => CPage.getLineData(pageData));
           setPageData(() => pageData);
-        })
-        .catch((e) => console.error(e));
-    });
+        });
+      })
+      .catch((e) => console.error(e));
   });
 
   // Event handler for keydown

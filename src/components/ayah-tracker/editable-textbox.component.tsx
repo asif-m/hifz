@@ -140,18 +140,20 @@ export default function EditableTextboxControlsComponent(props: {
   }
 
   function onValueChange(v: string) {
-    setLocalValue(() => v);
-    if (v === "") {
-      return;
-    }
-    try {
-      const time = parseStringToFixed(v);
-      if (!isValidNumber(time)) {
+    batch(() => {
+      setLocalValue(() => v);
+      if (v === "") {
         return;
       }
-      onChange(time);
-      setAudioCurrentTime(() => time);
-    } catch (e) {}
+      try {
+        const time = parseStringToFixed(v);
+        if (!isValidNumber(time)) {
+          return;
+        }
+        onChange(time);
+        setAudioCurrentTime(() => time);
+      } catch (e) {}
+    });
   }
 
   return (

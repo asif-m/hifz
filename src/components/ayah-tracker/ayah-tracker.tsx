@@ -145,12 +145,6 @@ export default function AyahTrackerComponent() {
       }
     });
 
-    if (hasModifications) {
-      saveToLocalStorage(aTS);
-      setAudioTrackerState(() => AudioTrackerState.CAPTURE);
-    } else {
-      setAudioTrackerState(() => AudioTrackerState.REVIEW);
-    }
     for (let i = pageSurahAudioTimeStampsLocal.length - 1; i >= 0; i--) {
       if (i === pageSurahAudioTimeStampsLocal.length - 1) {
         continue;
@@ -160,6 +154,12 @@ export default function AyahTrackerComponent() {
     }
 
     batch(() => {
+      if (hasModifications) {
+        saveToLocalStorage(aTS);
+        setAudioTrackerState(() => AudioTrackerState.CAPTURE);
+      } else {
+        setAudioTrackerState(() => AudioTrackerState.REVIEW);
+      }
       setPageSurahAudioTimeStamps(() => pageSurahAudioTimeStampsLocal);
       setAyahInCurrentPageSurah(() => ayahInCurrentPageSurahLocal);
       setAudioStartTime(() => firstTimestamp);
@@ -355,15 +355,17 @@ export default function AyahTrackerComponent() {
     isCaptureMode: boolean,
     playerState: AudioPlayerState,
   ) {
-    if (!isCaptureMode) {
-      setAudioTrackerState(() => AudioTrackerState.CAPTURE);
-    }
-    if (playerState === AudioPlayerState.PAUSE) {
-      setPressedKey(() => "");
-      setAudioPlayerState(() => AudioPlayerState.PLAY);
-    } else if (playerState === AudioPlayerState.PLAY) {
-      setCaptureIndex((prev) => prev + 1);
-    }
+    batch(() => {
+      if (!isCaptureMode) {
+        setAudioTrackerState(() => AudioTrackerState.CAPTURE);
+      }
+      if (playerState === AudioPlayerState.PAUSE) {
+        setPressedKey(() => "");
+        setAudioPlayerState(() => AudioPlayerState.PLAY);
+      } else if (playerState === AudioPlayerState.PLAY) {
+        setCaptureIndex((prev) => prev + 1);
+      }
+    });
   }
 
   function autoAdjustTimestampToClosestSilentRegionMidPoint(
