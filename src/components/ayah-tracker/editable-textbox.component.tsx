@@ -59,17 +59,17 @@ export default function EditableTextboxControlsComponent(props: {
     }
 
     if (key === "KeyA") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i, 0);
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, 0);
       return;
     }
 
     if (key === "KeyZ") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i, reminder - 1);
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, reminder - 1);
       return;
     }
 
     if (key === "KeyX") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i, reminder + 1);
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, reminder + 1);
       return;
     }
   });
@@ -101,20 +101,40 @@ export default function EditableTextboxControlsComponent(props: {
     }
   });
 
+  createEffect(() => {
+    const i = index();
+    const loaded = audioLoaded();
+    const fIndex = focusIndex();
+
+    if (!loaded) {
+      return;
+    }
+
+    if (!inputRef) {
+      return;
+    }
+
+    if (!isFrom) {
+      return;
+    }
+
+    if (fIndex !== i) {
+      return;
+    }
+    setTimeout(() => {
+      inputRef?.focus();
+    }, 350);
+  });
+
   function blurIfCurrentAndFocusOnIntended(
     isCurrentEditbox: boolean,
-    thisIndex: number,
     nextIndex: number,
   ) {
     setAudioTrackerState(() => AudioTrackerState.REVIEW);
     if (isCurrentEditbox) {
       inputRef?.blur();
     }
-    if (thisIndex === nextIndex) {
-      setTimeout(() => {
-        inputRef?.focus();
-      }, 350);
-    }
+    setFocusIndex((prev) => (prev === -1 ? 0 : nextIndex));
   }
   function onFromChange(v: number) {
     const aIndex = index();
