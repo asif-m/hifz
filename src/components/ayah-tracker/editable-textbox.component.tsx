@@ -41,12 +41,10 @@ export default function EditableTextboxControlsComponent(props: {
     const i = index();
     const cIndex = captureIndex();
     const length = pageSurahAudioTimeStamps().length;
-    const reminder = Math.min(cIndex, length) % length;
     const loaded = audioLoaded();
+
+    const reminder = Math.min(cIndex, length) % length;
     const isCurrentEditbox = i === reminder;
-    const firstEditBoxIndex = 0;
-    const prevEditBoxIndex = reminder - 1;
-    const nextEditBoxIndex = reminder + 1;
 
     if (!loaded) {
       return;
@@ -61,20 +59,17 @@ export default function EditableTextboxControlsComponent(props: {
     }
 
     if (key === "KeyA") {
-      blurIfCurrentAndFocusOnIntended(
-        isCurrentEditbox,
-        i === firstEditBoxIndex,
-      );
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i, 0);
       return;
     }
 
     if (key === "KeyZ") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i === prevEditBoxIndex);
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i, reminder - 1);
       return;
     }
 
     if (key === "KeyX") {
-      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i === nextEditBoxIndex);
+      blurIfCurrentAndFocusOnIntended(isCurrentEditbox, i, reminder + 1);
       return;
     }
   });
@@ -108,13 +103,14 @@ export default function EditableTextboxControlsComponent(props: {
 
   function blurIfCurrentAndFocusOnIntended(
     isCurrentEditbox: boolean,
-    isIntendedEditbox: boolean,
+    thisIndex: number,
+    nextIndex: number,
   ) {
     setAudioTrackerState(() => AudioTrackerState.REVIEW);
     if (isCurrentEditbox) {
       inputRef?.blur();
     }
-    if (isIntendedEditbox) {
+    if (thisIndex === nextIndex) {
       setTimeout(() => {
         inputRef?.focus();
       }, 350);
