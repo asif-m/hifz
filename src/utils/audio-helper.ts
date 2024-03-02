@@ -72,15 +72,36 @@ export function findClosestSilentRegion(
   silentRegions: Array<IReciterTimeStampSilenceRegion>,
   timeStamp: number,
 ): IReciterTimeStampSilenceRegion {
+  let left = 0;
+  let right = silentRegions.length - 1;
   let closestRegion = silentRegions[0];
-  let prevDistance = distanceFromRegion(silentRegions[0], timeStamp);
-  for (let i = 1; i < silentRegions.length; i++) {
-    const currDistance = distanceFromRegion(silentRegions[i], timeStamp);
-    if (prevDistance > currDistance) {
-      prevDistance = currDistance;
-      closestRegion = silentRegions[i];
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    const midRegion = silentRegions[mid];
+
+    const distanceToMid = distanceFromRegion(midRegion, timeStamp);
+
+    if (distanceToMid === 0) {
+      // If timestamp is within the current region, it's the closest
+      return midRegion;
+    }
+
+    const distanceToClosest = distanceFromRegion(closestRegion, timeStamp);
+
+    if (distanceToMid < distanceToClosest) {
+      closestRegion = midRegion;
+    }
+
+    if (timeStamp < midRegion.timestampFrom) {
+      // If timestamp is before the current region, update right
+      right = mid - 1;
+    } else {
+      // If timestamp is after the current region, update left
+      left = mid + 1;
     }
   }
+
   return closestRegion;
 }
 
@@ -96,42 +117,3 @@ function distanceFromRegion(
   }
   return Math.abs(region.timestampFrom - timeStamp);
 }
-
-// export function findClosestSilentRegion(
-//   silentRegions: Array<IReciterTimeStampSilenceRegion>,
-//   timeStamp: number,
-// ): IReciterTimeStampSilenceRegion {
-//   // Ensure that silentRegions is sorted based on timestampFrom
-//   silentRegions.sort((a, b) => a.timestampFrom - b.timestampFrom);
-
-//   let closestRegion = binarySearchClosestRegion(silentRegions, timeStamp);
-//   return closestRegion;
-// }
-
-// function binarySearchClosestRegion(
-//   silentRegions: Array<IReciterTimeStampSilenceRegion>,
-//   timeStamp: number,
-// ): IReciterTimeStampSilenceRegion {
-//   let left = 0;
-//   let right = silentRegions.length - 1;
-//   let closestRegion = silentRegions[0];
-
-//   while (left <= right) {
-//     const mid = Math.floor((left + right) / 2);
-//     const midRegion = silentRegions[mid];
-
-//     if (timeStamp >= midRegion.timestampFrom && timeStamp <= midRegion.timestampTo) {
-//       // If timestamp is within the current region, it's the closest
-//       return midRegion;
-//     } else if (timeStamp < midRegion.timestampFrom) {
-//       // If timestamp is before the current region, update right
-//       right = mid - 1;
-//     } else {
-//       // If timestamp is after the current region, update left
-//       left = mid + 1;
-//       closestRegion = midRegion;
-//     }
-//   }
-
-//   return closestRegion;
-// }
