@@ -4,7 +4,11 @@ import type { Accessor, Setter } from "solid-js";
 import { IPageData } from "~/models/page";
 import { IArabicWord } from "~/models/word";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
-import { IReciterTimeStamp, IAyahBase } from "~/models/ayah-info-interface";
+import {
+  IReciterTimeStamp,
+  IAyahBase,
+  IReciterTimeStampSilenceRegion,
+} from "~/models/ayah-info-interface";
 
 const StoreContext = createContext();
 
@@ -25,7 +29,7 @@ export interface IStoreData {
   ayahInCurrentPageSurah: Array<IAyahBase>;
   captureIndex: number;
   saveClickCounter: number;
-  silentRegions: Array<IReciterTimeStamp>;
+  silentRegions: Array<IReciterTimeStampSilenceRegion>;
 }
 
 export function getInitialStoreData(): IStoreData {
@@ -92,8 +96,8 @@ export interface IStoreUseContextData {
   setCaptureIndex: Setter<number>;
   saveClickCounter: Accessor<number>;
   setSaveClickCounter: Setter<number>;
-  silentRegions: Accessor<Array<IReciterTimeStamp>>;
-  setSilentRegions: Setter<Array<IReciterTimeStamp>>;
+  silentRegions: Accessor<Array<IReciterTimeStampSilenceRegion>>;
+  setSilentRegions: Setter<Array<IReciterTimeStampSilenceRegion>>;
 }
 
 export function StoreProvider(props: ComponentProps<IStoreData>) {

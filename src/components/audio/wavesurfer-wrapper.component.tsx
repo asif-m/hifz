@@ -17,7 +17,7 @@ import {
   waveSurferConfig,
   zoomPluginConfig,
 } from "./wave-surfer-config";
-import { extractSilenceRegions } from "~/utils/audio-helper";
+import { getSilenceRegions } from "~/utils/audio-helper";
 import {
   parseFloatToFloatFixed,
   parseStringToFixed,
@@ -105,7 +105,7 @@ export default function WavesurferWrapperComponent() {
       batch(() => {
         const decodedData = ws.getDecodedData();
         if (decodedData) {
-          const regions = extractSilenceRegions(
+          const regions = getSilenceRegions(
             decodedData.getChannelData(0),
             duration,
           );

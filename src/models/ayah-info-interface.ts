@@ -5,6 +5,11 @@ export interface IReciterTimeStamp {
   timestampFrom: number;
   timestampTo: number;
 }
+export interface IReciterTimeStampSilenceRegion {
+  timestampFrom: number;
+  timestampTo: number;
+  middle: number;
+}
 
 export interface IAyahBase {
   verseNumber: number;

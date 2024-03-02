@@ -9,7 +9,11 @@ import {
 } from "@suid/material";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
 import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
-import { BISMI_INDEX, IReciterTimeStamp } from "~/models/ayah-info-interface";
+import {
+  BISMI_INDEX,
+  IReciterTimeStamp,
+  IReciterTimeStampSilenceRegion,
+} from "~/models/ayah-info-interface";
 import NavigateNext from "@suid/icons-material/NavigateNext";
 import Download from "@suid/icons-material/Download";
 import * as ST from "@suid/types";
@@ -17,7 +21,7 @@ import { CSurah } from "~/models/surah";
 import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { useNavigate } from "@solidjs/router";
 import { downloadJsonFile } from "~/utils/download-helpers";
-import { findClosestSilentRegionMidPoint } from "~/utils/audio-helper";
+import { getClosestSilentRegionMidPointWithinBandwidth } from "~/utils/audio-helper";
 import { navigateToUrlAndReload } from "~/utils/navigation";
 
 interface IAyahDataInLocalStorageIndividual {
@@ -182,7 +186,7 @@ export default function AyahTrackerComponent() {
     }
 
     if (key === "Space") {
-      handleSpaceKeyPress(isCaptureMode, playerState);
+      handleSpaceKeyPress(isCaptureMode, playerState, sRegions);
       return;
     }
 
@@ -354,6 +358,7 @@ export default function AyahTrackerComponent() {
   function handleSpaceKeyPress(
     isCaptureMode: boolean,
     playerState: AudioPlayerState,
+    sRegions: Array<IReciterTimeStampSilenceRegion>,
   ) {
     batch(() => {
       if (!isCaptureMode) {
@@ -365,19 +370,20 @@ export default function AyahTrackerComponent() {
       } else if (playerState === AudioPlayerState.PLAY) {
         setCaptureIndex((prev) => prev + 1);
       }
+      autoAdjustTimestampToClosestSilentRegionMidPoint(sRegions);
     });
   }
 
   function autoAdjustTimestampToClosestSilentRegionMidPoint(
-    sRegions: Array<IReciterTimeStamp>,
+    sRegions: Array<IReciterTimeStampSilenceRegion>,
   ) {
     setPageSurahAudioTimeStamps((ts) =>
       ts.map((prev) => ({
-        timestampFrom: findClosestSilentRegionMidPoint(
+        timestampFrom: getClosestSilentRegionMidPointWithinBandwidth(
           sRegions,
           prev.timestampFrom,
         ),
-        timestampTo: findClosestSilentRegionMidPoint(
+        timestampTo: getClosestSilentRegionMidPointWithinBandwidth(
           sRegions,
           prev.timestampTo,
         ),
