@@ -1,12 +1,14 @@
 @font-face {
-	font-family: "UthmanicHafs";
-	src: url("./fonts//UthmanicHafs1Ver18.woff2") format("woff2"),
-		url("./fonts/UthmanicHafs1Ver18.ttf") format("ttf"), ;
+    font-family: UthmanicHafs;
+    src:
+        url(fonts/UthmanicHafs1Ver18.woff2) format("woff2"),
+        url(fonts/UthmanicHafs1Ver18.ttf) format("truetype");
+    font-display: swap;
 }
 
-html{
-	scrollbar-color: #ffffff #272727
+html {
+    scrollbar-color: #ffffff #272727;
 }
 body {
-	font-family: UthmanicHafs, Helvetica;
+    font-family: UthmanicHafs, Helvetica;
 }

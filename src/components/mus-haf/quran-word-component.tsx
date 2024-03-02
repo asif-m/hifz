@@ -39,6 +39,7 @@ export default function QuranWordComponent(props: { word: IArabicWord }) {
           color: getVerseColor(),
           "font-family": "UthmanicHafs",
           "font-size": "4.4vh",
+          direction: "rtl",
         }}
       >
         {word.qpcUthmaniHafs}

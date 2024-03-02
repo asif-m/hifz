@@ -14,6 +14,7 @@ export default function QuranBismiComponent() {
           color: colors.bismiText,
           "font-family": "UthmanicHafs",
           "font-size": "4.4vh",
+          direction: "rtl",
         }}
       >
         بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
