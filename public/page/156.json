@@ -51,8 +51,8 @@
           "timestampTo": 1038760
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
-          "timestampTo": 1171
+          "timestampFrom": 970.9,
+          "timestampTo": 1007.8
         }
       },
       "words": [
@@ -519,8 +519,8 @@
           "timestampTo": 1054020
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
-          "timestampTo": 1171
+          "timestampFrom": 1007.8,
+          "timestampTo": 1022.5
         }
       },
       "words": [
@@ -717,8 +717,8 @@
           "timestampTo": 1081660
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
-          "timestampTo": 1171
+          "timestampFrom": 1022.5,
+          "timestampTo": 1049.4
         }
       },
       "words": [
@@ -1035,8 +1035,8 @@
           "timestampTo": 1102530
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
-          "timestampTo": 1171
+          "timestampFrom": 1049.4,
+          "timestampTo": 1067.4
         }
       },
       "words": [
@@ -1278,8 +1278,8 @@
           "timestampTo": 1131810
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
-          "timestampTo": 1171
+          "timestampFrom": 1067.4,
+          "timestampTo": 1091.4
         }
       },
       "words": [
@@ -1536,8 +1536,8 @@
           "timestampTo": 1155740
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
-          "timestampTo": 1171
+          "timestampFrom": 1091.4,
+          "timestampTo": 1114.5
         }
       },
       "words": [
@@ -1809,8 +1809,8 @@
           "timestampTo": 1192100
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
-          "timestampTo": 1171
+          "timestampFrom": 1114.5,
+          "timestampTo": 1143.8
         }
       },
       "words": [
@@ -2152,7 +2152,7 @@
           "timestampTo": 1219370
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 970,
+          "timestampFrom": 1143.8,
           "timestampTo": 1171
         }
       },

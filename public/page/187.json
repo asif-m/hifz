@@ -49,8 +49,8 @@
           "timestampTo": 15100
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
-          "timestampTo": 167
+          "timestampFrom": 0.3,
+          "timestampTo": 14.8
         }
       },
       "words": [
@@ -232,8 +232,8 @@
           "timestampTo": 35210
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
-          "timestampTo": 167
+          "timestampFrom": 14.8,
+          "timestampTo": 33.8
         }
       },
       "words": [
@@ -490,8 +490,8 @@
           "timestampTo": 80770
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
-          "timestampTo": 167
+          "timestampFrom": 33.8,
+          "timestampTo": 78.5
         }
       },
       "words": [
@@ -1018,8 +1018,8 @@
           "timestampTo": 111180
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
-          "timestampTo": 167
+          "timestampFrom": 78.5,
+          "timestampTo": 108.8
         }
       },
       "words": [
@@ -1396,8 +1396,8 @@
           "timestampTo": 143730
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
-          "timestampTo": 167
+          "timestampFrom": 108.8,
+          "timestampTo": 145
         }
       },
       "words": [
@@ -1829,8 +1829,8 @@
           "timestampTo": 166510
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 0,
-          "timestampTo": 167
+          "timestampFrom": 145,
+          "timestampTo": 167.3
         }
       },
       "words": [

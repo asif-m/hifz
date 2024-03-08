@@ -49,8 +49,8 @@
           "timestampTo": 2019640
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1990,
-          "timestampTo": 2192
+          "timestampFrom": 1990.1,
+          "timestampTo": 2005.5
         }
       },
       "words": [
@@ -277,8 +277,8 @@
           "timestampTo": 2053230
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1990,
-          "timestampTo": 2192
+          "timestampFrom": 2005.5,
+          "timestampTo": 2045.1
         }
       },
       "words": [
@@ -625,8 +625,8 @@
           "timestampTo": 2089540
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1990,
-          "timestampTo": 2192
+          "timestampFrom": 2045.1,
+          "timestampTo": 2079.6
         }
       },
       "words": [
@@ -1078,8 +1078,8 @@
           "timestampTo": 2107720
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1990,
-          "timestampTo": 2192
+          "timestampFrom": 2079.6,
+          "timestampTo": 2099.4
         }
       },
       "words": [
@@ -1366,8 +1366,8 @@
           "timestampTo": 2122450
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1990,
-          "timestampTo": 2192
+          "timestampFrom": 2099.4,
+          "timestampTo": 2114.7
         }
       },
       "words": [
@@ -1609,8 +1609,8 @@
           "timestampTo": 2137710
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1990,
-          "timestampTo": 2192
+          "timestampFrom": 2114.7,
+          "timestampTo": 2132
         }
       },
       "words": [
@@ -1847,8 +1847,8 @@
           "timestampTo": 2196750
         },
         "Shaykh Samir al-Nass": {
-          "timestampFrom": 1990,
-          "timestampTo": 2192
+          "timestampFrom": 2132,
+          "timestampTo": 2192.9
         }
       },
       "words": [
