@@ -283,6 +283,15 @@ export default function AyahTrackerComponent() {
     saveToLocalStorage(allAudio);
   });
 
+  createEffect(()=>{
+    const currentTime = audioCurrentTimeNonCapture();
+    const pageTime = pageSurahAudioTimeStamps();
+    if(pageTime[pageTime.length-1].timestampTo <= currentTime){
+      setAudioPlayerState(() => AudioPlayerState.PAUSE);
+      onNext();
+    }
+  })
+
   function saveToLocalStorage(data: IAyahDataInLocalStorage) {
     CLocalStorageHelper.update(key, data);
   }
@@ -351,16 +360,15 @@ export default function AyahTrackerComponent() {
     sRegions: Array<IReciterTimeStampSilenceRegion>,
   ) {
     batch(() => {
-      if (!isCaptureMode) {
-        setAudioTrackerState(() => AudioTrackerState.CAPTURE);
-      }
+
       if (playerState === AudioPlayerState.PAUSE) {
         setPressedKey(() => "");
         setAudioPlayerState(() => AudioPlayerState.PLAY);
       } else if (playerState === AudioPlayerState.PLAY) {
-        setCaptureIndex((prev) => prev + 1);
+        setPressedKey(() => "");
+        setAudioPlayerState(() => AudioPlayerState.PAUSE);
+
       }
-      autoAdjustTimestampToClosestSilentRegionMidPoint(sRegions);
     });
   }
 
