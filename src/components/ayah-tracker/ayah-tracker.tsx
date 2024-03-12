@@ -1,24 +1,13 @@
-import { For, batch, createEffect } from "solid-js";
+import { batch, createEffect } from "solid-js";
 import { useStore } from "~/store/store";
 import { CLocalStorageHelper } from "~/utils/localstorage-helper";
-import {
-  FormControlLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
-} from "@suid/material";
 import { AudioPlayerState, AudioTrackerState } from "~/models/audio-state";
-import AyahPlayTrackEditComponent from "./ayah-play-track-edit";
 import {
   BISMI_INDEX,
   IReciterTimeStamp,
   IReciterTimeStampSilenceRegion,
 } from "~/models/ayah-info-interface";
-import NavigateNext from "@suid/icons-material/NavigateNext";
-import Download from "@suid/icons-material/Download";
-import * as ST from "@suid/types";
 import { CSurah } from "~/models/surah";
-import AudioPlayerControlsComponent from "../audio/audio-player-controls";
 import { useNavigate } from "@solidjs/router";
 import { downloadJsonFile } from "~/utils/download-helpers";
 import { getClosestSilentRegionMidPointWithinBandwidth } from "~/utils/audio-helper";
@@ -299,11 +288,12 @@ export default function AyahTrackerComponent() {
   }
 
   function onSave() {
+    return;
     setSaveClickCounter((prev) => prev + 1);
   }
 
   function onDownload() {
-    const lastDownloadedPage = 502;
+    const lastDownloadedPage = 0;
     const lastPage = 604;
     for (let i = lastDownloadedPage + 1; i <= lastPage; i++) {
       const name = `sameer-nass-audio-data-page-${i}`;
@@ -349,7 +339,7 @@ export default function AyahTrackerComponent() {
   }
 
   function saveAndOpenNext() {
-    onSave();
+    //onSave();
     setTimeout(() => {
       onNext();
     }, 500);
@@ -391,51 +381,5 @@ export default function AyahTrackerComponent() {
     );
   }
 
-  return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          "flex-direction": "row",
-          "margin-top": "4px",
-        }}
-      >
-        <RadioGroup
-          value={audioTrackerState()}
-          onChange={(event: ST.ChangeEvent<HTMLInputElement>) => {
-            const value = event.target.value as AudioTrackerState;
-            setAudioTrackerState(() => value);
-          }}
-        >
-          <div style={{ display: "flex" }}>
-            <FormControlLabel
-              value={AudioTrackerState.CAPTURE}
-              control={<Radio />}
-              label={AudioTrackerState.CAPTURE}
-            />
-            <FormControlLabel
-              value={AudioTrackerState.REVIEW}
-              control={<Radio />}
-              label={AudioTrackerState.REVIEW}
-            />
-          </div>
-        </RadioGroup>
-        <AudioPlayerControlsComponent />
-        <IconButton aria-label="download" onclick={() => onDownload()}>
-          <Download />
-        </IconButton>
-        <IconButton
-          aria-label="next"
-          onclick={() => {
-            saveAndOpenNext();
-          }}
-        >
-          <NavigateNext />
-        </IconButton>
-      </div>
-      <For each={pageSurahAudioTimeStamps()}>
-        {(_, index) => <AyahPlayTrackEditComponent index={index} />}
-      </For>
-    </div>
-  );
+  return <div></div>;
 }

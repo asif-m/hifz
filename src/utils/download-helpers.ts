@@ -4,14 +4,17 @@ export function downloadAudio(
   end: number,
   fileName: string,
 ) {
-  const audioData = wavesurfer.backend.buffer.slice(start, end);
-  const blob = new Blob([audioData], { type: "audio/mp3" });
-  const url = URL.createObjectURL(blob);
+  const pcmData = wavesurfer.exportPCM(start, end);
 
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${fileName}.mp3`;
-  link.click();
+    // Convert PCM data to a Blob
+    const slicedBlob = new Blob([new DataView(pcmData)], {
+      type: 'audio/wav' // Adjust the MIME type as needed
+    });
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(slicedBlob);
+    downloadLink.download = fileName
+    downloadLink.click();
 }
 export function downloadJsonFile(data: any, filename: string) {
   // Creating a blob object from non-blob data using the Blob constructor

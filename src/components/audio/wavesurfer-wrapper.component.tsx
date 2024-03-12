@@ -1,6 +1,6 @@
 // @refresh reload
 import { Show, batch, createEffect, createSignal } from "solid-js";
-import { CircularProgress } from "@suid/material";
+import { Button, CircularProgress } from "@suid/material";
 import WaveSurfer from "wavesurfer.js";
 import ZoomPlugin from "wavesurfer.js/dist/plugins/zoom.esm.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.esm.js";
@@ -22,6 +22,7 @@ import {
   parseFloatToFloatFixed,
   parseStringToFixed,
 } from "~/utils/param-convertor";
+import { downloadAudio } from "~/utils/download-helpers";
 
 export type TRegionData = IReciterTimeStamp & IAyahBase;
 export default function WavesurferWrapperComponent() {
@@ -215,19 +216,8 @@ export default function WavesurferWrapperComponent() {
         content: `${timeStamp.verseNumber}`,
         color:
           index === cIndex
-            ? colors.waveActiveAyahRegion
-            : colors.waveAyahRegion,
-        drag: false,
-        resize: true,
-      });
-    });
-    sRegions.forEach((timeStamp, index) => {
-      regions.addRegion({
-        id: tStamps.length + index + 1,
-        start: timeStamp.timestampFrom,
-        end: timeStamp.timestampTo,
-        content: ``,
-        color: colors.silentRegionColor,
+            ? colors.waveActiveAyahRegion:
+            (index%2===0 ?colors.waveAyahRegionEven: colors.waveAyahRegionOdd),
         drag: false,
         resize: true,
       });
@@ -255,8 +245,13 @@ export default function WavesurferWrapperComponent() {
     });
   });
 
+  function downloadAudioTS(){
+    const ws = waveSurfer();
+    downloadAudio(ws, 5, 10, "a.mp3")
+  }
+
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height:"20px" }}>
       <Show when={!audioLoaded()}>
         <div style={{ display: "flex", "justify-content": "center" }}>
           <CircularProgress color="success" />
@@ -266,6 +261,7 @@ export default function WavesurferWrapperComponent() {
         id="waveform"
         style={{ "scrollbar-color": `${colors.scrollbarColor}` }}
       ></div>
+      <Button onClick={()=>downloadAudioTS()}>D</Button>
     </div>
   );
 }
