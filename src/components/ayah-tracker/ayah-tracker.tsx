@@ -35,6 +35,7 @@ export default function AyahTrackerComponent() {
     pageNumber,
     audioCurrentTime,
     audioCurrentTimeNonCapture,
+    setAudioCurrentTimeNonCapture,
     pressedKey,
     setPressedKey,
     audioPlayerState,
@@ -340,9 +341,11 @@ export default function AyahTrackerComponent() {
     }
     if (lastIndex == -1 || lastIndex === ayahs.length - 1) {
       //Last verse. Go to next page
+      setAudioCurrentTimeNonCapture(0)
       navigateToUrlAndReload(navigate, `/page/${pageNumber + 1}`);
     } else {
       const { chapterNumber } = ayahs[lastIndex + 1];
+      setAudioCurrentTimeNonCapture(0)
       navigateToUrlAndReload(navigate, `/surah/${chapterNumber}`);
     }
   }
