@@ -1,4 +1,5 @@
-# SolidStart
+# App for Quran Hifz 
+Code is built using Solid.js
 
 Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
 
